@@ -8,7 +8,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class profile extends AppCompatActivity {
-
+    //profile
     String a[];
 
     @Override
