@@ -100,7 +100,7 @@ public class Add_achievement extends AppCompatActivity implements LoaderManager.
 
     @Override
     public Loader<String> onCreateLoader(int i, Bundle bundle) {
-        return new Achievements_Insert(this,furl,edes);
+        return new Achievements_Insert(this,furl,edes,bitmap);
     }
 
     @Override

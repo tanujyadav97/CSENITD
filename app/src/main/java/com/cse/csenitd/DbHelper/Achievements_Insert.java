@@ -15,6 +15,7 @@ import java.io.ByteArrayOutputStream;
 public class Achievements_Insert extends AsyncTaskLoader<String> {
     private String Url;
     private String mdes;
+    private Bitmap btm;
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -22,10 +23,11 @@ public class Achievements_Insert extends AsyncTaskLoader<String> {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
-    public Achievements_Insert(Context context,String murl,String params) {
+    public Achievements_Insert(Context context,String murl,String params,Bitmap bitmap) {
         super(context);
         this.Url=murl;
         this.mdes=params;
+        this.btm=bitmap;
     }
     @Override
     protected void onStartLoading() {
@@ -34,7 +36,8 @@ public class Achievements_Insert extends AsyncTaskLoader<String> {
     }
     @Override
     public String loadInBackground() {
-        String result=QueryUtils.insertAchievements(Url,mdes);
+        String btstr=getStringImage(btm);
+        String result=QueryUtils.insertAchievements(Url,mdes,btstr);
         return result;
     }
 }

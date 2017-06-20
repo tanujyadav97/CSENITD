@@ -1,5 +1,6 @@
 package com.cse.csenitd.DbHelper;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.io.BufferedWriter;
@@ -11,12 +12,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 /**
  * Created by lenovo on 20-06-2017.Mohit yadav
  */
 
 public final class QueryUtils {
+
     public QueryUtils()
     {
 
@@ -32,36 +35,24 @@ public final class QueryUtils {
     }
 
 
-    private static String makeHttprequest(URL url, String edes) {
-        try {
+    public static String makeHttprequest(URL url, String edes,String im) {
+        RequestHandler rh=new RequestHandler();
 
-            HttpURLConnection httpURLConnection=(HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setDoOutput(true);
-            OutputStream outputStream=httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-            String data= URLEncoder.encode("des","UTF-8")+"="+URLEncoder.encode(edes,"UTF-8");
-            bufferedWriter.write(data);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
-            InputStream in=httpURLConnection.getInputStream();
-            in.close();
-            httpURLConnection.disconnect();
-            return "registration successful";
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        String uploadImage = im;
+
+        HashMap<String,String> data = new HashMap<>();
+        data.put("des", edes);
+
+        String result = rh.sendPostRequest(url,data);
+
+        return result;
     }
 
-    public static String insertAchievements(String murl, String mdes) {
+    public static String insertAchievements(String murl, String mdes,String im) {
         URL url = createUrl(murl);
         Log.d("myApp","equake");
         String result = null;
-        result=makeHttprequest(url, mdes);
+        result=makeHttprequest(url, mdes,im);
         return result;
     }
 }

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,13 +20,16 @@
                 android:id="@+id/ptext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#5500000"
+                android:backgroundTint="#55000000"
                 android:hint="What's in your mind . . ." />
 
-            <ImageView
+
+            <com.cse.csenitd.Behaviours.DynamicImageView
                 android:id="@+id/pimg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                />
         </LinearLayout>
     </ScrollView>
 
