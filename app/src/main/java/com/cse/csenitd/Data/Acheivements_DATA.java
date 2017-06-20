@@ -1,13 +1,39 @@
 package com.cse.csenitd.Data;
 
 /**
- * Created by lenovo on 19-06-2017.
+ * Created by lenovo on 19-06-2017. Mohit yadav
  */
 
 public class Acheivements_DATA{
     private String _des;
     private String _urlString;
+    private String userImag;
     private int    _likes;
+    private String _UserName;
+    private String Date;
+
+    public String getUserImag() {
+        return userImag;
+    }
+
+    public void setUserImag(String userImag) {
+        this.userImag = userImag;
+    }
+    public String get_UserName() {
+        return _UserName;
+    }
+
+    public void set_UserName(String _UserName) {
+        this._UserName = _UserName;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
 
     public String get_des() {
         return _des;

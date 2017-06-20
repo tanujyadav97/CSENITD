@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.99">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/ptext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#5500000"
+                android:hint="What's in your mind . . ." />
+
+            <ImageView
+                android:id="@+id/pimg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01">
+
+        <Button
+            android:id="@+id/buttonImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Photos/Video"
+            android:background="#83f442"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dip"
+            android:drawableLeft="@drawable/ic_account_circle_black_24dp"/>
+    </LinearLayout>
+</LinearLayout>

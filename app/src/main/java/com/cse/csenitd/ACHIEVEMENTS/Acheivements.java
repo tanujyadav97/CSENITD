@@ -1,10 +1,12 @@
-package com.cse.csenitd;
+package com.cse.csenitd.ACHIEVEMENTS;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.cse.csenitd.R;
 
 /**
  * Created by lenovo on 19-06-2017.
