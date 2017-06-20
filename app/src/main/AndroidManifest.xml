@@ -13,7 +13,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity
             android:name=".openingActivity"
             android:theme="@style/SplashTheme">
@@ -25,8 +26,10 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".profile"></activity>
+            android:label="@string/title_activity_login"/>
+
+        <activity android:name=".profile1"
+            android:theme="@style/ProfileTheme"/>
     </application>
 
 </manifest>

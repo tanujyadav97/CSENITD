@@ -25,12 +25,13 @@
             <b>Choose Designation</b>
         </item>
         <item>1st year B.Tech Student</item>
-        <item>2st year B.Tech Student</item>
-        <item>3st year B.Tech Student</item>
-        <item>4st year B.Tech Student</item>
+        <item>2nd year B.Tech Student</item>
+        <item>3rd year B.Tech Student</item>
+        <item>4th year B.Tech Student</item>
         <item>1st year M.Tech Student</item>
-        <item>2st year M.Tech Student</item>
+        <item>2nd year M.Tech Student</item>
         <item>Phd Student</item>
         <item>Faculty</item>
+        <item>Passed Out</item>
     </array>
 </resources>

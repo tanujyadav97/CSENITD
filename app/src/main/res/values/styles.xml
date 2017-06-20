@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ProfileTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
@@ -22,5 +27,20 @@
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
     <item name="android:windowBackground">@drawable/backgroundsplash</item>
+    </style>
+
+    <style name="title" >
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="title.expanded">
+        <item name="android:textSize">30dp</item>
+    </style>
+    <style name="title.collapsed">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="subtitle">
+        <item name="android:textColor">#fff</item> <!-- I only change the color -->
     </style>
 </resources>
