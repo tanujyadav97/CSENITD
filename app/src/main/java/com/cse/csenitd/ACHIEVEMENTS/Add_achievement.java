@@ -42,7 +42,7 @@ import java.util.zip.Inflater;
 import static android.R.attr.bitmap;
 import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
 import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
-import static com.cse.csenitd.R.id.imageView;
+
 
 /**
  * Created by lenovo on 20-06-2017. Mohit yadav
@@ -52,7 +52,7 @@ public class Add_achievement extends AppCompatActivity {
     private EditText mPtext;
     private ImageView mpImg;
     private Button mbutton;
-    public String edes,bitstr;
+    public String edes,bitstr,tm;
     public static final int ACHIEVEMENT_LOADER_ID=1;
     public static final String furl="https://nitd.000webhostapp.com/cse%20nitd/mohit/insertachievement.php";
     public static final int  PICK_IMAGE_REQUEST=1;
@@ -121,10 +121,12 @@ public class Add_achievement extends AppCompatActivity {
         if(id==R.id.post)
         {
             edes=mPtext.getText().toString().trim();
-            Toast.makeText(this, edes, Toast.LENGTH_SHORT).show();
             bitstr=getStringImage(bitmap);
             // Toast.makeText(this, bitstr, Toast.LENGTH_SHORT).show();
-            new insert().execute(edes,bitstr);
+            long time= System.currentTimeMillis();
+            tm=Long.toString(time);
+            Toast.makeText(this, tm, Toast.LENGTH_SHORT).show();
+            new insert().execute(edes,bitstr,tm);
 
         }
         return super.onOptionsItemSelected(item);
@@ -168,7 +170,8 @@ public class Add_achievement extends AppCompatActivity {
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("des", params[0])
-                        .appendQueryParameter("image", params[1]);
+                        .appendQueryParameter("image", params[1])
+                        .appendQueryParameter("datetime",params[2]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data

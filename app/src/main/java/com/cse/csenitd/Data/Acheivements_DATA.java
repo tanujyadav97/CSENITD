@@ -12,6 +12,13 @@ public class Acheivements_DATA{
     private String _UserName;
     private String Date;
 
+    public Acheivements_DATA(String _des, String _urlString, int _likes, String date) {
+        this._des = _des;
+        this._urlString = _urlString;
+        this._likes = _likes;
+        Date = date;
+    }
+
     public String getUserImag() {
         return userImag;
     }

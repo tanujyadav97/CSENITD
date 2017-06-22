@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cse.csenitd.Data.Acheivements_DATA;
+import com.cse.csenitd.DbHelper.ImageLoader;
 import com.cse.csenitd.R;
 
 import java.util.ArrayList;
@@ -19,17 +20,18 @@ import java.util.ArrayList;
 
 public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivement.ItemrowHolder> {
     private ArrayList<Acheivements_DATA> DataList_ach;
-    private Context mContext;
-
+    public Context mContext;
+    ImageLoader imageLoader;
     public adapter_acheivement(Context context, ArrayList<Acheivements_DATA> list) {
         this.mContext = context;
         this.DataList_ach = list;
+        imageLoader=new ImageLoader(mContext);
     }
 
     @Override
     public ItemrowHolder onCreateViewHolder(ViewGroup  parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_achievements, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_achievements,parent, false);
         return new ItemrowHolder(v);
     }
 
@@ -41,9 +43,10 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
 //        holder.imageView.setImageResource();
 //        Bitmap usr=convertInBitmap(obj.get_UserName());
 //        holder.UserImg.setImageBitmap(usr);
-        holder.Likes.setText(obj.get_likes());
+        holder.Likes.setText(new Integer(obj.get_likes()).toString());
         holder.postby.setText(obj.get_UserName());
         holder.datetime.setText(obj.getDate());
+        imageLoader.DisplayImage(obj.get_urlString(), holder.imageView);
 
     }
 
@@ -59,7 +62,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
         public ItemrowHolder(View itemView) {
             super(itemView);
             desciption = (TextView) itemView.findViewById(R.id.des);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+           imageView = (ImageView) itemView.findViewById(R.id.imageView);
             datetime = (TextView) itemView.findViewById(R.id.datetime);
             postby = (TextView) itemView.findViewById(R.id.postby);
             Likes = (TextView) itemView.findViewById(R.id.noOfLikes);
