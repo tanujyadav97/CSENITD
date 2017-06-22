@@ -7,6 +7,9 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 
 /**
  * Created by lenovo on 20-06-2017.Mohit yadav
@@ -15,29 +18,30 @@ import java.io.ByteArrayOutputStream;
 public class Achievements_Insert extends AsyncTaskLoader<String> {
     private String Url;
     private String mdes;
-    private Bitmap btm;
-    public String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
-    public Achievements_Insert(Context context,String murl,String params,Bitmap bitmap) {
+    private String btm;
+    public Achievements_Insert(Context context,String murl,String params) {
         super(context);
         this.Url=murl;
         this.mdes=params;
-        this.btm=bitmap;
+        //this.btm=bt;
     }
     @Override
     protected void onStartLoading() {
         Log.d("myApp","onstartloading");
         forceLoad();
     }
+
     @Override
     public String loadInBackground() {
-        String btstr=getStringImage(btm);
-        String result=QueryUtils.insertAchievements(Url,mdes,btstr);
+        Log.d("myApp","loadback");
+        String result = null;
+        RequestHandler rh=new RequestHandler();
+        HashMap<String,String> data = new HashMap<>();
+        data.put("des", mdes);
+      //  data.put("image",btm);
+        result = rh.sendPostRequest(Url,data);
         return result;
+
     }
+
 }

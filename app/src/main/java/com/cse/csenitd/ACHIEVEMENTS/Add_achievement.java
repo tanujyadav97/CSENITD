@@ -1,14 +1,18 @@
 package com.cse.csenitd.ACHIEVEMENTS;
 
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,30 +20,45 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.cse.csenitd.DbHelper.Achievements_Insert;
 import com.cse.csenitd.R;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.zip.Inflater;
 
 import static android.R.attr.bitmap;
+import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
+import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 import static com.cse.csenitd.R.id.imageView;
 
 /**
  * Created by lenovo on 20-06-2017. Mohit yadav
  */
 
-public class Add_achievement extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
+public class Add_achievement extends AppCompatActivity {
     private EditText mPtext;
     private ImageView mpImg;
     private Button mbutton;
-    public String edes;
+    public String edes,bitstr;
     public static final int ACHIEVEMENT_LOADER_ID=1;
-    public static final String furl="https://danrist.000webhostapp.com/app/insert.php";
+    public static final String furl="https://nitd.000webhostapp.com/cse%20nitd/mohit/insertachievement.php";
     public static final int  PICK_IMAGE_REQUEST=1;
     private Bitmap bitmap;
     private Uri filePath;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +66,9 @@ public class Add_achievement extends AppCompatActivity implements LoaderManager.
         mpImg=(ImageView)findViewById(R.id.pimg);
         mPtext=(EditText)findViewById(R.id.ptext);
         mbutton=(Button)findViewById(R.id.buttonImg);
-       // progressBar=(ProgressBar)findViewById(R.id.progress);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+        // progressBar=(ProgressBar)findViewById(R.id.progress);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -85,6 +106,14 @@ public class Add_achievement extends AppCompatActivity implements LoaderManager.
         return super.onCreateOptionsMenu(menu);
 
     }
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -92,27 +121,135 @@ public class Add_achievement extends AppCompatActivity implements LoaderManager.
         if(id==R.id.post)
         {
             edes=mPtext.getText().toString().trim();
+            Toast.makeText(this, edes, Toast.LENGTH_SHORT).show();
+            bitstr=getStringImage(bitmap);
+            // Toast.makeText(this, bitstr, Toast.LENGTH_SHORT).show();
+            new insert().execute(edes,bitstr);
 
-            getLoaderManager().initLoader(ACHIEVEMENT_LOADER_ID,null,this);
         }
         return super.onOptionsItemSelected(item);
     }
+    public class insert extends AsyncTask<String, String, String> {
 
-    @Override
-    public Loader<String> onCreateLoader(int i, Bundle bundle) {
-        return new Achievements_Insert(this,furl,edes,bitmap);
-    }
 
-    @Override
-    public void onLoadFinished(Loader<String> loader, String s) {
-        if(!s.isEmpty())
-        {
-            finish();
+        HttpURLConnection conn;
+        URL url = null;
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+
+                // Enter URL address where your php file resides
+                url = new URL(furl);
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return "exception";
+            }
+            try {
+                // Setup HttpURLConnection class to send and receive data from php and mysql
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setReadTimeout(READ_TIMEOUT);
+                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                conn.setRequestMethod("POST");
+
+                // setDoInput and setDoOutput method depict handling of both send and receive
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+
+
+                // Append parameters to URL
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("des", params[0])
+                        .appendQueryParameter("image", params[1]);
+                String query = builder.build().getEncodedQuery();
+
+                // Open connection for sending data
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+                return "exception";
+            }
+
+            try {
+
+                int response_code = conn.getResponseCode();
+
+                // Check if successful connection made
+                if (response_code == HttpURLConnection.HTTP_OK) {
+
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    //return params[0]+"/"+params[1];
+                    // Pass data to onPostExecute method
+                    return(result.toString());
+
+                }else{
+
+                    return("unsuccessful");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "exception";
+            } finally {
+                conn.disconnect();
+            }
+        }
+
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+
+
+            Toast.makeText(Add_achievement.this, result, Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.INVISIBLE);
+
+            if(result.equals("true"))
+            {
+
+                Toast.makeText(Add_achievement.this, "Image updated successfully", Toast.LENGTH_LONG).show();
+
+            } else if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+
+                //set old image to profile
+                Toast.makeText(Add_achievement.this, "OOPs! Error updating image.", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+
+
         }
     }
 
-    @Override
-    public void onLoaderReset(Loader<String> loader) {
 
-    }
+
 }

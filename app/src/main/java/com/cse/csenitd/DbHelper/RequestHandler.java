@@ -1,5 +1,4 @@
 package com.cse.csenitd.DbHelper;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -15,7 +14,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by Belal on 8/19/2015.Mohit yadav
+ * Created by Belal on 8/19/2015.
  */
 
 public class RequestHandler {
@@ -40,12 +39,14 @@ public class RequestHandler {
         }
     }
 
-    public String sendPostRequest(URL url,
+    public String sendPostRequest(String requestURL,
                                   HashMap<String, String> postDataParams) {
 
-
+        URL url;
         String response = "";
         try {
+            url = new URL(requestURL);
+
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
@@ -67,7 +68,7 @@ public class RequestHandler {
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 response = br.readLine();
-                return "success";
+                return "xv";
             } else {
                 response = "Error Registering";
             }
