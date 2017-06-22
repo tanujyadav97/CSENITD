@@ -35,6 +35,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.zip.Inflater;
@@ -49,10 +51,10 @@ import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
  */
 
 public class Add_achievement extends AppCompatActivity {
-    private EditText mPtext;
+    private EditText mPtext,mPtitle;
     private ImageView mpImg;
     private Button mbutton;
-    public String edes,bitstr,tm;
+    public String edes,bitstr,tm,etitle;
     public static final int ACHIEVEMENT_LOADER_ID=1;
     public static final String furl="https://nitd.000webhostapp.com/cse%20nitd/mohit/insertachievement.php";
     public static final int  PICK_IMAGE_REQUEST=1;
@@ -65,6 +67,7 @@ public class Add_achievement extends AppCompatActivity {
         setContentView(R.layout.activity_add_achievements);
         mpImg=(ImageView)findViewById(R.id.pimg);
         mPtext=(EditText)findViewById(R.id.ptext);
+        mPtitle=(EditText)findViewById(R.id.ptitle);
         mbutton=(Button)findViewById(R.id.buttonImg);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -121,12 +124,13 @@ public class Add_achievement extends AppCompatActivity {
         if(id==R.id.post)
         {
             edes=mPtext.getText().toString().trim();
+            etitle=mPtitle.getText().toString().trim();
             bitstr=getStringImage(bitmap);
             // Toast.makeText(this, bitstr, Toast.LENGTH_SHORT).show();
             long time= System.currentTimeMillis();
             tm=Long.toString(time);
             Toast.makeText(this, tm, Toast.LENGTH_SHORT).show();
-            new insert().execute(edes,bitstr,tm);
+            new insert().execute(edes,bitstr,tm,etitle);
 
         }
         return super.onOptionsItemSelected(item);
@@ -166,12 +170,15 @@ public class Add_achievement extends AppCompatActivity {
                 conn.setDoOutput(true);
 
 
-
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("des", params[0])
                         .appendQueryParameter("image", params[1])
-                        .appendQueryParameter("datetime",params[2]);
+                        .appendQueryParameter("datetime",params[2])
+                        .appendQueryParameter("title",params[3])
+                        .appendQueryParameter("imgname",timeStamp)
+                        .appendQueryParameter("username","abc");
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data

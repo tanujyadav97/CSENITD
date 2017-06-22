@@ -136,12 +136,17 @@ public final class QueryUtils {
             String z=objectInArray.getString("img");
             String tdate=objectInArray.getString("datetime");
             int w=objectInArray.getInt("likes");
+            String user=objectInArray.getString("username");
+            String usrimg=objectInArray.getString("userimage");
+            String title=objectInArray.getString("title");
+            String nm=objectInArray.getString("name");
+            int rp=objectInArray.getInt("reputation");
             long id= Long.parseLong(tdate);
             Date dateObject = new Date(id);
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
                     " HH:mm:ss");
             tdate=simpleDateFormat.format(dateObject);
-            Acheivements_DATA Obj=new Acheivements_DATA(y,z,w,tdate);
+            Acheivements_DATA Obj=new Acheivements_DATA(title,y,z,w,tdate,user,usrimg,nm,rp);
             achievements.add(Obj);
         }
 

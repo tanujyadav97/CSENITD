@@ -43,11 +43,15 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
 //        holder.imageView.setImageResource();
 //        Bitmap usr=convertInBitmap(obj.get_UserName());
 //        holder.UserImg.setImageBitmap(usr);
-        holder.Likes.setText(new Integer(obj.get_likes()).toString());
+        holder.Likes.setText(Integer.valueOf(obj.get_likes()).toString());
         holder.postby.setText(obj.get_UserName());
         holder.datetime.setText(obj.getDate());
         imageLoader.DisplayImage(obj.get_urlString(), holder.imageView);
-
+        holder.usernm.setText(obj.get_UserName());
+        holder.postby.setText(obj.get_name());
+        holder.rep.setText(Integer.valueOf(obj.get_rep()).toString());
+        imageLoader.DisplayImage(obj.getUserImag(),holder.UserImg);
+        holder.title.setText(obj.get_title());
     }
 
     @Override
@@ -56,7 +60,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     }
 
     public class ItemrowHolder extends RecyclerView.ViewHolder {
-        public TextView desciption, datetime, postby, Likes, comments;
+        public TextView desciption, datetime, postby, Likes, title,usernm,rep;
         public ImageView imageView, UserImg;
 
         public ItemrowHolder(View itemView) {
@@ -67,6 +71,9 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
             postby = (TextView) itemView.findViewById(R.id.postby);
             Likes = (TextView) itemView.findViewById(R.id.noOfLikes);
             UserImg = (ImageView) itemView.findViewById(R.id.poster);
+            title=(TextView)itemView.findViewById(R.id.title);
+            usernm=(TextView)itemView.findViewById(R.id.usrnm);
+            rep=(TextView)itemView.findViewById(R.id.rep);
         }
     }
 }

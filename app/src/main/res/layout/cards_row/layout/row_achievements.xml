@@ -25,45 +25,81 @@
             android:weightSum="2.5">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:orientation="horizontal">
+                android:layout_weight="0.2"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <ImageView
                     android:id="@+id/poster"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.1"
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_https_black_24dp" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_weight="0.5"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/postby"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="name" />
+                        android:layout_gravity="start"
+                        android:layout_margin="5dp"
+                        android:text="name"
+                        android:textColor="#c42813"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="Username"
+                        android:textColor="#0099cc"
+                        android:id="@+id/usrnm"/>
 
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_margin="5dp"
+                    android:gravity="end"
+                    android:text="Reputation"
+                    android:id="@+id/rep"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2.5"
+                android:layout_weight="2.3"
                 android:orientation="vertical">
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Title"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:id="@+id/title"/>
                 <com.cse.csenitd.Behaviours.DynamicImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    card_view:srcCompat="@drawable/a1" />
+                    card_view:srcCompat="@drawable/a1"
+                    android:layout_margin="10dp"/>
 
                 <TextView
                     android:id="@+id/des"

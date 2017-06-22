@@ -20,12 +20,22 @@
             >
 
             <EditText
+                android:id="@+id/ptitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                tools:ignore="HardcodedText" />
+            <EditText
                 android:id="@+id/ptext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="What's in your mind . . ."
                 android:background="@drawable/border"
                 android:padding="10dp"
+                android:lines="3"
                 android:layout_margin="10dp"
                 tools:ignore="HardcodedText" />
             <com.cse.csenitd.Behaviours.DynamicImageView
@@ -35,6 +45,7 @@
                 android:scaleType="centerCrop"
                 android:layout_margin="20dp"
                />
+
         </LinearLayout>
     </ScrollView>
     <Button
