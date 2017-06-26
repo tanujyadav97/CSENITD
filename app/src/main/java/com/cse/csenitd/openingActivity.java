@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
+import com.cse.csenitd.ACHIEVEMENTS.Add_achievement;
 import com.cse.csenitd.question.questionsActivity;
 
 
@@ -34,7 +36,11 @@ public class openingActivity extends AppCompatActivity {
                 startActivity(in);
             }*/
 
-            Intent in=new Intent(openingActivity.this,questionsActivity.class);
+            //Intent in=new Intent(openingActivity.this,questionsActivity.class);
+            //startActivity(in);
+
+
+            Intent in=new Intent(openingActivity.this,Add_achievement.class);
             startActivity(in);
         }
     }

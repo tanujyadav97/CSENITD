@@ -204,6 +204,7 @@ public class profile1 extends AppCompatActivity {
             initializeprofile(openingActivity.ps.getString("username", "n/a"));
         }
             else
+
         {
             if(!(openingActivity.ps.getString("useusername","n/a").equals(openingActivity.ps.getString("username","n/a")))) {
                 save.setVisibility(View.GONE);
