@@ -30,7 +30,7 @@ public class Achievements_Display extends AsyncTaskLoader<ArrayList<Acheivements
     @Override
     public ArrayList<Acheivements_DATA> loadInBackground() {
         Log.d("asynkloader","loadinback");
-        ArrayList<Acheivements_DATA> eathQuak=QueryUtils.extractAchievements(mUrl);
-        return eathQuak;
+        ArrayList<Acheivements_DATA> achievemt=QueryUtils.extractAchievements(mUrl);
+        return achievemt;
     }
 }

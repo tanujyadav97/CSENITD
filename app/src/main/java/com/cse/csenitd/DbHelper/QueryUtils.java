@@ -3,6 +3,8 @@ package com.cse.csenitd.DbHelper;
 
 import android.util.Log;
 import com.cse.csenitd.Data.Acheivements_DATA;
+import com.cse.csenitd.Data.Notices_DATA;
+import com.cse.csenitd.NoticeBoard.Notices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -163,5 +165,58 @@ public final class QueryUtils {
         return achievements;
 
 }
+public static ArrayList<Notices_DATA> extractNotices(String s)
+{
+    URL url = createUrl(s);
+    Log.d("fetch","Notices");
+    String jsonresponse = null;
+
+    try {
+        jsonresponse = makeHttprequest(url);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+    // is formatted, a JSONException exception object will be thrown.
+    // Catch the exception so the app doesn't crash, and print the error message to the logs.
+    ArrayList<Notices_DATA> es= Noticeresult(jsonresponse);
+    return es;
+}
+
+   public static ArrayList<Notices_DATA> Noticeresult(String jsonresponse) {
+       ArrayList<Notices_DATA> Notices = new ArrayList<>();
+
+       try {
+
+           JSONObject jsonObject=new JSONObject(jsonresponse);
+           JSONArray jsonArray = jsonObject.getJSONArray("noticeresult");
+           for (int i = 0, size = jsonArray.length(); i < size; i++)
+           {
+               JSONObject objectInArray = jsonArray.getJSONObject(i);
+               String y= objectInArray.getString("username");
+               String z=objectInArray.getString("notice");
+               String tdate=objectInArray.getString("datetime");
+               long id= Long.parseLong(tdate);
+               Date dateObject = new Date(id);
+               SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
+                       " HH:mm:ss");
+               tdate=simpleDateFormat.format(dateObject);
+               Notices_DATA Obj=new Notices_DATA(y,z,tdate);
+               Notices.add(Obj);
+           }
+
+
+
+       } catch (JSONException e) {
+           // If an error is thrown when executing any of the above statements in the "try" block,
+           // catch the exception here, so the app doesn't crash. Print a log message
+           // with the message from the exception.
+           Log.e("QueryUtils", "Problem parsing the Notice JSON results", e);
+       }
+
+
+       return Notices;
+
+   }
 
 }

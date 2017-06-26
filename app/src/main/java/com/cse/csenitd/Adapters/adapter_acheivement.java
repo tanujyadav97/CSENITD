@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.DbHelper.ImageLoader;
 import com.cse.csenitd.R;
-
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +22,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     private ArrayList<Acheivements_DATA> DataList_ach;
     public Context mContext;
     ImageLoader imageLoader;
+    boolean isImageFitToScreen=false;
     public adapter_acheivement(Context context, ArrayList<Acheivements_DATA> list) {
         this.mContext = context;
         this.DataList_ach = list;
@@ -36,13 +37,9 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     }
 
     @Override
-    public void onBindViewHolder(ItemrowHolder holder, int position) {
+    public void onBindViewHolder( ItemrowHolder holder, int position) {
         Acheivements_DATA obj = DataList_ach.get(position);
         holder.desciption.setText(obj.get_des());
-//        Bitmap bts//=convertInBitmap(obj.get_urlString());
-//        holder.imageView.setImageResource();
-//        Bitmap usr=convertInBitmap(obj.get_UserName());
-//        holder.UserImg.setImageBitmap(usr);
         holder.Likes.setText(Integer.valueOf(obj.get_likes()).toString());
         holder.postby.setText(obj.get_UserName());
         holder.datetime.setText(obj.getDate());
@@ -52,6 +49,11 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
         holder.rep.setText(Integer.valueOf(obj.get_rep()).toString());
         imageLoader.DisplayImage(obj.getUserImag(),holder.UserImg);
         holder.title.setText(obj.get_title());
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
     @Override
@@ -62,7 +64,6 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     public class ItemrowHolder extends RecyclerView.ViewHolder {
         public TextView desciption, datetime, postby, Likes, title,usernm,rep;
         public ImageView imageView, UserImg;
-
         public ItemrowHolder(View itemView) {
             super(itemView);
             desciption = (TextView) itemView.findViewById(R.id.des);
@@ -76,4 +77,5 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
             rep=(TextView)itemView.findViewById(R.id.rep);
         }
     }
+
 }
