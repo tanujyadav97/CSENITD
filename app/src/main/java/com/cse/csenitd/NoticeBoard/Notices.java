@@ -30,7 +30,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
-       // ArrayList<String> dta =new ArrayList<>();
+        ArrayList<String> dta =new ArrayList<>();
 //        dta.add("No need to parse string colors in your code If you want to hardcode color values in your ");
 //        dta.add("So you should check which kind ");
 //

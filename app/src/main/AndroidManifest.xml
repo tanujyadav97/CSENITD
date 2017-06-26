@@ -32,7 +32,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".profile"></activity>
         <activity android:name=".ACHIEVEMENTS.Acheivements"
             android:label="Achievements"/>
         <activity android:name=".ACHIEVEMENTS.Add_achievement"

@@ -24,7 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
-                android:background="@drawable/border"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 tools:ignore="HardcodedText" />
@@ -33,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="What's in your mind . . ."
-                android:background="@drawable/border"
                 android:padding="10dp"
                 android:lines="3"
                 android:layout_margin="10dp"
