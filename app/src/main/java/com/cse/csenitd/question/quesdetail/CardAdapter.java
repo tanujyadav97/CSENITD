@@ -212,7 +212,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             }
         });
 
-    }
+    } 
 
     @Override
     public int getItemViewType(int position) {
