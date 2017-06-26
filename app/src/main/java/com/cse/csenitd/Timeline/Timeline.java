@@ -400,117 +400,117 @@ public String pth;
     }
 
 
-    // Sample java code for videos.insert
+   //  Sample java code for videos.insert
 
-//    private static final String APPLICATION_NAME = "CseNitd";
-//    private static final java.io.File DATA_STORE_DIR = new java.io.File(
-//            System.getProperty("user.home"), ".credentials/java-youtube-api-tests");
-//    private static FileDataStoreFactory DATA_STORE_FACTORY;
-//    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-//    private static HttpTransport HTTP_TRANSPORT;
-//    private static final Collection<String> SCOPES = Arrays.asList("YouTubeScopes.https://www.googleapis.com/auth/youtube.force-ssl YouTubeScopes.https://www.googleapis.com/auth/youtubepartner");
-//    static {
-//        try {
-//            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-//            DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
-//        } catch (Throwable t) {
-//            t.printStackTrace();
-////            System.exit(1);
-//        }
-//    }
-//
-//    public static void main(String s) throws IOException {
-//        YouTube youtube = getYouTubeService();
-//        try {
-//
-//            String mime_type = "video/*";
-//            String media_filename = s;
-//            HashMap<String, String> parameters = new HashMap<>();
-//            parameters.put("part", "snippet,status");
-//
-//            Video video = new Video();
-//            VideoSnippet snippet = new VideoSnippet();
-//            snippet.set("categoryId", "22");
-//            snippet.set("description", "Description of uploaded video.");
-//            snippet.set("title", "Test video upload");
-//            VideoStatus status = new VideoStatus();
-//            status.set("privacyStatus", "private");
-//
-//            video.setSnippet(snippet);
-//            video.setStatus(status);
-//
-//            InputStreamContent mediaContent = new InputStreamContent(mime_type,
-//                    Timeline.class.getResourceAsStream(media_filename));
-//            YouTube.Videos.Insert videosInsertRequest = youtube.videos().insert(parameters.get("part").toString(), video, mediaContent);
-//            MediaHttpUploader uploader = videosInsertRequest.getMediaHttpUploader();
-//
-//
-//            uploader.setDirectUploadEnabled(false);
-//
-//            MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
-//                public void progressChanged(MediaHttpUploader uploader) throws IOException {
-//                    switch (uploader.getUploadState()) {
-//                        case INITIATION_STARTED:
-//                            System.out.println("Initiation Started");
-//                            break;
-//                        case INITIATION_COMPLETE:
-//                            System.out.println("Initiation Completed");
-//                            break;
-//                        case MEDIA_IN_PROGRESS:
-//                            System.out.println("Upload in progress");
-//                            System.out.println("Upload percentage: " + uploader.getProgress());
-//                            break;
-//                        case MEDIA_COMPLETE:
-//                            System.out.println("Upload Completed!");
-//                            break;
-//                        case NOT_STARTED:
-//                            System.out.println("Upload Not Started!");
-//                            break;
-//                    }
-//                }
-//            };
-//            uploader.setProgressListener(progressListener);
-//            Video response = videosInsertRequest.execute();
-//            System.out.println(response);
-//
-//        } catch (GoogleJsonResponseException e) {
-//            e.printStackTrace();
-//            System.err.println("There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
-//        } catch (Throwable t) {
-//            t.printStackTrace();
-//        }
-//        }
-//
-//
-//    public static YouTube getYouTubeService() throws IOException {
-//        Credential credential = authorize();
-//        return new YouTube.Builder(
-//                HTTP_TRANSPORT, JSON_FACTORY, credential)
-//                .setApplicationName(APPLICATION_NAME)
-//                .build();
-//    }
-//    /**
-//     * Creates an authorized Credential object.
-//     * @return an authorized Credential object.
-//     * @throws IOException
-//     */
-//    public static Credential authorize() throws IOException {
-//        // Load client secrets.
-//        InputStream in = Timeline.class.getResourceAsStream("/client_secret.json");
-//        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader( in ));
-//
-//        // Build flow and trigger user authorization request.
-//        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-//                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-//                .setDataStoreFactory(DATA_STORE_FACTORY)
-//                .setAccessType("offline")
-//                .build();
-//        Credential credential = new AuthorizationCodeInstalledApp(
-//                flow, new LocalServerReceiver()).authorize("user");
-//        System.out.println(
-//                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
-//        return credential;
-//    }
+    private static final String APPLICATION_NAME = "CseNitd";
+    private static final java.io.File DATA_STORE_DIR = new java.io.File(
+            System.getProperty("user.home"), ".credentials/java-youtube-api-tests");
+    private static FileDataStoreFactory DATA_STORE_FACTORY;
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static HttpTransport HTTP_TRANSPORT;
+    private static final Collection<String> SCOPES = Arrays.asList("YouTubeScopes.https://www.googleapis.com/auth/youtube.force-ssl YouTubeScopes.https://www.googleapis.com/auth/youtubepartner");
+    static {
+        try {
+            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
+        } catch (Throwable t) {
+            t.printStackTrace();
+//            System.exit(1);
+        }
+    }
+
+    public static void main(String s) throws IOException {
+        YouTube youtube = getYouTubeService();
+        try {
+
+            String mime_type = "video/*";
+            String media_filename = s;
+            HashMap<String, String> parameters = new HashMap<>();
+            parameters.put("part", "snippet,status");
+
+            Video video = new Video();
+            VideoSnippet snippet = new VideoSnippet();
+            snippet.set("categoryId", "22");
+            snippet.set("description", "Description of uploaded video.");
+            snippet.set("title", "Test video upload");
+            VideoStatus status = new VideoStatus();
+            status.set("privacyStatus", "private");
+
+            video.setSnippet(snippet);
+            video.setStatus(status);
+
+            InputStreamContent mediaContent = new InputStreamContent(mime_type,
+                    Timeline.class.getResourceAsStream(media_filename));
+            YouTube.Videos.Insert videosInsertRequest = youtube.videos().insert(parameters.get("part").toString(), video, mediaContent);
+            MediaHttpUploader uploader = videosInsertRequest.getMediaHttpUploader();
+
+
+            uploader.setDirectUploadEnabled(false);
+
+            MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
+                public void progressChanged(MediaHttpUploader uploader) throws IOException {
+                    switch (uploader.getUploadState()) {
+                        case INITIATION_STARTED:
+                            System.out.println("Initiation Started");
+                            break;
+                        case INITIATION_COMPLETE:
+                            System.out.println("Initiation Completed");
+                            break;
+                        case MEDIA_IN_PROGRESS:
+                            System.out.println("Upload in progress");
+                            System.out.println("Upload percentage: " + uploader.getProgress());
+                            break;
+                        case MEDIA_COMPLETE:
+                            System.out.println("Upload Completed!");
+                            break;
+                        case NOT_STARTED:
+                            System.out.println("Upload Not Started!");
+                            break;
+                    }
+                }
+            };
+            uploader.setProgressListener(progressListener);
+            Video response = videosInsertRequest.execute();
+            System.out.println(response);
+
+        } catch (GoogleJsonResponseException e) {
+            e.printStackTrace();
+            System.err.println("There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+        }
+
+
+    public static YouTube getYouTubeService() throws IOException {
+        Credential credential = authorize();
+        return new YouTube.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, credential)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+    }
+    /**
+     * Creates an authorized Credential object.
+     * @return an authorized Credential object.
+     * @throws IOException
+     */
+    public static Credential authorize() throws IOException {
+        // Load client secrets.
+        InputStream in = Timeline.class.getResourceAsStream("/client_secret.json");
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader( in ));
+
+        // Build flow and trigger user authorization request.
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .setDataStoreFactory(DATA_STORE_FACTORY)
+                .setAccessType("offline")
+                .build();
+        Credential credential = new AuthorizationCodeInstalledApp(
+                flow, new LocalServerReceiver()).authorize("user");
+        System.out.println(
+                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
+        return credential;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
