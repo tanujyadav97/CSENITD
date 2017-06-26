@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="quesTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#ff7835</item>
+    </style>
+
     <style name="ProfileTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -26,16 +33,17 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-    <item name="android:windowBackground">@drawable/backgroundsplash</item>
+        <item name="android:windowBackground">@drawable/backgroundsplash</item>
     </style>
 
-    <style name="title" >
+    <style name="title">
         <item name="android:textColor">#fff</item>
     </style>
 
     <style name="title.expanded">
         <item name="android:textSize">30dp</item>
     </style>
+
     <style name="title.collapsed">
         <item name="android:textSize">20dp</item>
     </style>
@@ -43,4 +51,13 @@
     <style name="subtitle">
         <item name="android:textColor">#fff</item> <!-- I only change the color -->
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
