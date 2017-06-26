@@ -4,9 +4,10 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_login">Sign in</string>
-
+    <string name="title_activity_questions">Questions</string>
+    <string name="title_activity_questionsdetail">Question</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -25,12 +26,14 @@
             <b>Choose Designation</b>
         </item>
         <item>1st year B.Tech Student</item>
-        <item>2st year B.Tech Student</item>
-        <item>3st year B.Tech Student</item>
-        <item>4st year B.Tech Student</item>
+        <item>2nd year B.Tech Student</item>
+        <item>3rd year B.Tech Student</item>
+        <item>4th year B.Tech Student</item>
         <item>1st year M.Tech Student</item>
-        <item>2st year M.Tech Student</item>
+        <item>2nd year M.Tech Student</item>
         <item>Phd Student</item>
         <item>Faculty</item>
+        <item>Passed Out</item>
     </array>
+
 </resources>

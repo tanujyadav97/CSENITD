@@ -29,8 +29,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cse.csenitd.question.questionsActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -53,19 +56,13 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
-
+    public String globalusername;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -81,6 +78,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText rpass;
     private View reset_form;
     private EditText urname;
+    private EditText rname;
+    private EditText remail;
+    private EditText rphone;
+    private EditText rlocation;
+    private Spinner rdesig;
+    private EditText rcpass;
+    private EditText codee;
+    private Button getcode;
+    private EditText newpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +98,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         username = (EditText) findViewById(R.id.username);
         rpass = (EditText) findViewById(R.id.rpassword);
+        rcpass = (EditText) findViewById(R.id.rcpassword);
         urname=(EditText) findViewById(R.id.usname);
+        rname=(EditText) findViewById(R.id.rname);
+        remail=(EditText) findViewById(R.id.remail);
+        rphone=(EditText) findViewById(R.id.phone);
+        rlocation=(EditText) findViewById(R.id.location);
+        rdesig=(Spinner) findViewById(R.id.desig);
+        getcode=(Button) findViewById(R.id.getcode);
+        codee=(EditText) findViewById(R.id.code);
+        newpass=(EditText) findViewById(R.id.newpass);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -128,9 +143,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        getcode.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String usernam=urname.getText().toString();
+                if(isUsernameValid(usernam))
+                {
+                    attemptcode();
+                }
+                else
+                    Toast.makeText(LoginActivity.this, "Invalid username.", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
         reset.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 attemptreset();
             }
         });
@@ -243,6 +274,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        globalusername=email;
 
         boolean cancel = false;
         View focusView = null;
@@ -259,7 +291,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!isUsernameValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -280,23 +312,63 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void attemptregister()
     {
-        showProgress(true,reg_form);
+
+        String name=rname.getText().toString();
+        String email=remail.getText().toString();
+        String phone=rphone.getText().toString();
+        String location=rlocation.getText().toString();
+        String desig=rdesig.getSelectedItem().toString();
         String usernam = username.getText().toString();
         String password = rpass.getText().toString();
+        String cpassword = rcpass.getText().toString();
 
-        new UserRegisTask().execute(usernam,password);
+        if(password.equals(cpassword)) {
 
+            if(!isPasswordValid(password))
+                Toast.makeText(LoginActivity.this, "Password should be atleast 8 character long.", Toast.LENGTH_LONG).show();
+            else if(!isEmailValid(email))
+                Toast.makeText(LoginActivity.this, "Invalid Email.", Toast.LENGTH_LONG).show();
+            else if(!(phone.length() == 10 || (phone.length() == 12 && phone.startsWith("91")) || (phone.length() == 13 && phone.startsWith("+91"))))
+                Toast.makeText(LoginActivity.this, "Invalid phone number.", Toast.LENGTH_LONG).show();
+            else if(location == null || desig == null || usernam == null || name == null )
+                Toast.makeText(LoginActivity.this, "All fields are necessary.", Toast.LENGTH_LONG).show();
+            else
+            {
+                showProgress(true,reg_form);
+                new UserRegisTask().execute(usernam, password, name, email, phone, location, desig);
+            }
 
+        }
+        else
+            Toast.makeText(LoginActivity.this, "Passwords don't match.", Toast.LENGTH_LONG).show();
 
     }
 
-    private void attemptreset()
+    private void attemptcode()
     {
         showProgress(true,reset_form);
         String usernam = urname.getText().toString();
 
 
-        new UserResetTask().execute(usernam);
+        new UserCodeTask().execute(usernam);
+
+
+
+    }
+
+
+    private void attemptreset()
+    {
+        showProgress(true,reset_form);
+        String usernam = urname.getText().toString();
+        String code=codee.getText().toString();
+        String password=newpass.getText().toString();
+
+        if(code==null||password==null)
+            Toast.makeText(LoginActivity.this, "Please enter the data.", Toast.LENGTH_LONG).show();
+
+        else
+            new UserResetTask().execute(usernam,code,password);
 
 
 
@@ -308,9 +380,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return email.contains("@");
     }
 
+    private boolean isUsernameValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.length()>0;
+    }
+
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 7;
     }
 
     /**
@@ -521,16 +598,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
                 //startActivity(intent);
                 //MainActivity.this.finish();
-                Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
 
-                Intent in=new Intent(LoginActivity.this,profile.class);
+                //start with username
+
+                openingActivity.pe.putString("username",globalusername);
+                openingActivity.pe.commit();
+
+                Intent in=new Intent(LoginActivity.this,questionsActivity.class);
                 startActivity(in);
 
 
             }else if (result.equalsIgnoreCase("false")){
 
                 // If username and password does not match display a error message
-                Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
 
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
 
@@ -585,8 +667,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("username", params[0])
-                        .appendQueryParameter("password", params[1]);
+                         .appendQueryParameter("username", params[0])
+                         .appendQueryParameter("password", params[1])
+                         .appendQueryParameter("name", params[2])
+                         .appendQueryParameter("email", params[3])
+                         .appendQueryParameter("phone", params[4])
+                         .appendQueryParameter("location", params[5])
+                         .appendQueryParameter("desig", params[6]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -641,12 +728,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(String result) {
             mAuthTask = null;
-            showProgress(false,reg_form);
+            showProgress(false, reg_form);
 
             //  Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
 
-            if(result.equalsIgnoreCase("true"))
-            {
+            if (result.equalsIgnoreCase("true")) {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
@@ -656,12 +742,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //MainActivity.this.finish();
                 Toast.makeText(LoginActivity.this, "registered successfully", Toast.LENGTH_LONG).show();
 
-            }else if (result.equalsIgnoreCase("already")){
+            } else if (result.equalsIgnoreCase("already")) {
 
                 // If username and password does not match display a error message
                 Toast.makeText(LoginActivity.this, "Username already exist", Toast.LENGTH_LONG).show();
 
-            } else if (result.equalsIgnoreCase("false") ) {
+            } else if (result.equalsIgnoreCase("false")) {
 
                 Toast.makeText(LoginActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
 
@@ -694,6 +780,137 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 // Enter URL address where your php file resides
                 url = new URL("https://nitd.000webhostapp.com/cse%20nitd/reset.php");
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return "exception";
+            }
+            try {
+                // Setup HttpURLConnection class to send and receive data from php and mysql
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setReadTimeout(READ_TIMEOUT);
+                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                conn.setRequestMethod("POST");
+
+                // setDoInput and setDoOutput method depict handling of both send and receive
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                // Append parameters to URL
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("username", params[0])
+                        .appendQueryParameter("code", params[1])
+                        .appendQueryParameter("password", params[2])
+                        ;
+                String query = builder.build().getEncodedQuery();
+
+                // Open connection for sending data
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+                return "exception";
+            }
+
+            try {
+
+                int response_code = conn.getResponseCode();
+
+                // Check if successful connection made
+                if (response_code == HttpURLConnection.HTTP_OK) {
+
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                    // Pass data to onPostExecute method
+                    return(result.toString());
+
+                }else{
+
+                    return("unsuccessful");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "exception";
+            } finally {
+                conn.disconnect();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            mAuthTask = null;
+            showProgress(false,reset_form);
+
+
+            if(result.equalsIgnoreCase("true"))
+            {
+                /* Here launching another activity when login successful. If you persist login state
+                use sharedPreferences of Android. and logout button to clear sharedPreferences.
+                 */
+
+                //Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
+                //startActivity(intent);
+                //MainActivity.this.finish();
+                Toast.makeText(LoginActivity.this, "reset successfully", Toast.LENGTH_LONG).show();
+
+            }else if (result.equalsIgnoreCase("notexist")){
+
+                // If username and password does not match display a error message
+                Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_LONG).show();
+
+            } else if (result.equalsIgnoreCase("false") ) {
+
+                Toast.makeText(LoginActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
+
+            }else if (result.equalsIgnoreCase("wrongcode") ) {
+
+                Toast.makeText(LoginActivity.this, "Wrong code.", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false,reset_form);
+        }
+    }
+
+
+
+    public class UserCodeTask extends AsyncTask<String, String, String> {
+
+
+        HttpURLConnection conn;
+        URL url = null;
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO: attempt authentication against a network service.
+
+            try {
+
+                // Enter URL address where your php file resides
+                url = new URL("https://nitd.000webhostapp.com/cse%20nitd/code.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -782,7 +999,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
                 //startActivity(intent);
                 //MainActivity.this.finish();
-                Toast.makeText(LoginActivity.this, "reset successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Reset code has been sent to the email address provided by you", Toast.LENGTH_LONG).show();
 
             }else if (result.equalsIgnoreCase("notexist")){
 
@@ -794,6 +1011,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Toast.makeText(LoginActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
 
             }
+            else if (result.equalsIgnoreCase("mailerror") ) {
+
+                Toast.makeText(LoginActivity.this, "Error in sending e-mail.", Toast.LENGTH_LONG).show();
+
+            }
         }
 
         @Override
@@ -802,6 +1024,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false,reset_form);
         }
     }
+
+
+
+
 
 
 }
