@@ -11,8 +11,14 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
+import com.cse.csenitd.ACHIEVEMENTS.Add_achievement;
+import com.cse.csenitd.NoticeBoard.Add_Notices;
+import com.cse.csenitd.NoticeBoard.Notices;
+import com.cse.csenitd.question.questionsActivity;
 
-    public class openingActivity extends AppCompatActivity {
+
+public class openingActivity extends AppCompatActivity {
         public static SharedPreferences ps;
         public static SharedPreferences.Editor pe;
         @Override
@@ -20,7 +26,7 @@ import android.view.View;
             super.onCreate(savedInstanceState);
             ps=getPreferences(0);
             pe=ps.edit();
-            if (ps.getString("username", "n/a").equals("n/a")) {
+           /* if (ps.getString("username", "n/a").equals("n/a")) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -30,6 +36,10 @@ import android.view.View;
                 //start with username
                 Intent in=new Intent(openingActivity.this,profile1.class);
                 startActivity(in);
-            }
+            }*/
+
+
+            Intent in=new Intent(openingActivity.this,Acheivements.class);
+            startActivity(in);
         }
     }

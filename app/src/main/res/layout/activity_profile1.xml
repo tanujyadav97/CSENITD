@@ -49,12 +49,30 @@
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin">
 
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="top|right"
+                        android:layout_marginRight="20px">
+
+                        <Button
+                            android:id="@+id/adddp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/camera"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="gone"
+                            />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_gravity="top|right"
-                        android:layout_marginRight="20px">
+                        >
 
                         <TextView
                             android:layout_width="match_parent"
@@ -76,6 +94,7 @@
                             android:layout_marginLeft="5dp"
                             android:textStyle="bold"/>
 
+                    </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.Toolbar>
 

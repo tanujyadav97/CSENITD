@@ -33,6 +33,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.csenitd.question.questionsActivity;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -603,11 +605,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 openingActivity.pe.putString("username",globalusername);
                 openingActivity.pe.commit();
 
-                Intent in=new Intent(LoginActivity.this,profile1.class);
+                Intent in=new Intent(LoginActivity.this,questionsActivity.class);
                 startActivity(in);
 
 
             }else if (result.equalsIgnoreCase("false")){
+
 
                 // If username and password does not match display a error message
                 Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();

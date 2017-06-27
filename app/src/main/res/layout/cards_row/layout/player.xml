@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Timeline.Timeline">
+
+    <com.malmstein.fenster.view.FensterVideoView
+        android:id="@+id/play_video_texture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true"
+        android:fitsSystemWindows="true" />
+
+    <com.malmstein.fenster.controller.MediaFensterPlayerController
+        android:id="@+id/play_video_controller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true" />
+
+</FrameLayout>
