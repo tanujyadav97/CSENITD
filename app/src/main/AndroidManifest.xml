@@ -16,6 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".openingActivity"
@@ -42,9 +43,10 @@
             android:label="Achievements"/>
         <activity android:name=".ACHIEVEMENTS.Add_achievement"
             android:label="Cse"/>
-        <activity android:name=".Timeline.Timeline"/>
+        <activity android:name=".Timeline.Add_Timeline"/>
         <activity android:name=".NoticeBoard.Notices"/>
         <activity android:name=".NoticeBoard.Add_Notices"/>
+        <activity android:name=".Timeline.TimelineP"/>
     </application>
 
 </manifest>

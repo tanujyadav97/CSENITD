@@ -101,7 +101,7 @@ public class ImageLoader {
 
             // Find the correct scale value. It should be the power of 2.
             // Recommended Size 512
-            final int REQUIRED_SIZE = 100;
+            final int REQUIRED_SIZE = 512;
             int width_tmp = o.outWidth, height_tmp = o.outHeight;
             int scale = 1;
             while (true) {

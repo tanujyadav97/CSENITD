@@ -49,6 +49,11 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
     public Loader<ArrayList<Notices_DATA>> onCreateLoader(int i, Bundle bundle) {
         return new Notice_Display(this,nurl);
     }

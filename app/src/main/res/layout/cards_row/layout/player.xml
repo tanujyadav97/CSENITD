@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".Timeline.Timeline">
+    tools:context=".Timeline.Add_Timeline">
 
     <com.malmstein.fenster.view.FensterVideoView
         android:id="@+id/play_video_texture"

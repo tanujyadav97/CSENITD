@@ -4,6 +4,7 @@ package com.cse.csenitd.DbHelper;
 import android.util.Log;
 import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.Data.Notices_DATA;
+import com.cse.csenitd.Data.Timeline_DATA;
 import com.cse.csenitd.NoticeBoard.Notices;
 
 import org.json.JSONArray;
@@ -218,5 +219,61 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
        return Notices;
 
    }
+    public static ArrayList<Timeline_DATA> extractTimeline(String s)
+    {
+        URL url = createUrl(s);
+        String jsonresponse = null;
 
+        try {
+            jsonresponse = makeHttprequest(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        ArrayList<Timeline_DATA> es= Timelineresult(jsonresponse);
+        return es;
+    }
+    public static ArrayList<Timeline_DATA> Timelineresult(String jsonresponse){
+        ArrayList<Timeline_DATA> timeline = new ArrayList<>();
+
+        try {
+
+            JSONObject jsonObject=new JSONObject(jsonresponse);
+            JSONArray jsonArray = jsonObject.getJSONArray("timelineresult");
+            for (int i = 0, size = jsonArray.length(); i < size; i++)
+            {
+                JSONObject objectInArray = jsonArray.getJSONObject(i);
+                String name= objectInArray.getString("name");
+                String text=objectInArray.getString("text");
+                String tdate=objectInArray.getString("datetime");
+//                long id= Long.parseLong(tdate);
+//                Date dateObject = new Date(id);
+//                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
+//                        " HH:mm:ss");
+//                tdate=simpleDateFormat.format(dateObject);
+                String img1=objectInArray.getString("img1");
+                String img2=objectInArray.getString("img2");
+                String img3=objectInArray.getString("img3");
+                String img4=objectInArray.getString("img4");
+                String img5=objectInArray.getString("img5");
+                String video=objectInArray.getString("video");
+                int likes=objectInArray.getInt("likes");
+                Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes);
+                timeline.add(Obj);
+            }
+
+
+
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the Notice JSON results", e);
+        }
+
+
+        return timeline;
+    }
 }

@@ -444,7 +444,7 @@ public class profile1 extends AppCompatActivity {
                 String arr1[];
                 arr1=arr[8].trim().split("%");
                 String t=arr1[0];
-               
+
                 for(int i=1;i<arr1.length;i++)
                 {
                     t+="\n";
