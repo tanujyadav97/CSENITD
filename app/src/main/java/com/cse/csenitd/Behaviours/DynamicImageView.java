@@ -11,8 +11,8 @@ import android.widget.ImageView;
  */
 
 public class DynamicImageView extends android.support.v7.widget.AppCompatImageView{
-    public DynamicImageView(final Context context, final AttributeSet attrs) {
-        super(context, attrs);
+    public DynamicImageView(final Context context) {
+        super(context);
     }
 
     @Override
