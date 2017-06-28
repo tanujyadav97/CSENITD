@@ -21,8 +21,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-
+import java.util.TimeZone;
 
 
 /**
@@ -194,14 +195,15 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
            for (int i = 0, size = jsonArray.length(); i < size; i++)
            {
                JSONObject objectInArray = jsonArray.getJSONObject(i);
-               String y= objectInArray.getString("username");
+               String y= objectInArray.getString("name");
                String z=objectInArray.getString("notice");
                String tdate=objectInArray.getString("datetime");
                long id= Long.parseLong(tdate);
-               Date dateObject = new Date(id);
-               SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
-                       " HH:mm:ss");
-               tdate=simpleDateFormat.format(dateObject);
+               TimeZone tz = TimeZone.getDefault();
+
+               SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
+               sdf.setTimeZone(tz);
+               tdate=sdf.format(new Date(id * 1000));;
                Notices_DATA Obj=new Notices_DATA(y,z,tdate);
                Notices.add(Obj);
            }

@@ -123,6 +123,7 @@ public class questionsActivity extends AppCompatActivity {
                 ask.setVisibility(View.VISIBLE);
                 askques.setVisibility(View.GONE);
                 menuu.findItem(R.id.refresh).setVisible(true);
+                getSupportActionBar().setTitle("Questions");
             }
         });
 
@@ -138,6 +139,7 @@ public class questionsActivity extends AppCompatActivity {
             ask.setVisibility(View.VISIBLE);
             askques.setVisibility(View.GONE);
             menuu.findItem(R.id.refresh).setVisible(true);
+            getSupportActionBar().setTitle("Questions");
         }
         else
         {

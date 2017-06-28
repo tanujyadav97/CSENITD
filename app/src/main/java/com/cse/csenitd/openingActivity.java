@@ -1,12 +1,21 @@
 package com.cse.csenitd;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
+import android.view.View;
 
-import com.cse.csenitd.Timeline.Add_Timeline;
-import com.cse.csenitd.Timeline.TimelineP;
+import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
+import com.cse.csenitd.ACHIEVEMENTS.Add_achievement;
+import com.cse.csenitd.NoticeBoard.Notices;
+import com.cse.csenitd.Timeline.Timeline;
+import com.cse.csenitd.question.questionsActivity;
 
 
 public class openingActivity extends AppCompatActivity {
@@ -30,8 +39,7 @@ public class openingActivity extends AppCompatActivity {
             }*/
 
 
-            Intent in=new Intent(openingActivity.this,TimelineP.class);
+            Intent in=new Intent(openingActivity.this,Notices.class);
             startActivity(in);
-            finish();
         }
     }
