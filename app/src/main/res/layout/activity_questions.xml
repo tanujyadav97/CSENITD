@@ -11,13 +11,28 @@
     android:paddingBottom="0dp"
     tools:context="com.cse.csenitd.question.questionsActivity">
 
-
+<SearchView
+    android:id="@+id/searchview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:iconifiedByDefault="false"
+    android:visibility="gone"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="8dp"
         android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/noques"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Questions!"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:visibility="gone"
+            tools:layout_gravity="center_vertical" />
 
 <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerView"

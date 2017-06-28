@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -55,6 +57,9 @@ public class questionsActivity extends AppCompatActivity {
     private Button cancel,post;
     private EditText addqueshead,addquestext,addqueslink,addquestags;
     public Menu menuu;
+    public SearchView search;
+    int searched;
+    TextView noques;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,7 @@ public class questionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_questions);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
+searched=0;
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -78,6 +83,31 @@ public class questionsActivity extends AppCompatActivity {
         addquestext=(EditText)findViewById(R.id.addquestext);
         addqueslink=(EditText)findViewById(R.id.addqueslink);
         addquestags=(EditText)findViewById(R.id.addquestags);
+        search=(SearchView)findViewById(R.id.searchview);
+        noques=(TextView)findViewById(R.id.noques);
+
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                if (query.equals(""))
+                {
+
+                }
+                else
+                {
+                    handle_search(query);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
 
         ask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +118,7 @@ public class questionsActivity extends AppCompatActivity {
                 askques.setVisibility(View.VISIBLE);
                 getSupportActionBar().setTitle("Ask Question");
                 menuu.findItem(R.id.refresh).setVisible(false);
+                menuu.findItem(R.id.search).setVisible(false);
             }
         });
 
@@ -123,11 +154,12 @@ public class questionsActivity extends AppCompatActivity {
                 ask.setVisibility(View.VISIBLE);
                 askques.setVisibility(View.GONE);
                 menuu.findItem(R.id.refresh).setVisible(true);
+                menuu.findItem(R.id.search).setVisible(true);
                 getSupportActionBar().setTitle("Questions");
             }
         });
 
-        getData();
+        getData("");
     }
 
     @Override
@@ -139,11 +171,23 @@ public class questionsActivity extends AppCompatActivity {
             ask.setVisibility(View.VISIBLE);
             askques.setVisibility(View.GONE);
             menuu.findItem(R.id.refresh).setVisible(true);
+            menuu.findItem(R.id.search).setVisible(true);
             getSupportActionBar().setTitle("Questions");
         }
         else
         {
 
+        }
+
+        if(search.getVisibility()==View.VISIBLE) {
+            search.setVisibility(View.GONE);
+            ask.setVisibility(View.VISIBLE);
+            if(searched==1)
+            {
+                getSupportActionBar().setTitle("Questions");
+                searched=0;
+                getData("");
+            }
         }
     }
 
@@ -164,8 +208,35 @@ public class questionsActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.refresh) {
-            getData();
+            search.setVisibility(View.GONE);
+            ask.setVisibility(View.VISIBLE);
+            if(searched==1)
+            {
+                getSupportActionBar().setTitle("Questions");
+                searched=0;
+
+            }
+            getData("");
             return true;
+        }
+        else if (id == R.id.search) {
+            //getData();
+            if (search.getVisibility()==View.GONE) {
+                search.setVisibility(View.VISIBLE);
+                ask.setVisibility(View.GONE);
+            }
+                else {
+                search.setVisibility(View.GONE);
+                ask.setVisibility(View.VISIBLE);
+                if (searched==1)
+                {
+                    getSupportActionBar().setTitle("Questions");
+                    searched=0;
+                    getData("");
+
+                }
+            }
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -291,7 +362,8 @@ public class questionsActivity extends AppCompatActivity {
                     askques.setVisibility(View.GONE);
                     getSupportActionBar().setTitle("Questions");
                     menuu.findItem(R.id.refresh).setVisible(true);
-                    getData();
+                    menuu.findItem(R.id.search).setVisible(true);
+                    getData("");
 
                 }
             }
@@ -306,8 +378,9 @@ public class questionsActivity extends AppCompatActivity {
     }
 
 
-    private void getData(){
-        class GetData extends AsyncTask<Void,Void,String>{
+    private void getData(final String ss){
+        noques.setVisibility(View.GONE);
+        class GetData extends AsyncTask<String,String,String>{
             ProgressDialog progressDialog;
             @Override
             protected void onPreExecute() {
@@ -319,39 +392,108 @@ public class questionsActivity extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 progressDialog.dismiss();
+                if(!ss.equals(""))
+                    getSupportActionBar().setTitle("Search Results");
                 parseJSON(s);
             }
 
             @Override
-            protected String doInBackground(Void... params) {
+            protected String doInBackground(String... params) {
                 BufferedReader bufferedReader = null;
+                URL url;
+                HttpURLConnection con;
+
+                ////////////////////////////////////
+                // TODO: attempt authentication against a network service.
+
                 try {
-                    URL url = new URL(Config.GET_URL);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    StringBuilder sb = new StringBuilder();
 
-                    bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    // Enter URL address where your php file resides
+                    url = new URL(Config.GET_URL);
 
-                    String json;
-                    while((json = bufferedReader.readLine())!= null){
-                        sb.append(json+"\n");
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    return "exception";
+                }
+                try {
+                    // Setup HttpURLConnection class to send and receive data from php and mysql
+                    con = (HttpURLConnection)url.openConnection();
+                    con.setReadTimeout(READ_TIMEOUT);
+                    con.setConnectTimeout(CONNECTION_TIMEOUT);
+                    con.setRequestMethod("POST");
+
+                    // setDoInput and setDoOutput method depict handling of both send and receive
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+
+                    // Append parameters to URL
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("query", params[0]);
+                    String query = builder.build().getEncodedQuery();
+
+                    // Open connection for sending data
+                    OutputStream os = con.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                    con.connect();
+
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                    return "exception";
+                }
+
+                try {
+
+                    int response_code = con.getResponseCode();
+
+                    // Check if successful connection made
+                    if (response_code == HttpURLConnection.HTTP_OK) {
+
+                        // Read data sent from server
+                        InputStream input = con.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                        String json;
+                        StringBuilder result = new StringBuilder();
+                        try {
+                            while ((json = reader.readLine()) != null) {
+                                result.append(json + "\n");
+                            }
+                        }catch (NullPointerException e)
+                        {
+                            e.printStackTrace();
+                            return "exception";
+                        }
+                        return result.toString().trim();
+
+                    }else{
+
+                        return("unsuccessful");
                     }
 
-                    return sb.toString().trim();
-
-                }catch(Exception e){
-                    return null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "exception";
+                } finally {
+                    con.disconnect();
                 }
+
             }
         }
         GetData gd = new GetData();
-        gd.execute();
+        gd.execute(ss);
     }
 
     public void showData(){
         adapter = new CardAdapter(Config.times, Config.votess,Config.topics,Config.quess,Config.tagss,Config.usernames,Config.accepteds);
         recyclerView.setAdapter(adapter);
-
+        if(Config.times.length==0)
+            noques.setVisibility(View.VISIBLE);
        // Toast.makeText(questionsActivity.this, ""+adapter.getItemCount()+"", Toast.LENGTH_LONG).show();
     }
 
@@ -444,5 +586,12 @@ public class questionsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return name;
+    }
+
+    private void handle_search(String query)
+    {
+        searched=1;
+        //Toast.makeText(questionsActivity.this, "searched", Toast.LENGTH_LONG).show();
+        getData(query);
     }
 }

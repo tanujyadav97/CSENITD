@@ -39,7 +39,7 @@ public class openingActivity extends AppCompatActivity {
             }*/
 
 
-            Intent in=new Intent(openingActivity.this,Notices.class);
+            Intent in=new Intent(openingActivity.this,questionsActivity.class);
             startActivity(in);
         }
     }
