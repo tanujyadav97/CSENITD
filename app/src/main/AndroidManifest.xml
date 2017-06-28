@@ -43,8 +43,9 @@
         <activity android:name=".ACHIEVEMENTS.Add_achievement"
             android:label="Cse"/>
         <activity android:name=".Timeline.Timeline"/>
-        <activity android:name=".NoticeBoard.Notices"/>
-        <activity android:name=".NoticeBoard.Add_Notices"/>
+        <activity android:name=".NoticeBoard.Notices"
+            android:label="Notices"/>
+
     </application>
 
 </manifest>

@@ -13,8 +13,8 @@ import android.view.View;
 
 import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
 import com.cse.csenitd.ACHIEVEMENTS.Add_achievement;
-import com.cse.csenitd.NoticeBoard.Add_Notices;
 import com.cse.csenitd.NoticeBoard.Notices;
+import com.cse.csenitd.Timeline.Timeline;
 import com.cse.csenitd.question.questionsActivity;
 
 
@@ -39,7 +39,7 @@ public class openingActivity extends AppCompatActivity {
             }*/
 
 
-            Intent in=new Intent(openingActivity.this,Acheivements.class);
+            Intent in=new Intent(openingActivity.this,Notices.class);
             startActivity(in);
         }
     }
