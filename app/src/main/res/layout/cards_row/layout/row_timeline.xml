@@ -79,8 +79,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/posttext"
                     android:layout_marginTop="10dp">
-
                 </FrameLayout>
+
+
 
                 <View
                     android:id="@+id/view"
@@ -95,6 +96,7 @@
                     android:layout_below="@+id/view"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
+
 
                     <ImageButton
                         android:layout_width="wrap_content"

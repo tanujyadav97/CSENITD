@@ -24,11 +24,11 @@ public class MemoryCache {
     private long size = 0;
 
     // Max memory in bytes
-    private long limit = 1000000;
+    private double limit = 100000000000f;
 
     public MemoryCache() {
         // Use 25% of available heap size
-        setLimit(Runtime.getRuntime().maxMemory() / 4);
+        setLimit(Runtime.getRuntime().maxMemory() / 2);
     }
 
     public void setLimit(long new_limit) {

@@ -45,8 +45,8 @@
             android:label="Cse"/>
         <activity android:name=".Timeline.Add_Timeline"/>
         <activity android:name=".NoticeBoard.Notices"/>
-        <activity android:name=".NoticeBoard.Add_Notices"/>
         <activity android:name=".Timeline.TimelineP"/>
+        <activity android:name=".Player"/>
     </application>
 
 </manifest>

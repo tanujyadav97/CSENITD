@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,8 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     private LinearLayoutManager manager;
     private RecyclerView.Adapter madapter;
     private static final String JSON_RESPONSE="https://nitd.000webhostapp.com/cse%20nitd/mohit/getTimeline.php";
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    ArrayList<Timeline_DATA> rst;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,11 +39,34 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
         manager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         getLoaderManager().initLoader(0,null,this);
+        rst=new ArrayList<>();
+        mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
+
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    void refreshItems() {
+        // Load items
+        // ...
+        madapter=new adapter_timeline(this,rst);
+        madapter.notifyDataSetChanged();
+        recyclerView.setAdapter(madapter);
+        // Load complete
+        onItemsLoadComplete();
+    }
+
+    void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -58,6 +84,8 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     }
     private void updateUi(ArrayList<Timeline_DATA> data) {
         madapter=new adapter_timeline(this,data);
+        madapter.notifyDataSetChanged();
+        rst=data;
         recyclerView.setAdapter(madapter);
     }
 

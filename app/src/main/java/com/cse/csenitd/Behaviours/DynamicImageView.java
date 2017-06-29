@@ -11,9 +11,10 @@ import android.widget.ImageView;
  */
 
 public class DynamicImageView extends android.support.v7.widget.AppCompatImageView{
-    public DynamicImageView(final Context context) {
-        super(context);
+    public DynamicImageView(final Context context,AttributeSet s) {
+        super(context,s);
     }
+    public DynamicImageView(final Context context){super(context);}
 
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
