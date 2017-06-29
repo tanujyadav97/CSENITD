@@ -18,10 +18,6 @@ public class DynamicImageView extends android.support.v7.widget.AppCompatImageVi
     }
     public DynamicImageView(final Context context){super(context);}
 
-    public DynamicImageView(Context context, AttributeSet attr)
-    {
-        super(context,attr);
-    };
 
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
