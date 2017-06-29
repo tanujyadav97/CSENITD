@@ -67,6 +67,7 @@ public class questiondetailActivity extends AppCompatActivity {
     Button addanswer;
     TextView addanswerlink;
     TextView addanswertext;
+    Menu menuu;
 
     int flag,count,numberofanswers;
     public static RecyclerView recyclerView;
@@ -192,6 +193,8 @@ public class questiondetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        this.menuu=menu;
+        menuu.findItem(R.id.search).setVisible(false);
         return true;
     }
 

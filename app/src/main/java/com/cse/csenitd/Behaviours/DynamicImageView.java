@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.text.AttributedCharacterIterator;
+
 /**
  * Created by lenovo on 20-06-2017.Mohit yadav
  */
@@ -15,6 +17,11 @@ public class DynamicImageView extends android.support.v7.widget.AppCompatImageVi
         super(context,s);
     }
     public DynamicImageView(final Context context){super(context);}
+
+    public DynamicImageView(Context context, AttributeSet attr)
+    {
+        super(context,attr);
+    };
 
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
