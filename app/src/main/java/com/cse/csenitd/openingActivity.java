@@ -27,7 +27,7 @@ public class openingActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             ps=getPreferences(0);
             pe=ps.edit();
-           /* if (ps.getString("username", "n/a").equals("n/a")) {
+            if (ps.getString("username", "n/a").equals("n/a")) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -35,12 +35,9 @@ public class openingActivity extends AppCompatActivity {
             else
             {
                 //start with username
-                Intent in=new Intent(openingActivity.this,profile1.class);
+                Intent in=new Intent(openingActivity.this,homeActivity.class);
                 startActivity(in);
-            }*/
+            }
 
-
-            Intent in=new Intent(openingActivity.this,homeActivity.class);
-            startActivity(in);
         }
     }

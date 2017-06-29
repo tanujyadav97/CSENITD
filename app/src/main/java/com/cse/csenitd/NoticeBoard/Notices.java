@@ -146,7 +146,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
         }
         else
         {
-
+            super.onBackPressed();
         }
     }
 
