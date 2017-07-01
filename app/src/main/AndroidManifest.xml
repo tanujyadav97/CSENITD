@@ -44,9 +44,7 @@
         <activity
             android:name=".ACHIEVEMENTS.Acheivements"
             android:label="Achievements" />
-        <activity
-            android:name=".ACHIEVEMENTS.Add_achievement"
-            android:label="Cse" />
+
         <activity android:name=".Timeline.Add_Timeline" />
         <activity android:name=".NoticeBoard.Notices" />
         <activity android:name=".Timeline.TimelineP"

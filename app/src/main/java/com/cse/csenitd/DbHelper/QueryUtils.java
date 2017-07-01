@@ -1,6 +1,7 @@
 
 package com.cse.csenitd.DbHelper;
 
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,15 +10,19 @@ import com.cse.csenitd.Data.Comment_DATA;
 import com.cse.csenitd.Data.Notices_DATA;
 import com.cse.csenitd.Data.Timeline_DATA;
 import com.cse.csenitd.NoticeBoard.Notices;
+import com.cse.csenitd.openingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,6 +32,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
+import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
+import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
 
 /**
@@ -111,7 +119,7 @@ public final class QueryUtils {
 
     public static ArrayList<Acheivements_DATA> extractAchievements(String s)
     {
-
+/*
         // Create an empty ArrayList that we can start adding achievements to
         URL url = createUrl(s);
         Log.d("fetch","achievements");
@@ -125,9 +133,99 @@ public final class QueryUtils {
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        ArrayList<Acheivements_DATA> es=result(jsonresponse);
+        */
+
+        ArrayList<Acheivements_DATA> es=null;
+        URL url;
+        HttpURLConnection con;
+        String result1;
+        ////////////////////////////////////
+        // TODO: attempt authentication against a network service.
+
+        try {
+
+            // Enter URL address where your php file resides
+            url = new URL(s);
+
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return es;
+        }
+        try {
+            // Setup HttpURLConnection class to send and receive data from php and mysql
+            con = (HttpURLConnection)url.openConnection();
+            con.setReadTimeout(READ_TIMEOUT);
+            con.setConnectTimeout(CONNECTION_TIMEOUT);
+            con.setRequestMethod("POST");
+
+            // setDoInput and setDoOutput method depict handling of both send and receive
+            con.setDoInput(true);
+            con.setDoOutput(true);
+
+            // Append parameters to URL
+            Uri.Builder builder = new Uri.Builder()
+
+                    .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"));
+            String query = builder.build().getEncodedQuery();
+
+            // Open connection for sending data
+            OutputStream os = con.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(query);
+            writer.flush();
+            writer.close();
+            os.close();
+            con.connect();
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return es;
+        }
+
+        try {
+
+            int response_code = con.getResponseCode();
+
+            // Check if successful connection made
+            if (response_code == HttpURLConnection.HTTP_OK) {
+
+                // Read data sent from server
+                InputStream input = con.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                String json;
+                StringBuilder result = new StringBuilder();
+                try {
+                    while ((json = reader.readLine()) != null) {
+                        result.append(json + "\n");
+                    }
+                }catch (NullPointerException e)
+                {
+                    e.printStackTrace();
+                    return es;
+                }
+               result1=result.toString().trim();
+
+            }else{
+
+                return es;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return es;
+        } finally {
+            con.disconnect();
+        }
+
+
+
+        es=result(result1);
         return es;
     }
+
     public static ArrayList<Acheivements_DATA> result(String jsonresponc)
     {
         ArrayList<Acheivements_DATA> achievements = new ArrayList<>();
@@ -146,6 +244,7 @@ public final class QueryUtils {
             String user=objectInArray.getString("username");
             String usrimg=objectInArray.getString("userimage");
             String title=objectInArray.getString("title");
+            String liked=objectInArray.getString("liked");
             String nm=objectInArray.getString("name");
             int rp=objectInArray.getInt("reputation");
             long id= Long.parseLong(tdate);
@@ -153,7 +252,7 @@ public final class QueryUtils {
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
                     " HH:mm:ss");
             tdate=simpleDateFormat.format(dateObject);
-            Acheivements_DATA Obj=new Acheivements_DATA(title,y,z,w,tdate,user,usrimg,nm,rp);
+            Acheivements_DATA Obj=new Acheivements_DATA(title,y,z,w,tdate,user,usrimg,nm,rp,liked);
             achievements.add(Obj);
         }
 

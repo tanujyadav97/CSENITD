@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
-import com.cse.csenitd.ACHIEVEMENTS.Add_achievement;
 import com.cse.csenitd.NoticeBoard.Notices;
 import com.cse.csenitd.Timeline.TimelineP;
 import com.cse.csenitd.home.homeActivity;
@@ -25,9 +24,9 @@ public class openingActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            ps=getPreferences(0);
+            ps=getPreferences(MODE_PRIVATE);
             pe=ps.edit();
-           /* if (ps.getString("username", "n/a").equals("n/a")) {
+            if (ps.getString("username", "n/a").equals("n/a")) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -35,12 +34,9 @@ public class openingActivity extends AppCompatActivity {
             else
             {
                 //start with username
-                Intent in=new Intent(openingActivity.this,profile1.class);
+                Intent in=new Intent(openingActivity.this,homeActivity.class);
                 startActivity(in);
-            }*/
+            }
 
-
-            Intent in=new Intent(openingActivity.this,TimelineP.class);
-            startActivity(in);
         }
     }

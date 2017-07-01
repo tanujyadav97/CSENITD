@@ -14,14 +14,15 @@ public class Acheivements_DATA{
     private String Date;
     private String _name;
     private int _rep;
+    public String liked;
 
 
     public Acheivements_DATA(String ttl, String _des, String _urlString, int _likes, String date, String usenm,
-                             String usrimg,String nm,int rp) {
+                             String usrimg,String nm,int rp,String liked) {
         this._des = _des;
         this._urlString = _urlString;
         this._likes = _likes;
-
+        this.liked=liked;
         Date = date;
         this._UserName=usenm;
         this.userImag=usrimg;
@@ -97,5 +98,13 @@ public class Acheivements_DATA{
 
     public void set_likes(int _likes) {
         this._likes = _likes;
+    }
+
+    public String getliked() {
+        return liked;
+    }
+
+    public void setliked(String liked) {
+        this.liked = liked;
     }
 }

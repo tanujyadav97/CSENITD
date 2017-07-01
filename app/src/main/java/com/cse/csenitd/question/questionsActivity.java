@@ -176,7 +176,7 @@ searched=0;
         }
         else
         {
-
+            super.onBackPressed();
         }
 
         if(search.getVisibility()==View.VISIBLE) {

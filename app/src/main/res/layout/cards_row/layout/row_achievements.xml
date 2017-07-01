@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="0dp"
         android:elevation="5dp"
         card_view:cardCornerRadius="4dp"
@@ -27,25 +27,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
                 android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+               >
 
                 <ImageView
                     android:id="@+id/poster"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="2dp"
-                    android:layout_weight="0.1"
-                    android:padding="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_https_black_24dp" />
+                    android:src="@drawable/a2" />
 
                 <LinearLayout
+                    android:id="@+id/info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="0.5"
                     android:orientation="vertical">
 
                     <TextView
@@ -68,14 +67,7 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:layout_margin="5dp"
-                    android:gravity="end"
-                    android:text="Reputation"
-                    android:id="@+id/rep"/>
+
 
             </LinearLayout>
 
@@ -99,14 +91,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
-                    android:layout_margin="0dp"/>
+                    android:layout_margin="5dp"/>
 
                 <TextView
                     android:id="@+id/des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="vdvf"
+                    android:text="content"
                     android:textSize="16sp"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -124,7 +116,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_account_circle_black_24dp" />
+                    android:src="@drawable/like" />
 
                 <TextView
                     android:id="@+id/noOfLikes"
@@ -132,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dp"
-                    android:text="300" />
+                    android:text="0" />
                 <TextView
                     android:id="@+id/datetime"
                     android:layout_width="match_parent"
