@@ -40,7 +40,7 @@ public class openingActivity extends AppCompatActivity {
             }*/
 
 
-            Intent in=new Intent(openingActivity.this,homeActivity.class);
+            Intent in=new Intent(openingActivity.this,TimelineP.class);
             startActivity(in);
         }
     }

@@ -49,9 +49,12 @@
             android:label="Cse" />
         <activity android:name=".Timeline.Add_Timeline" />
         <activity android:name=".NoticeBoard.Notices" />
-        <activity android:name=".Timeline.TimelineP" />
+        <activity android:name=".Timeline.TimelineP"
+            android:exported="true"/>
         <activity android:name=".home.homeActivity"
             android:theme="@style/homeTheme"></activity>
+        <activity android:name=".Timeline.postDetail"
+            android:exported="true"/>
     </application>
 
 </manifest>
