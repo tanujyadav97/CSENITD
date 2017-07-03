@@ -174,19 +174,20 @@ searched=0;
             menuu.findItem(R.id.search).setVisible(true);
             getSupportActionBar().setTitle("Questions");
         }
-        else
-        {
-            super.onBackPressed();
-        }
+        else {
 
-        if(search.getVisibility()==View.VISIBLE) {
-            search.setVisibility(View.GONE);
-            ask.setVisibility(View.VISIBLE);
-            if(searched==1)
-            {
-                getSupportActionBar().setTitle("Questions");
-                searched=0;
-                getData("");
+
+            if (search.getVisibility() == View.VISIBLE) {
+                search.setVisibility(View.GONE);
+                ask.setVisibility(View.VISIBLE);
+                if (searched == 1) {
+                    getSupportActionBar().setTitle("Questions");
+                    searched = 0;
+                    getData("");
+                }
+            }
+            else
+            {  super.onBackPressed();
             }
         }
     }
