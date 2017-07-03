@@ -130,8 +130,8 @@ searched=0;
                 String text=addquestext.getText().toString();
                 String link=addqueslink.getText().toString();
                 String tags=addquestags.getText().toString();
-
-                if(head.equals("")||text.equals(""))
+                String a1=head,a2=text;
+                if(a1.replace(" ","").length()==0||a2.replace(" ","").length()==0)
                 {
                     Toast.makeText(questionsActivity.this, "Don't leave topic and question fields empty!", Toast.LENGTH_LONG).show();
                 }
@@ -491,10 +491,14 @@ searched=0;
     }
 
     public void showData(){
-        adapter = new CardAdapter(Config.times, Config.votess,Config.topics,Config.quess,Config.tagss,Config.usernames,Config.accepteds);
-        recyclerView.setAdapter(adapter);
-        if(Config.times.length==0)
+
+        if(Config.times==null||Config.times.length==0)
             noques.setVisibility(View.VISIBLE);
+        else
+        {
+            adapter = new CardAdapter(Config.times, Config.votess,Config.topics,Config.quess,Config.tagss,Config.usernames,Config.accepteds);
+            recyclerView.setAdapter(adapter);
+        }
        // Toast.makeText(questionsActivity.this, ""+adapter.getItemCount()+"", Toast.LENGTH_LONG).show();
     }
 

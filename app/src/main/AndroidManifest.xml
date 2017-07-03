@@ -44,16 +44,20 @@
         <activity
             android:name=".ACHIEVEMENTS.Acheivements"
             android:label="Achievements" />
-        <activity android:name=".Timeline.Add_Timeline" />
-        <activity android:name=".NoticeBoard.Notices" />
-        <activity android:name=".Timeline.TimelineP" />
+        <activity android:name=".Timeline.Add_Timeline"
+            android:label="Whats in your mind?"/>
+        <activity android:name=".NoticeBoard.Notices"
+            android:label="Notices"/>
+        <activity android:name=".Timeline.TimelineP"
+            android:label="TimeLine"/>
         <activity
             android:name=".home.homeActivity"
             android:theme="@style/homeTheme" />
         <activity android:name=".host.hostclass"
             android:label="Classes Available"/>
         <activity android:name=".Timeline.postDetail"
-            android:exported="true"/>
+            android:exported="true"
+            android:label="Post Details"/>
     </application>
 
 </manifest>

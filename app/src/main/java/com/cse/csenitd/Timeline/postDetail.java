@@ -29,13 +29,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.csenitd.ACHIEVEMENTS.Add_achievement;
 import com.cse.csenitd.Adapters.adapter_comment;
 import com.cse.csenitd.Behaviours.DynamicImageView;
 import com.cse.csenitd.Data.Comment_DATA;
 import com.cse.csenitd.DbHelper.Comment_display;
 import com.cse.csenitd.DbHelper.ImageLoader;
 import com.cse.csenitd.R;
+import com.cse.csenitd.openingActivity;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -128,7 +128,14 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
             @Override
             public void onClick(View view) {
                 String s=cmntedittext.getText().toString();
-                InsertComments(s);
+                String tt=s;
+                if(tt.replace(" ","").length()==0)
+                {
+                    Toast.makeText(postDetail.this,"Can't leave empty comment", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    InsertComments(s);
+                }
 
             }
         });
@@ -294,9 +301,17 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         @Override
         protected void onPostExecute(String result) {
 
-
+          if(result.equals("true"))
+          {
+              cmntedittext.setText("");
+              getLoaderManager().restartLoader(0,null,postDetail.this);
+          }
+          else
+          {
+              Toast.makeText(postDetail.this, "Unable to post comment", Toast.LENGTH_LONG).show();
+          }
            // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
-           getLoaderManager().restartLoader(0,null,postDetail.this);
+
 
         }
 
@@ -395,11 +410,10 @@ private  void updateUi(ArrayList<Comment_DATA> da)
                 conn.setDoOutput(true);
 
 
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                // Append parameters to URL
+                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("postid",params[0])
-                        .appendQueryParameter("username","abc");
+                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data

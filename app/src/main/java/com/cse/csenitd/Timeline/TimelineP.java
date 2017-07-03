@@ -1,13 +1,16 @@
 package com.cse.csenitd.Timeline;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.cse.csenitd.Adapters.adapter_acheivement;
 import com.cse.csenitd.Adapters.adapter_timeline;
@@ -30,12 +33,14 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     private static final String JSON_RESPONSE="https://nitd.000webhostapp.com/cse%20nitd/mohit/getTimeline.php";
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<Timeline_DATA> rst;
+    FloatingActionButton add;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         recyclerView=(RecyclerView)findViewById(R.id.timeline_recyclerView);
+        add=(FloatingActionButton)findViewById(R.id.add);
         manager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         getLoaderManager().initLoader(0,null,this);
@@ -46,6 +51,14 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
             public void onRefresh() {
                 // Refresh items
                 refreshItems();
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in=new Intent(TimelineP.this,Add_Timeline.class);
+                startActivity(in);
             }
         });
 

@@ -12,6 +12,8 @@
         android:layout_marginTop="5dp"
         android:padding="5dp"
         android:elevation="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         card_view:cardCornerRadius="4dp"
         card_view:contentPadding="0dp">
 
@@ -28,9 +30,10 @@
 
                 <ImageView
                     android:id="@+id/userimg"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     app:srcCompat="@drawable/a2" />
 
@@ -40,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="#000000"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -120,7 +124,7 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="20dp"
                         android:gravity="end"
-                        android:text="comments"
+                        android:text="Comments"
                         android:id="@+id/comments"/>
                 </LinearLayout>
             </RelativeLayout>
