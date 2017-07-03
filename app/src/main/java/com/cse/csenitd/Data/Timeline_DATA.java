@@ -11,10 +11,10 @@ public class Timeline_DATA {
 
 
 
-    private int postId;
+    private String postId;
 
 
-    public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes,int id) {
+    public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes,String id) {
         this.name = name;
         this.date = date;
         this.ptext = ptext;
@@ -32,11 +32,11 @@ public class Timeline_DATA {
 
         return name;
     }
-    public int getPostId() {
+    public String getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(String postId) {
         this.postId = postId;
     }
 

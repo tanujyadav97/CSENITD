@@ -325,18 +325,96 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
    }
     public static ArrayList<Timeline_DATA> extractTimeline(String s)
     {
-        URL url = createUrl(s);
-        String jsonresponse = null;
+        URL url ;
+        ArrayList<Timeline_DATA> es = null;
+        HttpURLConnection con;
+        String resultt;
+        ////////////////////////////////////
+        // TODO: attempt authentication against a network service.
 
         try {
-            jsonresponse = makeHttprequest(url);
+
+            // Enter URL address where your php file resides
+            url = new URL(s);
+
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return es;
+        }
+        try {
+            // Setup HttpURLConnection class to send and receive data from php and mysql
+            con = (HttpURLConnection)url.openConnection();
+            con.setReadTimeout(READ_TIMEOUT);
+            con.setConnectTimeout(CONNECTION_TIMEOUT);
+            con.setRequestMethod("POST");
+
+            // setDoInput and setDoOutput method depict handling of both send and receive
+            con.setDoInput(true);
+            con.setDoOutput(true);
+
+            // Append parameters to URL
+            Uri.Builder builder = new Uri.Builder()
+
+                    .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"));
+            String query = builder.build().getEncodedQuery();
+
+            // Open connection for sending data
+            OutputStream os = con.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(query);
+            writer.flush();
+            writer.close();
+            os.close();
+            con.connect();
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return es;
+        }
+
+        try {
+
+            int response_code = con.getResponseCode();
+
+            // Check if successful connection made
+            if (response_code == HttpURLConnection.HTTP_OK) {
+
+                // Read data sent from server
+                InputStream input = con.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                String json;
+                StringBuilder result = new StringBuilder();
+                try {
+                    while ((json = reader.readLine()) != null) {
+                        result.append(json + "\n");
+                    }
+                }catch (NullPointerException e)
+                {
+                    e.printStackTrace();
+                    return es;
+                }
+                resultt=result.toString().trim();
+
+            }else{
+
+                return es;
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
+            return es;
+        } finally {
+            con.disconnect();
         }
+
+
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        ArrayList<Timeline_DATA> es= Timelineresult(jsonresponse);
+        es= Timelineresult(resultt);
         return es;
     }
     public static ArrayList<Timeline_DATA> Timelineresult(String jsonresponse){
@@ -364,7 +442,7 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
                 String img5=objectInArray.getString("img5");
                 String video=objectInArray.getString("video");
                 int likes=objectInArray.getInt("likes");
-                int id=objectInArray.getInt("post_id");
+                String id=objectInArray.getString("post_id");
                 Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes,id);
                 timeline.add(Obj);
             }

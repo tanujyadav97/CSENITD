@@ -105,7 +105,7 @@
                     android:layout_marginStart="20dp"
                     android:background="#ffffff"
                     android:padding="5dp"
-                    android:src="@drawable/thumb_up"
+                    android:src="@drawable/like"
                     android:id="@+id/likebutton"/>
 
                 <TextView

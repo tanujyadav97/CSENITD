@@ -103,12 +103,13 @@
 
 
                     <ImageButton
+                        android:id="@+id/like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:background="#ffffff"
                         android:padding="5dp"
-                        android:src="@drawable/thumb_up" />
+                        android:src="@drawable/like" />
 
                     <TextView
                         android:layout_width="wrap_content"
