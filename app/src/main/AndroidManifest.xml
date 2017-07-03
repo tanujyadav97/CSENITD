@@ -51,7 +51,9 @@
             android:name=".home.homeActivity"
             android:theme="@style/homeTheme" />
         <activity android:name=".host.hostclass"
-            android:label="Classes Available"></activity>
+            android:label="Classes Available"/>
+        <activity android:name=".Timeline.postDetail"
+            android:exported="true"/>
     </application>
 
 </manifest>
