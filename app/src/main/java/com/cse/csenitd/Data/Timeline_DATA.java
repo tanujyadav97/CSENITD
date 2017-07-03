@@ -7,8 +7,14 @@ package com.cse.csenitd.Data;
 public class Timeline_DATA {
     private String name,date,ptext;
     private String img1,img2,img3,img4,img5,video;
+    private int likes;
 
-    public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes) {
+
+
+    private int postId;
+
+
+    public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes,int id) {
         this.name = name;
         this.date = date;
         this.ptext = ptext;
@@ -19,11 +25,19 @@ public class Timeline_DATA {
         this.img5 = img5;
         this.video = video;
         this.likes = likes;
+        this.postId=id;
     }
 
     public String getName() {
 
         return name;
+    }
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public void setName(String name) {
@@ -102,5 +116,4 @@ public class Timeline_DATA {
         this.likes = likes;
     }
 
-    private int likes;
 }

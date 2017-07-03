@@ -3,7 +3,10 @@ package com.cse.csenitd.DbHelper;
 
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.cse.csenitd.Data.Acheivements_DATA;
+import com.cse.csenitd.Data.Comment_DATA;
 import com.cse.csenitd.Data.Notices_DATA;
 import com.cse.csenitd.Data.Timeline_DATA;
 import com.cse.csenitd.NoticeBoard.Notices;
@@ -361,7 +364,8 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
                 String img5=objectInArray.getString("img5");
                 String video=objectInArray.getString("video");
                 int likes=objectInArray.getInt("likes");
-                Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes);
+                int id=objectInArray.getInt("post_id");
+                Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes,id);
                 timeline.add(Obj);
             }
 
@@ -376,5 +380,63 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
 
 
         return timeline;
+    }
+    public static ArrayList<Comment_DATA> extractComments(String s,int id)
+    {
+        URL url = createUrl(s);
+        String jsonresponse = null;
+        int idp=id;
+        Log.d("iddddddddddd",Integer.toString(idp));
+        try {
+            jsonresponse = makeHttprequest(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        ArrayList<Comment_DATA> es= Commentresult(jsonresponse,idp);
+        return es;
+    }
+    public static ArrayList<Comment_DATA> Commentresult(String jsonresponse,int pid){
+        ArrayList<Comment_DATA> comment = new ArrayList<>();
+
+        try {
+
+            JSONObject jsonObject=new JSONObject(jsonresponse);
+            JSONArray jsonArray = jsonObject.getJSONArray("commentresult");
+            for (int i = 0, size = jsonArray.length(); i < size; i++)
+            {
+
+                JSONObject objectInArray = jsonArray.getJSONObject(i);
+                Log.d("idddddddddddddddddddddd",Integer.toString(pid));
+
+              if(objectInArray.getInt("postid")==pid){
+                  Log.d("chla","hbbbbbbbbbbbb");
+                String text= objectInArray.getString("comment");
+                String name=objectInArray.getString("commentername");
+                String img=objectInArray.getString("commenterimg");
+                String date=objectInArray.getString("date");
+              long id= Long.parseLong(date);
+               Date dateObject = new Date(id);
+               SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
+                       " HH:mm:ss");
+               date=simpleDateFormat.format(dateObject);
+
+               Comment_DATA Obj=new Comment_DATA(text,date,img,name);
+                comment.add(Obj);}
+           }
+
+
+
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the Notice JSON results", e);
+        }
+
+
+        return comment;
     }
 }
