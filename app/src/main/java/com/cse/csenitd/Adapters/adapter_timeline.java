@@ -131,7 +131,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         int position = getItemViewType(pos);
         final Integer usepos=pos;
 
-        final Timeline_DATA obj = DataList_timeline.get(position);
+        final Timeline_DATA obj = DataList_timeline.get(pos);
         holder.name.setText(obj.getName());
         holder.like.setText(Integer.valueOf(obj.getLikes()).toString());
         holder.des.setText(obj.getPtext());
@@ -163,6 +163,9 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         else id = 0;
         //Exo Player View Show your magic
         //Pro Skills
+       // Toast.makeText(mContext, id+" "+holder.Id.getText(), Toast.LENGTH_LONG).show();
+
+
         if(id==0)
         {
 

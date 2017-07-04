@@ -97,7 +97,8 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     }
     private void updateUi(ArrayList<Timeline_DATA> data) {
         madapter=new adapter_timeline(this,data);
-        madapter.notifyDataSetChanged();
+        //madapter.notifyDataSetChanged();
+        madapter.notifyItemRangeInserted(0, data.size() );
         rst=data;
         recyclerView.setAdapter(madapter);
     }
