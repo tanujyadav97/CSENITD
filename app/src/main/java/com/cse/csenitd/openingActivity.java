@@ -14,6 +14,7 @@ import android.view.View;
 import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
 import com.cse.csenitd.NoticeBoard.Notices;
 import com.cse.csenitd.Timeline.TimelineP;
+import com.cse.csenitd.Users.user;
 import com.cse.csenitd.home.homeActivity;
 import com.cse.csenitd.question.questionsActivity;
 
@@ -26,15 +27,15 @@ public class openingActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             ps=getPreferences(MODE_PRIVATE);
             pe=ps.edit();
-            if (ps.getString("username", "n/a").equals("n/a")) {
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-            else
+//            if (ps.getString("username", "n/a").equals("n/a")) {
+//                Intent intent = new Intent(this, LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//            else
             {
                 //start with username
-                Intent in=new Intent(openingActivity.this,homeActivity.class);
+                Intent in=new Intent(openingActivity.this,user.class);
                 startActivity(in);
             }
 

@@ -9,6 +9,7 @@ import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.Data.Comment_DATA;
 import com.cse.csenitd.Data.Notices_DATA;
 import com.cse.csenitd.Data.Timeline_DATA;
+import com.cse.csenitd.Data.User_DATA;
 import com.cse.csenitd.NoticeBoard.Notices;
 import com.cse.csenitd.openingActivity;
 
@@ -140,7 +141,6 @@ public final class QueryUtils {
         HttpURLConnection con;
         String result1;
         ////////////////////////////////////
-        // TODO: attempt authentication against a network service.
 
         try {
 
@@ -148,7 +148,6 @@ public final class QueryUtils {
             url = new URL(s);
 
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return es;
         }
@@ -438,5 +437,56 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
 
 
         return comment;
+    }
+
+    public static ArrayList<User_DATA> extractUsers(String ur) {
+        URL url = createUrl(ur);
+        String jsonresponse = null;
+
+
+        try {
+            jsonresponse = makeHttprequest(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        ArrayList<User_DATA> es= Userresult(jsonresponse);
+        return es;
+    }
+
+    private static ArrayList<User_DATA> Userresult(String jsonresponse) {
+        ArrayList<User_DATA> users = new ArrayList<>();
+
+        try {
+
+            JSONObject jsonObject=new JSONObject(jsonresponse);
+            JSONArray jsonArray = jsonObject.getJSONArray("userresult");
+            for (int i = 0, size = jsonArray.length(); i < size; i++)
+            {
+
+                JSONObject objectInArray = jsonArray.getJSONObject(i);
+
+                    String name= objectInArray.getString("name");
+                    String city=objectInArray.getString("username");
+                    String img=objectInArray.getString("image");
+                    int rep=objectInArray.getInt("reputation");
+                     User_DATA Obj=new User_DATA(name,city,img,rep);
+                   users.add(Obj);
+            }
+
+
+
+
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the Notice JSON results", e);
+        }
+
+
+        return users;
     }
 }

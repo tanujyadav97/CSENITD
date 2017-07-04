@@ -53,6 +53,8 @@
             android:theme="@style/homeTheme"></activity>
         <activity android:name=".Timeline.postDetail"
             android:exported="true"/>
+        <activity android:name=".Users.user"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

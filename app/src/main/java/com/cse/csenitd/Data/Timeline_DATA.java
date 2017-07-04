@@ -8,12 +8,7 @@ public class Timeline_DATA {
     private String name,date,ptext;
     private String img1,img2,img3,img4,img5,video;
     private int likes;
-
-
-
     private int postId;
-
-
     public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes,int id) {
         this.name = name;
         this.date = date;
