@@ -88,6 +88,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText codee;
     private Button getcode;
     private EditText newpass;
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +214,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(reset_form.getVisibility()==View.VISIBLE)
+        {
+            mLoginFormView.setVisibility(View.VISIBLE);
+            reset_form.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Sign In");
+        }
+        else if(reg_form.getVisibility()==View.VISIBLE)
+        {
+            mLoginFormView.setVisibility(View.VISIBLE);
+            reg_form.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Sign In");
+        }
+        else
+        {
+            if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getBaseContext(), "Press once again to exit!",
+                        Toast.LENGTH_SHORT).show();
+            }
+            back_pressed = System.currentTimeMillis();
+        }
     }
 
     private void populateAutoComplete() {

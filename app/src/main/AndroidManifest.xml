@@ -58,7 +58,9 @@
         <activity android:name=".Timeline.postDetail"
             android:exported="true"
             android:label="Post Details"/>
-        <activity android:name=".Users.user"/>
+        <activity android:name=".Users.user"
+            android:label="Users"
+            android:theme="@style/homeTheme"/>
     </application>
 
 </manifest>
