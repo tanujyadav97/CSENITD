@@ -49,7 +49,8 @@
         <activity android:name=".NoticeBoard.Notices"
             android:label="Notices"/>
         <activity android:name=".Timeline.TimelineP"
-            android:label="TimeLine"/>
+            android:label="TimeLine"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.homeActivity"
             android:theme="@style/homeTheme" />

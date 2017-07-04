@@ -65,6 +65,12 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+
+    @Override
     public void onBindViewHolder(final ItemrowHolder holder, int position) {
         final Acheivements_DATA obj;
         final int usepos;
@@ -94,7 +100,6 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                 openingActivity.pe.putString("useusername",holder.usernm.getText().toString());
                 openingActivity.pe.commit();
                 Intent in=new Intent(mContext,profile1.class);
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(in);
             }
         });
@@ -104,7 +109,6 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                 openingActivity.pe.putString("useusername",holder.usernm.getText().toString());
                 openingActivity.pe.commit();
                 Intent in=new Intent(mContext,profile1.class);
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(in);
             }
         });
