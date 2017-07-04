@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.cse.csenitd.Timeline.TimelineP;
+import com.cse.csenitd.Users.user;
 import com.cse.csenitd.host.hostclass;
 import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.profile1;
@@ -256,7 +257,7 @@ public class homeActivity extends AppCompatActivity {
 
     public void openusers(View v)
     {
-        Intent in=new Intent(homeActivity.this,questionsActivity.class);
+        Intent in=new Intent(homeActivity.this,user.class);
         startActivity(in);
     }
 
