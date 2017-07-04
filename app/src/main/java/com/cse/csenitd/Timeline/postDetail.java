@@ -171,6 +171,13 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
         new getpostJson().execute(Integer.toString(newInt));
 
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
+
     private void InsertComments(String s)
     {
         new PostCommments().execute(s,Integer.toString(newInt));

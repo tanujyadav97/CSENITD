@@ -41,6 +41,8 @@ public class homeActivity extends AppCompatActivity {
     private MyViewPagerAdapter myViewPagerAdapter;
     private static final String endpoint = "https://nitd.000webhostapp.com/cse%20nitd/gallery.json";
     Timer timer;
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
     int page = 2;
 
     @Override
@@ -54,6 +56,20 @@ public class homeActivity extends AppCompatActivity {
 
 
         fetchImages();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
     }
 
     private void fetchImages() {
