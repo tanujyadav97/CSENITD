@@ -519,16 +519,19 @@ private  void updateUi(ArrayList<Comment_DATA> da)
 
             imageloader.DisplayImage(s[10], ownerimg);
            // Toast.makeText(postDetail.this, s[10], Toast.LENGTH_SHORT).show();
-
-            if(!videourl.isEmpty()) {
-                Toast.makeText(postDetail.this,videourl, Toast.LENGTH_SHORT).show();
+            Toast.makeText(postDetail.this, videourl, Toast.LENGTH_SHORT).show();
+            Toast.makeText(postDetail.this, Integer.toString(bt.size()), Toast.LENGTH_SHORT).show();
+          if(bt.size()==0&&videourl.equals("null")){
+                Toast.makeText(postDetail.this, "0", Toast.LENGTH_SHORT).show();
                 frm.removeAllViews();
-                initializePlayer();
-//                frm.addView(playerView);
             }
-            else if(bt.size()==0){
 
-            }
+          else if(!videourl.isEmpty()) {
+              Toast.makeText(postDetail.this,videourl, Toast.LENGTH_SHORT).show();
+              frm.removeAllViews();
+              initializePlayer();
+//                frm.addView(playerView);
+          }
             else {
                 //Toast.makeText(postDetail.this, "h", Toast.LENGTH_SHORT).show();
                 mViewPager.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 270));
