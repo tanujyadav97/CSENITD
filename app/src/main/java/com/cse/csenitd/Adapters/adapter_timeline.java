@@ -163,7 +163,11 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         else id = 0;
         //Exo Player View Show your magic
         //Pro Skills
-        if (id == 0) {
+        if(id==0)
+        {
+
+        }
+         else if (!obj.getVideo().isEmpty()) {
             holder.frameLayout.removeAllViews();
 
             holder.simple.getVideoSurfaceView();
