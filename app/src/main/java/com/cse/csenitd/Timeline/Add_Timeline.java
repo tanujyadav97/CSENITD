@@ -984,6 +984,7 @@ public class Add_Timeline extends AppCompatActivity {
 
                 Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
                 Intent in=new Intent(Add_Timeline.this,TimelineP.class);
+                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(in);
 
             } else if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {

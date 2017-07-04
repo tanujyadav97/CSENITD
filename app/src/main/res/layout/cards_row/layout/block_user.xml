@@ -8,17 +8,23 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         app:layout_constraintDimensionRatio="H,1:1">
 
         <LinearLayout
+            android:id="@+id/open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="3dp">
 
             <ImageView
                 android:id="@+id/userimg"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/a2"
+                android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -42,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:padding="5dp"
-                    android:text="USA silicon valley" />
+                    android:text="Username" />
 
                 <TextView
                     android:id="@+id/rep"
@@ -50,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:padding="5dp"
-                    android:text="321" />
+                    android:text="Reputation" />
             </LinearLayout>
 
         </LinearLayout>
