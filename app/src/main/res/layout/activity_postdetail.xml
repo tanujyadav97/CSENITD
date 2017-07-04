@@ -34,9 +34,10 @@
 
                 <ImageView
                     android:id="@+id/userimg"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     app:srcCompat="@drawable/a2" />
 
@@ -68,7 +69,7 @@
                         android:id="@+id/posttxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hello fuck off"
+                        android:text="content"
                         android:layout_marginTop="20dp"
                         android:layout_marginStart="20dp"
 
@@ -83,6 +84,9 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_below="@+id/frame"
                 android:background="#1c1b1b" />
 
@@ -101,7 +105,7 @@
                     android:layout_marginStart="20dp"
                     android:background="#ffffff"
                     android:padding="5dp"
-                    android:src="@drawable/thumb_up"
+                    android:src="@drawable/like"
                     android:id="@+id/likebutton"/>
 
                 <TextView
@@ -109,8 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="3dp"
-                    android:text="25k" />
+                    android:layout_marginLeft="5dp"
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/comments"
@@ -119,13 +123,16 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="20dp"
                     android:gravity="end"
-                    android:text="comments" />
+                    android:text="Comments" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:weightSum="1">
 
                 <ImageView
@@ -133,16 +140,18 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
+                    android:src="@drawable/a2"
                     android:scaleType="centerCrop"
                     android:id="@+id/ownerimg"/>
 
                 <EditText
                     android:id="@+id/cmtedittext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/border"
                     android:layout_gravity="center"
-                    android:minLines="2"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
 
@@ -150,9 +159,9 @@
                 <Button
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/cmtpost"
                     android:text="POST"
                     android:background="#64B5F6"

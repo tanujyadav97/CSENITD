@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse.csenitd.home.homeActivity;
 import com.cse.csenitd.question.questionsActivity;
 
 import java.io.BufferedReader;
@@ -322,6 +323,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String password = rpass.getText().toString();
         String cpassword = rcpass.getText().toString();
 
+        String a1=location,a2=usernam,a3=name;
+
         if(password.equals(cpassword)) {
 
             if(!isPasswordValid(password))
@@ -330,7 +333,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Toast.makeText(LoginActivity.this, "Invalid Email.", Toast.LENGTH_LONG).show();
             else if(!(phone.length() == 10 || (phone.length() == 12 && phone.startsWith("91")) || (phone.length() == 13 && phone.startsWith("+91"))))
                 Toast.makeText(LoginActivity.this, "Invalid phone number.", Toast.LENGTH_LONG).show();
-            else if(location == null || desig == null || usernam == null || name == null )
+            else if(a1.replace(" ","").length()==0 || desig == null || a2.replace(" ","").length()==0 || a3.replace(" ","").length()==0 )
                 Toast.makeText(LoginActivity.this, "All fields are necessary.", Toast.LENGTH_LONG).show();
             else
             {
@@ -363,8 +366,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String usernam = urname.getText().toString();
         String code=codee.getText().toString();
         String password=newpass.getText().toString();
-
-        if(code==null||password==null)
+         String a1=code,a2=password;
+        if(a1.replace(" ","").length()==0||a2.replace(" ","").length()==0)
             Toast.makeText(LoginActivity.this, "Please enter the data.", Toast.LENGTH_LONG).show();
 
         else
@@ -377,12 +380,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        String a=email;
+        return (a.replace(" ","").length()>=3&&a.contains("@"));
     }
 
     private boolean isUsernameValid(String email) {
         //TODO: Replace this with your own logic
-        return email.length()>0;
+        String a=email;
+        return (a.replace(" ","").length()>0);
     }
 
     private boolean isPasswordValid(String password) {
@@ -605,7 +610,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 openingActivity.pe.putString("username",globalusername);
                 openingActivity.pe.commit();
 
-                Intent in=new Intent(LoginActivity.this,questionsActivity.class);
+                Intent in=new Intent(LoginActivity.this,homeActivity.class);
                 startActivity(in);
 
 

@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <EditText
-        android:id="@+id/timeline_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/border"
-        android:gravity="start"
-        android:hint="Out lonely there Post Something"
-        android:minLines="4"
-        android:padding="10dp" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp">
 
 
 
-        <Button
-            android:id="@+id/upload_button"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload"
-            android:background="#90A4AE"
-            android:drawableLeft="@drawable/upload_network"
-            android:textAlignment="textStart"
-            android:paddingLeft="25dp"
-            android:textColor="#FF9800"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+            android:layout_height="0dp"
+            android:layout_weight=".92"
+            android:orientation="vertical">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+            <EditText
+                android:id="@+id/timeline_post"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border"
+                android:gravity="start"
+                android:hint="Out lonely there! Post Something"
+                android:maxLines="4"
+                android:padding="10dp" />
+
+
+
+                <FrameLayout
+                    android:id="@+id/imgframe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <VideoView
+                        android:id="@+id/videoview"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="20dp"
+                        android:visibility="invisible" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/btn_dialog" />
+
+                </FrameLayout>
+        </LinearLayout>
+
+
+    <Button
+        android:id="@+id/upload_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/timeline_post"
-        android:layout_marginTop="10dp"
-        android:layout_above="@+id/upload_button">
+        android:layout_height="0dp"
+        android:background="#90A4AE"
+        android:drawableLeft="@drawable/upload_network"
+        android:paddingLeft="25dp"
+        android:text="Upload"
+        android:layout_weight=".08"
+        android:textAlignment="viewStart"
+        android:textColor="#FF9800" />
 
-        <FrameLayout
-            android:id="@+id/imgframe"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
 
-            <VideoView
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="20dp"
-                android:layout_gravity="center"
-                android:id="@+id/videoview"
-                android:visibility="invisible"/>
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_dialog"
-               />
-
-        </FrameLayout>
-    </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

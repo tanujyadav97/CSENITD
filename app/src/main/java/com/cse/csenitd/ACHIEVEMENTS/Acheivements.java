@@ -200,7 +200,9 @@ FloatingActionButton add;
         {
             edes=mPtext.getText().toString().trim();
             etitle=mPtitle.getText().toString().trim();
-            if(edes.equals("")||etitle.equals(""))
+            String a1=edes,a2=etitle;
+
+            if(a1.replace(" ","").length()==0||a2.replace(" ","").length()==0)
             {
                 Toast.makeText(this, "Please Don't leave the fields empty!", Toast.LENGTH_LONG).show();
             }

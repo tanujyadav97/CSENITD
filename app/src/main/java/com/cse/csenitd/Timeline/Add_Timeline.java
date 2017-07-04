@@ -38,6 +38,7 @@ import android.widget.VideoView;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.cse.csenitd.DbHelper.Upload;
 import com.cse.csenitd.R;
+import com.cse.csenitd.openingActivity;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.youtube.YouTube;
@@ -735,13 +736,13 @@ public class Add_Timeline extends AppCompatActivity {
                 conn.setDoOutput(true);
 
 
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String timeStamp = new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date());
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("text", params[0])
                         .appendQueryParameter("video", params[1])
                         .appendQueryParameter("datetime", timeStamp)
-                        .appendQueryParameter("username", "abc");
+                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -802,12 +803,14 @@ public class Add_Timeline extends AppCompatActivity {
             uploading.dismiss();
             if (result.equals("true")) {
 
-                Toast.makeText(Add_Timeline.this, "Image updated successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
+                Intent in=new Intent(Add_Timeline.this,TimelineP.class);
+                startActivity(in);
 
             } else if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 //set old image to profile
-                Toast.makeText(Add_Timeline.this, "OOPs! Error updating image.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Add_Timeline.this, "OOPs! Error Posting.", Toast.LENGTH_LONG).show();
 
             }
         }
@@ -907,12 +910,12 @@ public class Add_Timeline extends AppCompatActivity {
                 conn.setDoOutput(true);
 
 
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String timeStamp = new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date());
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("text", params[0])
                         .appendQueryParameter("datetime", timeStamp)
-                        .appendQueryParameter("username", "abc");
+                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
 
                 for (int i = 0; i < img.size(); i++) {
                     int k = i + 1;
@@ -978,12 +981,14 @@ public class Add_Timeline extends AppCompatActivity {
 
             if (result.equals("true")) {
 
-                Toast.makeText(Add_Timeline.this, "Image updated successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
+                Intent in=new Intent(Add_Timeline.this,TimelineP.class);
+                startActivity(in);
 
             } else if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 //set old image to profile
-                Toast.makeText(Add_Timeline.this, "OOPs! Error updating image.", Toast.LENGTH_LONG).show();
+                Toast.makeText(Add_Timeline.this, "OOPs! Error Posting.", Toast.LENGTH_LONG).show();
 
             }
         }

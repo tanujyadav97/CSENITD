@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.cse.csenitd.Timeline.TimelineP;
+import com.cse.csenitd.host.hostclass;
+import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.profile1;
 import com.cse.csenitd.question.questionsActivity;
 
@@ -47,7 +49,7 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         images = new ArrayList<Image>();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-
+        Toast.makeText(homeActivity.this, openingActivity.ps.getString("username","n/a"), Toast.LENGTH_LONG).show();
 
 
 
@@ -244,7 +246,7 @@ public class homeActivity extends AppCompatActivity {
 
     public void openhost(View v)
     {
-        Intent in=new Intent(homeActivity.this,questionsActivity.class);
+        Intent in=new Intent(homeActivity.this,hostclass.class);
         startActivity(in);
     }
 

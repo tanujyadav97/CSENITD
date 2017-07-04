@@ -132,8 +132,8 @@ public class questiondetailActivity extends AppCompatActivity {
             {
                String an=addanswertext.getText().toString();
                 String lnk=addanswerlink.getText().toString();
-
-                if(an.length()<20)
+                String a1=an;
+                if(an.length()<20||a1.replace(" ","").length()==0)
                     Toast.makeText(questiondetailActivity.this, "Answer is too short!.", Toast.LENGTH_LONG).show();
                 else
                 {

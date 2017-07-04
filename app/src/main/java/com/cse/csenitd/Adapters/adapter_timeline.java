@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,8 +48,23 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.mortbay.jetty.servlet.Holder;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
+import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
 /**
  * Created by lenovo on 28-06-2017.Mohit yadav
@@ -65,6 +82,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private App app;
     public static int k = 0;
+    public timelineitemrow_holder useholder=null;
 
     @Override
     public timelineitemrow_holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -109,13 +127,33 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     }
 
     @Override
-    public void onBindViewHolder(timelineitemrow_holder holder, int pos) {
+    public void onBindViewHolder(final timelineitemrow_holder holder, int pos) {
         int position = getItemViewType(pos);
-        Timeline_DATA obj = DataList_timeline.get(position);
+        final Integer usepos=pos;
+
+        final Timeline_DATA obj = DataList_timeline.get(position);
         holder.name.setText(obj.getName());
         holder.like.setText(Integer.valueOf(obj.getLikes()).toString());
         holder.des.setText(obj.getPtext());
-        holder.Id.setText(Integer.valueOf(obj.getPostId()).toString());
+        String a1[]=obj.getPostId().toString().split(" ");
+
+        holder.Id.setText(a1[0]);
+
+        if(a1[1].equals("1"))
+        {
+            holder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
+        }
+
+        holder.thumbup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id=holder.Id.getText().toString();
+                String user=openingActivity.ps.getString("username","p/a");
+                useholder=holder;
+                castlike(id,user,usepos,obj);
+            }
+        });
+
         int id = 0;
         if (!obj.getImg5().isEmpty()) id = 5;
         else if (!obj.getImg4().isEmpty()) id = 4;
@@ -251,6 +289,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         ImageView userimg;
         DynamicImageView imageView1, imageView2, imageView3, imageView4;
         SimpleExoPlayerView simple;
+        ImageButton thumbup;
 
         public timelineitemrow_holder(View itemView) {
             super(itemView);
@@ -260,6 +299,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             frameLayout = (FrameLayout) itemView.findViewById(R.id.frame);
             userimg = (ImageView) itemView.findViewById(R.id.userimg);
             name = (TextView) itemView.findViewById(R.id.dp);
+            thumbup=(ImageButton)itemView.findViewById(R.id.like);
             imageView1 = new DynamicImageView(mContext);
             imageView2 = new DynamicImageView(mContext);
             imageView3 = new DynamicImageView(mContext);
@@ -283,6 +323,137 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 }
             });
         }
+    }
+
+
+    public  void castlike(final String idd,String user,final int usepos,final Timeline_DATA obj) {
+        class likeTask extends AsyncTask<String, String, String> {
+
+
+            HttpURLConnection conn;
+            URL url = null;
+
+
+            @Override
+            protected String doInBackground(String... params) {
+                // TODO: attempt authentication against a network service.
+
+                try {
+
+                    // Enter URL address where your php file resides
+                    url = new URL("https://nitd.000webhostapp.com/cse%20nitd/mohit/liketimeline.php");
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+
+                    e.printStackTrace();
+                    return "exception";
+                }
+                try {
+                    // Setup HttpURLConnection class to send and receive data from php and mysql
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setReadTimeout(READ_TIMEOUT);
+                    conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                    conn.setRequestMethod("POST");
+
+                    // setDoInput and setDoOutput method depict handling of both send and receive
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    // Append parameters to URL
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("id", params[0])
+                            .appendQueryParameter("user", params[1]);
+                    String query = builder.build().getEncodedQuery();
+
+                    // Open connection for sending data
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                    conn.connect();
+
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                    return "exception";
+                }
+
+                try {
+
+                    int response_code = conn.getResponseCode();
+
+                    // Check if successful connection made
+                    if (response_code == HttpURLConnection.HTTP_OK) {
+
+                        // Read data sent from server
+                        InputStream input = conn.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                        StringBuilder result = new StringBuilder();
+                        String line;
+
+                        while ((line = reader.readLine()) != null) {
+                            result.append(line);
+                        }
+
+                        // Pass data to onPostExecute method
+                        return (result.toString());
+
+                    } else {
+
+                        return ("unsuccessful");
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "exception";
+                } finally {
+                    conn.disconnect();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+
+                if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
+
+                    Toast.makeText(mContext, "OOPs! Unable to like the post.", Toast.LENGTH_LONG).show();
+                } else {
+               /*  case 1: one -  liked
+                   case 2: two-   canceled like
+                */
+                    if (result.equals("one")) {
+                        Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
+                        int curlikes = Integer.parseInt(useholder.like.getText().toString());
+                        String newvote = "" + (curlikes + 1);
+                        useholder.like.setText(newvote);
+                        obj.setPostId(idd+" 1");
+                        obj.setLikes(curlikes + 1);
+                        DataList_timeline.set(usepos, obj);
+                        useholder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
+                    } else if (result.equals("two")) {
+                        Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
+                        int curlikes = Integer.parseInt(useholder.like.getText().toString());
+                        String newvote = "" + (curlikes - 1);
+                        useholder.like.setText(newvote);
+                        obj.setPostId(idd+ "0");
+                        obj.setLikes(curlikes - 1);
+                        DataList_timeline.set(usepos, obj);
+                        useholder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.like));
+                    }
+                }
+            }
+
+            @Override
+            protected void onCancelled() {
+
+                //progressDialog.dismiss();
+            }
+        }
+
+        new likeTask().execute(idd,user);
     }
 
 

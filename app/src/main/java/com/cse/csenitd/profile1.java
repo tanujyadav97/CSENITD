@@ -266,8 +266,8 @@ public class profile1 extends AppCompatActivity {
         if((ephone.getText().toString().length() == 10 || (ephone.getText().toString().length() == 12 && ephone.getText().toString().startsWith("91")) || (ephone.getText().toString().length() == 13 && ephone.getText().toString().startsWith("+91"))))
         {
         if(isEmailValid(eemail.getText().toString())) {
-            if (estatus.getText().toString().equals("") || ebranch.getText().toString().equals("") || eorganisation.getText().toString().equals("") ||
-                    eemail.getText().toString().equals("") || ephone.getText().toString().equals("") || etech.getText().toString().equals("") || elocation.getText().toString().equals("") || edesig.getSelectedItem().toString().equals("Choose Designation")) {
+            String a1=estatus.getText().toString(),a2=ebranch.getText().toString(),a3=eorganisation.getText().toString(),a4= etech.getText().toString(),a5=elocation.getText().toString();
+            if (a1.replace(" ","").length()==0 || a2.replace(" ","").length()==0 ||a3.replace(" ","").length()==0  ||a4.replace(" ","").length()==0  ||a5.replace(" ","").length()==0 || edesig.getSelectedItem().toString().equals("Choose Designation")) {
 
                 Toast.makeText(profile1.this, "Please fill all the fields.", Toast.LENGTH_LONG).show();
 
@@ -909,6 +909,7 @@ public class profile1 extends AppCompatActivity {
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        String a=email;
+        return (a.contains("@")&&a.replace(" ","").length()>=3);
     }
 }

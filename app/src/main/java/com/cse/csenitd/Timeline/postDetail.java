@@ -36,6 +36,7 @@ import com.cse.csenitd.Data.Comment_DATA;
 import com.cse.csenitd.DbHelper.Comment_display;
 import com.cse.csenitd.DbHelper.ImageLoader;
 import com.cse.csenitd.R;
+import com.cse.csenitd.openingActivity;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -99,6 +100,7 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
     FrameLayout frm;
     private SimpleExoPlayer player=null;
     private SimpleExoPlayerView playerView;
+    String id;
 
     private long playbackPosition;
     private int currentWindow;
@@ -124,11 +126,26 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
         playerView=new SimpleExoPlayerView(postDetail.this);
        cmtrc.setLayoutManager(manager);
         frm=(FrameLayout)findViewById(R.id.frame);
+
+        likebtb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                castlike(id);
+            }
+        });
+
         postbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String s=cmntedittext.getText().toString();
-                InsertComments(s);
+                String tt=s;
+                if(tt.replace(" ","").length()==0)
+                {
+                    Toast.makeText(postDetail.this,"Can't leave empty comment", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    InsertComments(s);
+                }
 
             }
         });
@@ -151,6 +168,7 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
         //mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager=new ViewPager(this);
 
+        id=newInt+"";
         new getpostJson().execute(Integer.toString(newInt));
 
     }
@@ -294,9 +312,17 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         @Override
         protected void onPostExecute(String result) {
 
-
+          if(result.equals("true"))
+          {
+              cmntedittext.setText("");
+              getLoaderManager().restartLoader(0,null,postDetail.this);
+          }
+          else
+          {
+              Toast.makeText(postDetail.this, "Unable to post comment", Toast.LENGTH_LONG).show();
+          }
            // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
-           getLoaderManager().restartLoader(0,null,postDetail.this);
+
 
         }
 
@@ -395,11 +421,10 @@ private  void updateUi(ArrayList<Comment_DATA> da)
                 conn.setDoOutput(true);
 
 
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                // Append parameters to URL
+                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("postid",params[0])
-                        .appendQueryParameter("username","abc");
+                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -478,6 +503,12 @@ private  void updateUi(ArrayList<Comment_DATA> da)
             if(!s[6].isEmpty())
                 bt.add(s[6]);
             videourl=s[8];
+
+
+            if(s[12].equals("1"))
+            {
+                likebtb.setImageDrawable(getResources().getDrawable(R.drawable.liked));;
+            }
 
             imageloader.DisplayImage(s[10], ownerimg);
            // Toast.makeText(postDetail.this, s[10], Toast.LENGTH_SHORT).show();
@@ -572,4 +603,130 @@ private  void updateUi(ArrayList<Comment_DATA> da)
             container.removeView((LinearLayout) object);
         }
     }
+
+
+    public  void castlike(final String idd) {
+        class likeTask extends AsyncTask<String, String, String> {
+
+
+            HttpURLConnection conn;
+            URL url = null;
+
+
+            @Override
+            protected String doInBackground(String... params) {
+                // TODO: attempt authentication against a network service.
+
+                try {
+
+                    // Enter URL address where your php file resides
+                    url = new URL("https://nitd.000webhostapp.com/cse%20nitd/mohit/liketimeline.php");
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+
+                    e.printStackTrace();
+                    return "exception";
+                }
+                try {
+                    // Setup HttpURLConnection class to send and receive data from php and mysql
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setReadTimeout(READ_TIMEOUT);
+                    conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                    conn.setRequestMethod("POST");
+
+                    // setDoInput and setDoOutput method depict handling of both send and receive
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    // Append parameters to URL
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("id", params[0])
+                            .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"));
+                    String query = builder.build().getEncodedQuery();
+
+                    // Open connection for sending data
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                    conn.connect();
+
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                    return "exception";
+                }
+
+                try {
+
+                    int response_code = conn.getResponseCode();
+
+                    // Check if successful connection made
+                    if (response_code == HttpURLConnection.HTTP_OK) {
+
+                        // Read data sent from server
+                        InputStream input = conn.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                        StringBuilder result = new StringBuilder();
+                        String line;
+
+                        while ((line = reader.readLine()) != null) {
+                            result.append(line);
+                        }
+
+                        // Pass data to onPostExecute method
+                        return (result.toString());
+
+                    } else {
+
+                        return ("unsuccessful");
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "exception";
+                } finally {
+                    conn.disconnect();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+
+                if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
+
+                    Toast.makeText(postDetail.this, "OOPs! Unable to like the post.", Toast.LENGTH_LONG).show();
+                } else {
+               /*  case 1: one -  liked
+                   case 2: two-   canceled like
+                */
+                    if (result.equals("one")) {
+                        Toast.makeText(postDetail.this, "Liked", Toast.LENGTH_LONG).show();
+                        int curlikes = Integer.parseInt(like.getText().toString());
+                        String newvote = "" + (curlikes + 1);
+                        like.setText(newvote);
+                        likebtb.setImageDrawable(getResources().getDrawable(R.drawable.liked));
+                    } else if (result.equals("two")) {
+                        Toast.makeText(postDetail.this, "Unliked", Toast.LENGTH_LONG).show();
+                        int curlikes = Integer.parseInt(like.getText().toString());
+                        String newvote = "" + (curlikes - 1);
+                        like.setText(newvote);
+                        likebtb.setImageDrawable(getResources().getDrawable(R.drawable.like));
+                    }
+                }
+            }
+
+            @Override
+            protected void onCancelled() {
+
+                //progressDialog.dismiss();
+            }
+        }
+
+        new likeTask().execute(idd);
+    }
+
 }

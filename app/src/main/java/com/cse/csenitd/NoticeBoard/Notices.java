@@ -118,7 +118,8 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             public void onClick(View v)
             {
                 String data=content.getText().toString();
-                if (data.equals("")) {
+                String a1=data;
+                if (a1.replace(" ","").length()==0) {
 
                     Toast.makeText(Notices.this, "Don't leave Content field empty!", Toast.LENGTH_LONG).show();
 
