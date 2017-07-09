@@ -3,13 +3,16 @@ package com.cse.csenitd.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -79,6 +82,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     long playbackPosition;
     private SimpleExoPlayer player = null;
     HashMap<String, String> hs;
+    Point size;
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private App app;
     public static int k = 0;
@@ -166,7 +170,12 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         //Pro Skills
        // Toast.makeText(mContext, id+" "+holder.Id.getText(), Toast.LENGTH_LONG).show();
 
-
+        WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
         if(id==0)
         {
 
@@ -188,11 +197,6 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
 
                 holder.imageView1.setPadding(0, 5, 0, 0);
                 holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                Picasso.with(mContext)
-//                        .load(obj.getImg1())
-//                        .placeholder(R.drawable.backgroundsplash)
-//                        .noFade()
-//                        .into(holder.imageView1);
                 imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
                 holder.frameLayout.addView(holder.imageView1);
                 // imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
@@ -201,16 +205,14 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             if (id == 2) {
 
 
-                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
-                        400));
-                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
-                        400));
-                holder.imageView2.setX(holder.frameLayout.getWidth() / 2);
+                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width/2-5,ViewGroup.LayoutParams.WRAP_CONTENT ));
+                holder.imageView2.setX(width/2-5);
+                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width/ 2, ViewGroup.LayoutParams.WRAP_CONTENT));
                 holder.imageView1.setPadding(0, 5, 0, 0);
-                holder.imageView2.setPadding(5, 5, 0, 0);
+               holder.imageView2.setPadding(5, 5, 0, 0);
                 imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
-                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
                 holder.frameLayout.addView(holder.imageView1);
+                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
                 holder.frameLayout.addView(holder.imageView2);
 //                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
 //                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
@@ -222,20 +224,20 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView1.setPadding(0, 5, 0, 0);
                 holder.imageView2.setPadding(5, 5, 0, 0);
                 holder.imageView3.setPadding(5, 5, 0, 0);
-                holder.imageView2.setX(holder.frameLayout.getWidth() / 2);
-                holder.imageView3.setX(holder.frameLayout.getWidth() / 2);
-                holder.imageView3.setY(holder.frameLayout.getHeight() / 2);
+                holder.imageView2.setX(width/2-5);
+
                 imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
 
                 imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
-
+                holder.imageView3.setX(width/2-5);
+                holder.imageView3.setY(holder.imageView1.getHeight()/2);
                 imageLoader.DisplayImage(obj.getImg3(),holder.imageView3);
 
-                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width/ 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 holder.frameLayout.addView(holder.imageView1);
                 holder.frameLayout.addView(holder.imageView2);
@@ -251,22 +253,25 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView2.setPadding(2, 5, 0, 0);
                 holder.imageView3.setPadding(2, 5, 0, 0);
                 holder.imageView4.setPadding(2, 5, 0, 0);
-                holder.imageView2.setX(holder.frameLayout.getWidth() / 2);
-                holder.imageView3.setX(holder.frameLayout.getWidth() / 2);
-                holder.imageView3.setY(holder.frameLayout.getHeight() / 3);
-                holder.imageView4.setX(holder.frameLayout.getWidth() / 2);
+                holder.imageView2.setX(width/ 2-5);
+
                 holder.imageView1.setAdjustViewBounds(true);
                 holder.imageView2.setAdjustViewBounds(true);
                 holder.imageView3.setAdjustViewBounds(true);
                 holder.imageView4.setAdjustViewBounds(true);
-                holder.imageView4.setY((holder.frameLayout.getHeight() / 3 + holder.frameLayout.getHeight() / 3));
-                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+
+                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width/ 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                holder.imageView4.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+                holder.imageView3.setY( holder.imageView1.getHeight()/ 3);
+                holder.imageView4.setY(holder.imageView1.getHeight()*2/3);
+                holder.imageView3.setX(width / 2);
+
+                holder.imageView4.setX(width / 2);
+                holder.imageView4.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         holder.imageView1.getHeight() / 3));
-                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         holder.imageView1.getHeight() / 3));
-                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
+                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width/ 2,
                         holder.imageView1.getHeight() / 3));
                 imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
                 imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
