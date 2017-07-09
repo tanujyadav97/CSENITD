@@ -135,6 +135,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         holder.name.setText(obj.getName());
         holder.like.setText(Integer.valueOf(obj.getLikes()).toString());
         holder.des.setText(obj.getPtext());
+        imageLoader.DisplayImage(obj.getUserimg(),holder.userimg);
         String a1[]=obj.getPostId().toString().split(" ");
 
         holder.Id.setText(a1[0]);
@@ -199,13 +200,14 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             }
             if (id == 2) {
 
-                holder.imageView1.setPadding(0, 5, 0, 0);
-                holder.imageView2.setX(holder.frameLayout.getWidth() / 2);
-                holder.imageView2.setPadding(5, 5, 0, 0);
+
                 holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
                         400));
                 holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(holder.frameLayout.getWidth() / 2,
                         400));
+                holder.imageView2.setX(holder.frameLayout.getWidth() / 2);
+                holder.imageView1.setPadding(0, 5, 0, 0);
+                holder.imageView2.setPadding(5, 5, 0, 0);
                 imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
                 imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
                 holder.frameLayout.addView(holder.imageView1);
@@ -284,6 +286,8 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         }
 
     }
+
+
 
     @Override
     public int getItemCount() {

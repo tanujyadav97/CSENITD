@@ -518,9 +518,10 @@ private  void updateUi(ArrayList<Comment_DATA> da)
             }
 
             imageloader.DisplayImage(s[10], ownerimg);
+            imageloader.DisplayImage(s[13],userimg);
            // Toast.makeText(postDetail.this, s[10], Toast.LENGTH_SHORT).show();
-            Toast.makeText(postDetail.this, videourl, Toast.LENGTH_SHORT).show();
-            Toast.makeText(postDetail.this, Integer.toString(bt.size()), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(postDetail.this, videourl, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(postDetail.this, Integer.toString(bt.size()), Toast.LENGTH_SHORT).show();
           if(bt.size()==0&&videourl.equals("null")){
                 Toast.makeText(postDetail.this, "0", Toast.LENGTH_SHORT).show();
                 frm.removeAllViews();

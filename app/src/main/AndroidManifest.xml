@@ -57,7 +57,7 @@
         <activity android:name=".host.hostclass"
             android:label="Classes Available"/>
         <activity android:name=".Timeline.postDetail"
-            android:exported="true"
+
             android:label="Post Details"/>
         <activity android:name=".Users.user"
             android:label="Users"

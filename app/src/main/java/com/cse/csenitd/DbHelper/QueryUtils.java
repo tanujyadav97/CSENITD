@@ -442,7 +442,8 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
                 String video=objectInArray.getString("video");
                 int likes=objectInArray.getInt("likes");
                 String id=objectInArray.getString("post_id");
-                Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes,id);
+                String usrimg=objectInArray.getString("userimage");
+                Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes,id,usrimg);
                 timeline.add(Obj);
             }
 
