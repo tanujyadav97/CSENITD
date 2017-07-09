@@ -27,12 +27,12 @@ public class openingActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             ps=getPreferences(MODE_PRIVATE);
             pe=ps.edit();
-//            if (ps.getString("username", "n/a").equals("n/a")) {
-//                Intent intent = new Intent(this, LoginActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//            else
+            if (ps.getString("username", "n/a").equals("n/a")) {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else
             {
                 //start with username
                 Intent in=new Intent(openingActivity.this,TimelineP.class);
