@@ -46,6 +46,7 @@ public class homeActivity extends AppCompatActivity {
     private static long back_pressed;
     int page = 2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
