@@ -1,55 +1,54 @@
-package com.cse.csenitd.host;
+package com.cse.csenitd.req_class;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.shapes.OvalShape;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
+        import android.app.ProgressDialog;
+        import android.content.Intent;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.graphics.drawable.shapes.OvalShape;
+        import android.net.Uri;
+        import android.os.AsyncTask;
+        import android.os.Build;
+        import android.support.design.widget.FloatingActionButton;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.MotionEvent;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.DatePicker;
+        import android.widget.EditText;
+        import android.widget.LinearLayout;
+        import android.widget.RelativeLayout;
+        import android.widget.TextView;
+        import android.widget.TimePicker;
+        import android.widget.Toast;
 
-import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
-import com.cse.csenitd.R;
-import com.cse.csenitd.openingActivity;
-import com.cse.csenitd.req_class.requested_classes;
+        import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
+        import com.cse.csenitd.R;
+        import com.cse.csenitd.openingActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+        import java.io.BufferedReader;
+        import java.io.BufferedWriter;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.io.InputStreamReader;
+        import java.io.OutputStream;
+        import java.io.OutputStreamWriter;
+        import java.net.HttpURLConnection;
+        import java.net.MalformedURLException;
+        import java.net.URL;
 
-import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
-import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
+        import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
+        import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
-public class hostclass extends AppCompatActivity{
+public class requested_classes extends AppCompatActivity{
 
     RecyclerView.Adapter adapter;
     public static RecyclerView recyclerView;
@@ -78,7 +77,7 @@ public class hostclass extends AppCompatActivity{
         //recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        progressDialog = ProgressDialog.show(hostclass.this, "Fetching Classes", "Please wait...",false,false);
+        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Fetching Classes", "Please wait...",false,false);
 
         layout=(RelativeLayout)findViewById(R.id.layout);
         add=(FloatingActionButton)findViewById(R.id.add);
@@ -165,7 +164,7 @@ public class hostclass extends AppCompatActivity{
             {
                 if (title.getText().toString().equals("")||desc.getText().toString().equals(""))
                 {
-                    Toast.makeText(hostclass.this, "Title and Description are Compulsory!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Title and Description are Compulsory!", Toast.LENGTH_LONG).show();
                 }
                 else {
                     String titlee = title.getText().toString();
@@ -186,13 +185,13 @@ public class hostclass extends AppCompatActivity{
 
 
                     if (post.getText().equals("Post")) {
-                        progressDialog = ProgressDialog.show(hostclass.this, "Adding Class", "Please wait...", false, false);
+                        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Adding Class", "Please wait...", false, false);
 
-                        new addclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee);
+                        new com.cse.csenitd.req_class.requested_classes.addclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee);
                     } else if (post.getText().equals("Save")) {
-                        progressDialog = ProgressDialog.show(hostclass.this, "Saving Class", "Please wait...",false,false);
+                        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Saving Class", "Please wait...",false,false);
 
-                        new saveclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee,id+"");
+                        new com.cse.csenitd.req_class.requested_classes.saveclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee,id+"");
 
                     }
                 }
@@ -203,40 +202,21 @@ public class hostclass extends AppCompatActivity{
             @Override
             public void onClick(View v)
             {
-                progressDialog = ProgressDialog.show(hostclass.this, "Sending Info", "Please wait...",false,false);
+                progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Sending Info", "Please wait...",false,false);
 
-                new getInfoTask().execute(id+"",titlee);
+                new com.cse.csenitd.req_class.requested_classes.getInfoTask().execute(id+"",titlee);
             }
         });
 
         getData();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_host,menu);
-        //menuu=menu;
 
-        //menuu.findItem(R.id.post).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        if(id==R.id.req)
-        {
-            Intent intent = new Intent(this, requested_classes.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @Override
     public void onBackPressed() {
-       if(date.getVisibility()==View.VISIBLE)
+        if(date.getVisibility()==View.VISIBLE)
         {
             date.setVisibility(View.GONE);
             post.setClickable(true);
@@ -266,17 +246,17 @@ public class hostclass extends AppCompatActivity{
                 minute = timep.getMinute();
             }
             if(hour>12)
-            ttime.setText(hour-12+":"+minute+" pm");
+                ttime.setText(hour-12+":"+minute+" pm");
             else
-            ttime.setText(hour+":"+minute+" am");
+                ttime.setText(hour+":"+minute+" am");
         }
         else  if((layout.getVisibility()==View.VISIBLE))
-       {
-           recyclerView.setVisibility(View.VISIBLE);
-           add.setVisibility(View.VISIBLE);
-           layout.setVisibility(View.GONE);
-           getSupportActionBar().setTitle("Available Classes");
-       }
+        {
+            recyclerView.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Available Classes");
+        }
 
         else
         {
@@ -290,14 +270,14 @@ public class hostclass extends AppCompatActivity{
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                }
+            }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
 
                 if(s.equals("false")||s.equals("exception")||s.equals("unsuccessful"))
-                    Toast.makeText(hostclass.this, "Unable to fetch answers.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Unable to fetch answers.", Toast.LENGTH_LONG).show();
                 else {
 
                     parseJSON(s);
@@ -452,7 +432,7 @@ public class hostclass extends AppCompatActivity{
         numberofclasses=dpurls.length;
         for(i=0;i<dpurls.length;i++)
         {
-            new getansdpTask().execute(dpurls[i],i.toString());
+            new com.cse.csenitd.req_class.requested_classes.getansdpTask().execute(dpurls[i],i.toString());
         }
         //start asynctask to get dp in a for loop passing dpurl at one by one
         // if in getansdptask() in false or unsuccessful, make all dp=null and call show data
@@ -499,7 +479,7 @@ public class hostclass extends AppCompatActivity{
 
             if (result.startsWith("exception") ) {
 
-                Toast.makeText(hostclass.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
                 retrieved=null;
             }
             if(result.startsWith("true"))
@@ -656,7 +636,7 @@ public class hostclass extends AppCompatActivity{
             case 11:return "Nov";
             case 12:return "Dec";
         }
-       return "";
+        return "";
 
     }
 
@@ -668,7 +648,7 @@ public class hostclass extends AppCompatActivity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-             }
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -762,11 +742,11 @@ public class hostclass extends AppCompatActivity{
             progressDialog.dismiss();
             if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
-                Toast.makeText(hostclass.this, "OOPs! Unable to add class.", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Unable to add class.", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(hostclass.this, "Class added successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class added successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
@@ -881,15 +861,15 @@ public class hostclass extends AppCompatActivity{
             progressDialog.dismiss();
             if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
-                Toast.makeText(hostclass.this, "OOPs! Unable to Send Info.", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Unable to Send Info.", Toast.LENGTH_LONG).show();
             }
             else if(result.equals("mailerror"))
             {
-                Toast.makeText(hostclass.this, "Invalid email-id! Please change if from the profile menu", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Invalid email-id! Please change if from the profile menu", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(hostclass.this, "Participation info mailed to you.", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Participation info mailed to you.", Toast.LENGTH_LONG).show();
 
             }
         }
@@ -1005,11 +985,11 @@ public class hostclass extends AppCompatActivity{
             progressDialog.dismiss();
             if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
-                Toast.makeText(hostclass.this, "OOPs! Unable to save class.", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Unable to save class.", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(hostclass.this, "Class saved successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class saved successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);

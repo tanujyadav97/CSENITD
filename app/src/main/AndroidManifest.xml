@@ -44,24 +44,31 @@
         <activity
             android:name=".ACHIEVEMENTS.Acheivements"
             android:label="Achievements" />
-        <activity android:name=".Timeline.Add_Timeline"
-            android:label="Whats in your mind?"/>
-        <activity android:name=".NoticeBoard.Notices"
-            android:label="Notices"/>
-        <activity android:name=".Timeline.TimelineP"
+        <activity
+            android:name=".Timeline.Add_Timeline"
+            android:label="Whats in your mind?" />
+        <activity
+            android:name=".NoticeBoard.Notices"
+            android:label="Notices" />
+        <activity
+            android:name=".Timeline.TimelineP"
             android:label="TimeLine"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".home.homeActivity"
             android:theme="@style/homeTheme" />
-        <activity android:name=".host.hostclass"
-            android:label="Classes Available"/>
-        <activity android:name=".Timeline.postDetail"
-
-            android:label="Post Details"/>
-        <activity android:name=".Users.user"
+        <activity
+            android:name=".host.hostclass"
+            android:label="Available Classes" />
+        <activity
+            android:name=".Timeline.postDetail"
+            android:label="Post Details" />
+        <activity
+            android:name=".Users.user"
             android:label="Users"
-            android:theme="@style/homeTheme"/>
+            android:theme="@style/homeTheme" />
+        <activity android:name=".req_class.requested_classes"
+            android:label="Requested Classes"/>
     </application>
 
 </manifest>
