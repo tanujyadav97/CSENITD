@@ -29,14 +29,8 @@ import com.cse.csenitd.DbHelper.ImageLoader;
 import com.cse.csenitd.R;
 import com.cse.csenitd.Timeline.postDetail;
 import com.cse.csenitd.openingActivity;
-import com.cse.csenitd.question.quesdetail.questiondetailActivity;
-import com.danikula.videocache.HttpProxyCacheServer;
-import com.felipecsl.asymmetricgridview.library.model.AsymmetricItem;
-import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -234,29 +228,6 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView1.setPadding(0, 5, 0, 0);
                 holder.imageView2.setPadding(5, 5, 0, 0);
                 holder.imageView3.setPadding(5, 5, 0, 0);
-//                RelativeLayout layout = new RelativeLayout(mContext);
-//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-//                layout.setLayoutParams(layoutParams);
-//
-//                RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-//                RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-//                RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-//                RelativeLayout.LayoutParams params4 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
-//
-//
-//                holder.imageView1.setId(10);
-//
-//                params2.addRule(RelativeLayout.RIGHT_OF, holder.imageView1.getId());
-//                holder.imageView2.setId(5);
-//
-//
-//                params3.addRule(RelativeLayout.BELOW, holder.imageView2.getId());
-//                holder.imageView3.setId(15);
-//
-//
-//                params4.addRule(RelativeLayout.RIGHT_OF, holder.imageView3.getId());
-//                params4.addRule(RelativeLayout.ALIGN_BOTTOM,holder.imageView3.getId());
-//                holder.imageView4.setId(4);
 
 
 
@@ -323,20 +294,10 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.frameLayout.addView(holder.imageView2);
                 holder.frameLayout.addView(holder.imageView3);
                 holder.frameLayout.addView(holder.imageView4);
-//                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
-//                imageLoader.DisplayImage(obj.getImg2(), imageView2);
-//                imageLoader.DisplayImage(obj.getImg3(), imageView3);
-//                imageLoader.DisplayImage(obj.getImg4(), holder.imageView4);
+
 
             }
-//            holder.frameLayout.removeAllViews();
-//            holder.stgg.setVisibility(View.VISIBLE);
-//            staggeredlayout=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-//            holder.stgg.setLayoutManager(staggeredlayout);
-//            holder.stgg.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//            imagesAdaptr=new imagesAdapter(mContext,images);
-//            holder.stgg.setAdapter(imagesAdaptr);
-//            holder.frameLayout.addView(holder.stgg);
+
         }
 
     }
