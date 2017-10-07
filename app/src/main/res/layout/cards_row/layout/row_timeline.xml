@@ -86,8 +86,6 @@
                     android:layout_marginTop="10dp">
                 </FrameLayout>
 
-
-
                 <View
                     android:id="@+id/view"
                     android:layout_width="match_parent"

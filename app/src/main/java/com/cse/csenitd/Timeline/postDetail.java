@@ -163,7 +163,7 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
         } else {
             newInt= (int) savedInstanceState.getSerializable("postid");
         }
-        Toast.makeText(this,Integer.valueOf(newInt).toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,Integer.valueOf(newInt).toString(), Toast.LENGTH_SHORT).show();
         bt =new ArrayList<>();
         //mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager=new ViewPager(this);
@@ -192,7 +192,7 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
         SharedPreferences prefs = this.getSharedPreferences("mypostid", MODE_PRIVATE);
        int restoredText = prefs.getInt("pid", 0);
         if (restoredText != 0) {
-            Toast.makeText(this, Integer.toString(restoredText), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, Integer.toString(restoredText), Toast.LENGTH_SHORT).show();
             return new Comment_display(this,cmturl,restoredText);
              }
         return null;
@@ -205,7 +205,7 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
             updateUi(data);
         }
         else {
-            Toast.makeText(this, "bll", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "bll", Toast.LENGTH_SHORT).show();
         }
     }
 private  void updateUi(ArrayList<Comment_DATA> da)
@@ -262,7 +262,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("comment",params[0])
                         .appendQueryParameter("postid", params[1])
-                        .appendQueryParameter("username", "abc")
+                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"))
                         .appendQueryParameter("time",time);
                 String query = builder.build().getEncodedQuery();
 
@@ -488,8 +488,6 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         @Override
         protected void onPostExecute(String result) {
 
-
-
            // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
             String s[];
             s=result.trim().split("___");
@@ -523,7 +521,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
 //            Toast.makeText(postDetail.this, videourl, Toast.LENGTH_SHORT).show();
 //            Toast.makeText(postDetail.this, Integer.toString(bt.size()), Toast.LENGTH_SHORT).show();
           if(bt.size()==0&&videourl.equals("null")){
-                Toast.makeText(postDetail.this, "0", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(postDetail.this, "0", Toast.LENGTH_SHORT).show();
                 frm.removeAllViews();
             }
 
@@ -535,7 +533,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
           }
             else {
                 //Toast.makeText(postDetail.this, "h", Toast.LENGTH_SHORT).show();
-                mViewPager.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 270));
+                mViewPager.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400));
                 mViewPager.setBackgroundColor(Color.parseColor("#000000"));
                 frm.removeAllViews();
                 mCustomPagerAdapter = new CustomPagerAdapter(postDetail.this, bt);
@@ -568,8 +566,8 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         //String proxyUrl = proxy.getProxyUrl(String.valueOf(Uri.parse(url)));
         MediaSource mediaSource = buildMediaSource(Uri.parse(videourl));
         player.prepare(mediaSource, true, false);
-      playerView.setPadding(5, 5, 0, 0);
-        playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 270));
+        playerView.setPadding(5, 5, 0, 0);
+        playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400));
         frm.addView(playerView);
     }
     class CustomPagerAdapter extends PagerAdapter {
@@ -601,7 +599,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
             //imageloader.DisplayImage(urls.get(position),imageView);
             //Picasso.with(mContext).load(bt.get(position)).into(imageView);
-            Toast.makeText(mContext, urls.get(position), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, urls.get(position), Toast.LENGTH_SHORT).show();
             imageloader.DisplayImage(urls.get(position),imageView);
             container.addView(itemView);
 
@@ -715,13 +713,13 @@ private  void updateUi(ArrayList<Comment_DATA> da)
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                        Toast.makeText(postDetail.this, "Liked", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(postDetail.this, "Liked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(like.getText().toString());
                         String newvote = "" + (curlikes + 1);
                         like.setText(newvote);
                         likebtb.setImageDrawable(getResources().getDrawable(R.drawable.liked));
                     } else if (result.equals("two")) {
-                        Toast.makeText(postDetail.this, "Unliked", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(postDetail.this, "Unliked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(like.getText().toString());
                         String newvote = "" + (curlikes - 1);
                         like.setText(newvote);

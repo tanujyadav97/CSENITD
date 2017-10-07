@@ -35,7 +35,7 @@ public class openingActivity extends AppCompatActivity {
             else
             {
                 //start with username
-                Intent in=new Intent(openingActivity.this,TimelineP.class);
+                Intent in=new Intent(openingActivity.this,homeActivity.class);
                 startActivity(in);
             }
 

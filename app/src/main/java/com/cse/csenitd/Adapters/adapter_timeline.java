@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -16,6 +17,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,8 @@ import com.cse.csenitd.Timeline.postDetail;
 import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.question.quesdetail.questiondetailActivity;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.felipecsl.asymmetricgridview.library.model.AsymmetricItem;
+import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -49,9 +54,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
-import com.squareup.picasso.Picasso;
-
-import org.mortbay.jetty.servlet.Holder;
+import com.felipecsl.asymmetricgridview.library.Utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -65,6 +68,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
 import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
@@ -83,11 +87,12 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     private SimpleExoPlayer player = null;
     HashMap<String, String> hs;
     Point size;
+    StaggeredGridLayoutManager staggeredlayout;
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private App app;
     public static int k = 0;
     public timelineitemrow_holder useholder=null;
-
+    imagesAdapter imagesAdaptr;
     @Override
     public timelineitemrow_holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timeline, parent, false);
@@ -138,6 +143,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         final Timeline_DATA obj = DataList_timeline.get(pos);
         holder.name.setText(obj.getName());
         holder.like.setText(Integer.valueOf(obj.getLikes()).toString());
+        holder.comment.setText("comments "+Integer.valueOf(obj.getNocmts()).toString());
         holder.des.setText(obj.getPtext());
         imageLoader.DisplayImage(obj.getUserimg(),holder.userimg);
         String a1[]=obj.getPostId().toString().split(" ");
@@ -160,12 +166,18 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         });
 
         int id = 0;
+        ArrayList<String> images=new ArrayList<>();
         if (!obj.getImg5().isEmpty()) id = 5;
         else if (!obj.getImg4().isEmpty()) id = 4;
         else if (!obj.getImg3().isEmpty()) id = 3;
         else if (!obj.getImg2().isEmpty()) id = 2;
         else if (!obj.getImg1().isEmpty()) id = 1;
         else id = 0;
+        if(!obj.getImg1().isEmpty())images.add(obj.getImg1());
+        if(!obj.getImg2().isEmpty())images.add(obj.getImg2());
+        if(!obj.getImg3().isEmpty())images.add(obj.getImg3());
+        if(!obj.getImg4().isEmpty())images.add(obj.getImg4());
+        if(!obj.getImg5().isEmpty())images.add(obj.getImg5());
         //Exo Player View Show your magic
         //Pro Skills
        // Toast.makeText(mContext, id+" "+holder.Id.getText(), Toast.LENGTH_LONG).show();
@@ -176,11 +188,8 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        if(id==0)
-        {
 
-        }
-         else if (!obj.getVideo().isEmpty()) {
+        if (!obj.getVideo().isEmpty()&&!obj.getVideo().equals("null")) {
             holder.frameLayout.removeAllViews();
 
             holder.simple.getVideoSurfaceView();
@@ -189,7 +198,8 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
 
             initializePlayer(holder, position);
 
-        } else {
+        }
+        else {
 
             holder.frameLayout.removeAllViews();
             if (id == 1) {
@@ -224,27 +234,58 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView1.setPadding(0, 5, 0, 0);
                 holder.imageView2.setPadding(5, 5, 0, 0);
                 holder.imageView3.setPadding(5, 5, 0, 0);
+//                RelativeLayout layout = new RelativeLayout(mContext);
+//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+//                layout.setLayoutParams(layoutParams);
+//
+//                RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+//                RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+//                RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+//                RelativeLayout.LayoutParams params4 = new RelativeLayout.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+//
+//
+//                holder.imageView1.setId(10);
+//
+//                params2.addRule(RelativeLayout.RIGHT_OF, holder.imageView1.getId());
+//                holder.imageView2.setId(5);
+//
+//
+//                params3.addRule(RelativeLayout.BELOW, holder.imageView2.getId());
+//                holder.imageView3.setId(15);
+//
+//
+//                params4.addRule(RelativeLayout.RIGHT_OF, holder.imageView3.getId());
+//                params4.addRule(RelativeLayout.ALIGN_BOTTOM,holder.imageView3.getId());
+//                holder.imageView4.setId(4);
+
+
+
                 holder.imageView2.setX(width/2-5);
 
                 imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
 
-                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
+
                 holder.imageView3.setX(width/2-5);
-                holder.imageView3.setY(holder.imageView1.getHeight()/2);
-                imageLoader.DisplayImage(obj.getImg3(),holder.imageView3);
+
+
 
                 holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width/ 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
+                holder.imageView3.setY(holder.imageView1.getHeight()/2);
                 holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+                imageLoader.DisplayImage(obj.getImg3(),holder.imageView3);
+                Toast.makeText(mContext, Integer.toString(holder.imageView1.getHeight()), Toast.LENGTH_SHORT).show();
                 holder.frameLayout.addView(holder.imageView1);
                 holder.frameLayout.addView(holder.imageView2);
                 holder.frameLayout.addView(holder.imageView3);
-//                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
-//                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
-//                imageLoader.DisplayImage(obj.getImg3(), holder.imageView3);
+
+                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
+                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
+                imageLoader.DisplayImage(obj.getImg3(), holder.imageView3);
 
             }
             if (id >= 4) {
@@ -288,6 +329,14 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
 //                imageLoader.DisplayImage(obj.getImg4(), holder.imageView4);
 
             }
+//            holder.frameLayout.removeAllViews();
+//            holder.stgg.setVisibility(View.VISIBLE);
+//            staggeredlayout=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+//            holder.stgg.setLayoutManager(staggeredlayout);
+//            holder.stgg.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            imagesAdaptr=new imagesAdapter(mContext,images);
+//            holder.stgg.setAdapter(imagesAdaptr);
+//            holder.frameLayout.addView(holder.stgg);
         }
 
     }
@@ -307,6 +356,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         SimpleExoPlayerView simple;
         ImageButton thumbup;
 
+        RecyclerView stgg;
         public timelineitemrow_holder(View itemView) {
             super(itemView);
             des = (TextView) itemView.findViewById(R.id.posttext);
@@ -316,6 +366,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             userimg = (ImageView) itemView.findViewById(R.id.userimg);
             name = (TextView) itemView.findViewById(R.id.dp);
             thumbup=(ImageButton)itemView.findViewById(R.id.like);
+            stgg=new RecyclerView(mContext);
             imageView1 = new DynamicImageView(mContext);
             imageView2 = new DynamicImageView(mContext);
             imageView3 = new DynamicImageView(mContext);

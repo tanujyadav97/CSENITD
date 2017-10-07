@@ -3,7 +3,5 @@
     <item android:id="@+id/upload_image" android:title="Image" android:icon="@drawable/image"/>
     <item android:id="@+id/upload_video" android:title="Video" android:icon="@drawable/video"/>
     <item android:id="@+id/upload_gif" android:title="GIF" android:icon="@drawable/file_image"/>
-    <group android:id="@+id/helpgroup">
-        <item android:id="@+id/insert_link" android:title="Link" android:icon="@drawable/link_variant"/>
-    </group>
+
 </menu>

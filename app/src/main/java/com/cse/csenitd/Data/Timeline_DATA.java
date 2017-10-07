@@ -21,12 +21,19 @@ public class Timeline_DATA {
     private String img1,img2,img3,img4,img5,video;
     private int likes;
 
-
-
+    private int nocmts;
     private String postId;
 
 
-    public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes,String id,String img) {
+    public int getNocmts() {
+        return nocmts;
+    }
+
+    public void setNocmts(int nocmts) {
+        this.nocmts = nocmts;
+    }
+
+    public Timeline_DATA(String name, String date, String ptext, String img1, String img2, String img3, String img4, String img5, String video, int likes, String id, String img, int cmts) {
         this.name = name;
         this.date = date;
         this.ptext = ptext;
@@ -39,6 +46,8 @@ public class Timeline_DATA {
         this.likes = likes;
         this.postId=id;
         this.userimg=img;
+        this.nocmts=cmts;
+
     }
 
     public String getName() {

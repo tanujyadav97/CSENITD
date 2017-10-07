@@ -156,14 +156,12 @@ public class Add_Timeline extends AppCompatActivity {
                         chooseImage();
                         break;
                     case R.id.upload_video:
-                        chooseVideos();
+                        Toast.makeText(Add_Timeline.this, "Due to less space this feature is no available", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.upload_gif:
                         chooseGif();
                         break;
-                    case R.id.insert_link:
 
-                        break;
                 }
             }
         }).show();
@@ -176,12 +174,6 @@ public class Add_Timeline extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 2);
     }
 
-    public void chooseVideos() {
-        new VideoPicker.Builder(Add_Timeline.this)
-                .mode(VideoPicker.Mode.CAMERA_AND_GALLERY)
-                .directory(VideoPicker.Directory.DEFAULT)
-                .build();
-    }
 
     @Override
 

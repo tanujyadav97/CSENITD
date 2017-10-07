@@ -2,6 +2,7 @@ package com.cse.csenitd.NoticeBoard;
 
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.net.Uri;
@@ -9,9 +10,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,41 +96,42 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             @Override
             public void onClick(View v)
             {
-                 mrecycler.setVisibility(View.GONE);
-                ask.setVisibility(View.GONE);
-                addnotice.setVisibility(View.VISIBLE);
-                getSupportActionBar().setTitle("Add Notice");
-            }
-        });
+//                 mrecycler.setVisibility(View.GONE);
+//                ask.setVisibility(View.GONE);
+//                addnotice.setVisibility(View.VISIBLE);
+//                getSupportActionBar().setTitle("Add Notice");
+                AlertDialog.Builder alert = new AlertDialog.Builder(Notices.this);
+                final EditText edittext = new EditText(Notices.this);
+                alert.setMessage("Message");
+                alert.setTitle("Notice");
 
+                alert.setView(edittext);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                mrecycler.setVisibility(View.VISIBLE);
-                ask.setVisibility(View.VISIBLE);
-                addnotice.setVisibility(View.GONE);
-                getSupportActionBar().setTitle("Notices");
-            }
-        });
+                alert.setPositiveButton("POST", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //What ever you want to do with the value
 
+                        String YouEditTextValue = edittext.getText().toString();
+                        String a1=YouEditTextValue;
+                        if (a1.replace(" ","").length()==0) {
 
-        post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                String data=content.getText().toString();
-                String a1=data;
-                if (a1.replace(" ","").length()==0) {
+                            Toast.makeText(Notices.this, "Don't leave Content field empty!", Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(Notices.this, "Don't leave Content field empty!", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            new addnotice().execute(a1, openingActivity.ps.getString("username","n/a"));
+                        }
+                    }
+                });
 
-                }
-                else
-                {
-                    new addnotice().execute(data, openingActivity.ps.getString("username","n/a"));
-                }
+                alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // what ever you want to do with No option.
+                    }
+                });
+
+                alert.show();
             }
         });
         getLoaderManager().initLoader(0,null,this);
