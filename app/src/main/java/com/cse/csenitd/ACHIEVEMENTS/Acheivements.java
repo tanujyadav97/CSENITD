@@ -49,7 +49,7 @@ import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
 import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
 /**
- * Created by lenovo on 19-06-2017.Mohit yadav
+ * Created by tanuj on 19-06-2017.Mohit yadav
  */
 
 public class Acheivements extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Acheivements_DATA>>{
