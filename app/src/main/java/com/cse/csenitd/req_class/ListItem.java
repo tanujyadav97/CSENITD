@@ -11,11 +11,8 @@ public class ListItem {
     private String classid;
     private String title;
     private String desc;
-    private String link;
-    private String tutor;
     private String noofpeople;
-    private String venue;
-    private String date;
+    private String postedon;
     private String postbyname;
     private String postbyusername;
     private Bitmap dp;
@@ -46,22 +43,6 @@ public class ListItem {
         this.desc = quesid;
     }
 
-    public String getlink() {
-        return link;
-    }
-
-    public void setlink(String ans) {
-        this.link = ans;
-    }
-
-    public void settutor(String ansid) {
-        this.tutor = ansid;
-    }
-
-    public String gettutor() {
-        return tutor;
-    }
-
     public void setnoofpeople(String ansid) {
         this.noofpeople = ansid;
     }
@@ -70,20 +51,12 @@ public class ListItem {
         return noofpeople;
     }
 
-    public void setvenue(String ansby) {
-        this.venue = ansby;
+    public void setpostedon(String ansbyname) {
+        this.postedon = ansbyname;
     }
 
-    public String getvenue() {
-        return venue;
-    }
-
-    public void setdate(String ansbyname) {
-        this.date = ansbyname;
-    }
-
-    public String getdate() {
-        return date;
+    public String getpostedon() {
+        return postedon;
     }
 
     public void setpostbyname(String ansbyrepo) {this.postbyname = ansbyrepo;}

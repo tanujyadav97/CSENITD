@@ -27,6 +27,7 @@ import com.cse.csenitd.host.hostclass;
 import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.profile1;
 import com.cse.csenitd.question.questionsActivity;
+import com.cse.csenitd.req_class.requested_classes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -230,6 +231,12 @@ public class homeActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    public void openreqclass(View v)
+    {
+        Intent in=new Intent(homeActivity.this,requested_classes.class);
+        startActivity(in);
     }
 
     public void openques(View v)

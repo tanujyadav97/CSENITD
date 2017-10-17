@@ -4,7 +4,7 @@ package com.cse.csenitd.req_class;
  * Created by 15121 on 7/1/2017.
  */
 
-        import android.content.Context;
+import android.content.Context;
         import android.content.Intent;
         import android.graphics.Bitmap;
         import android.graphics.Color;
@@ -53,7 +53,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     Context context;
    // Integer acceptedindex=-1;
 
-    public CardAdapter(Context context,String[] classid, String[] title, String[] desc, String[] link, String[] tutor, String[] noofpeople,String[] venue,String[] date, String[] postbyname, String[] postbyusername, Bitmap[] dp, String[] attended){
+    public CardAdapter(Context context,String[] classid, String[] title, String[] desc, String[] noofpeople, String[] postbyname, String[] postbyusername,String[] postedon, Bitmap[] dp, String[] attended){
         super();
         this.context=context;
      //   acceptedindex=-1;
@@ -63,13 +63,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             item.setclassid(classid[i]);
             item.settitle(title[i]);
             item.setdesc(desc[i]);
-            item.setlink(link[i]);
-            item.settutor(tutor[i]);
             item.setnoofpeople(noofpeople[i]);
-            item.setvenue(venue[i]);
-            item.setdate(date[i]);
             item.setpostbyname(postbyname[i]);
             item.setpostbyusername(postbyusername[i]);
+            item.setpostedon(postedon[i]);
             item.setdp(dp[i]);
             item.setattended(attended[i]);
             items.add(item);
@@ -80,7 +77,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.hostcard, parent, false);
+                .inflate(R.layout.reqcard, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -90,17 +87,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         final ListItem list =  items.get(position);
         holder.title.setText(list.gettitle());
         holder.desc.setText(list.getdesc());
-        holder.link.setText(list.getlink());
-        holder.date.setText(list.getdate());
         holder.classid.setText(list.getclassid());
         holder.postbyname.setText(list.getpostbyname());
         holder.postbyusername.setText(list.getpostbyusername());
-        holder.tutor.setText(list.gettutor());
         holder.noofpeople.setText(list.getnoofpeople());
-        holder.venue.setText(list.getvenue());
+        holder.postedon.setText(list.getpostedon());
 
-        if (list.getdate().equals("n/a"))
-        {
+
             holder.attended.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -114,58 +107,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             });
             if (list.getattended().equals("1")) {
                 holder.attended.setBackgroundColor(0xff00dfff);
-                holder.attended.setText("ATTENDING");
+                holder.attended.setText("REQUESTED");
 
             }
-        }
-          else {
-            String date[] = list.getdate().split(" ");
 
-            int ho = Integer.parseInt(date[0].split(":")[0]);
-            int min = Integer.parseInt(date[0].split(":")[1]);
-            int isam = date[1].equals("am") ? 1 : 0;
-            int day = Integer.parseInt(date[3].split(",")[0]);
-            int year = Integer.parseInt(date[3].split(",")[1]);
-            int mon = getmon(date[2]);
-            if (isam == 0)
-                ho += 12;
-            String dd = ho + ":" + min + " " + day + "/" + mon + "/" + year;
-
-            DateFormat dateFormat = new SimpleDateFormat("hh:mm dd/MM/yyyy");
-            Date datee = null,curdate;
-            curdate=new Date();
-            try {
-                datee = dateFormat.parse(dd);
-            } catch (java.text.ParseException e) {
-                e.printStackTrace();
-            }
-            //long time = datee.getTime();
-            //Long timestamp = Long.parseLong((new Timestamp(time)).toString());
-            //Toast.makeText(context, "" + timestamp, Toast.LENGTH_LONG).show();
-
-            if (datee.after(curdate)) {
-                if (list.getattended().equals("1")) {
-                    holder.attended.setBackgroundColor(0xff00dfff);
-                    holder.attended.setText("ATTENDING");
-                    holder.attended.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            String idd=holder.classid.getText().toString();
-                            String user=openingActivity.ps.getString("username","n/a");
-                            //Toast.makeText(mContext, idd, Toast.LENGTH_LONG).show();
-                            castattend(idd,user,position,list,holder);
-
-
-                        }
-                    });
-                }
-            } else {
-                holder.attended.setBackgroundColor(0xff808080);
-                holder.attended.setClickable(false);
-                holder.etattend.setText("PEOPLE ATTENDED :");
-            }
-
-        }
 
         if(list.getdp()!=null)
             holder.dp.setImageBitmap(list.getdp());
@@ -223,7 +168,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             @Override
             public void onClick(View v)
             {
-                requested_classes.onedit(list.getclassid(),list.gettitle(),list.getdesc(),list.getlink(),list.gettutor(),list.getdate(),list.getvenue());
+                requested_classes.onedit(list.getclassid(),list.gettitle(),list.getdesc());
             }
         });
 
@@ -242,17 +187,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
         public TextView classid;
-        public TextView link;
         public TextView desc;
-        public TextView tutor;
         public TextView postbyname;
         public TextView postbyusername;
         public ImageView dp;
         public TextView noofpeople;
         public Button edit;
         public Button attended;
-        public TextView date;
-        public TextView venue;
+        public TextView postedon;
         public TextView id,etattend;
 
         public ViewHolder(final View itemView) {
@@ -262,15 +204,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             dp=(ImageView)itemView.findViewById(R.id.dp);
             classid=(TextView)itemView.findViewById(R.id.id);
             desc=(TextView)itemView.findViewById(R.id.des);
-            tutor=(TextView)itemView.findViewById(R.id.tutor);
             postbyname=(TextView)itemView.findViewById(R.id.postby);
             postbyusername=(TextView)itemView.findViewById(R.id.username);
             noofpeople=(TextView)itemView.findViewById(R.id.noofstud);
             edit=(Button)itemView.findViewById(R.id.edit);
             attended=(Button)itemView.findViewById(R.id.attendbutton);
-            date=(TextView)itemView.findViewById(R.id.datetime);
-            venue=(TextView)itemView.findViewById(R.id.venue);
-            link=(TextView)itemView.findViewById(R.id.link);
+            postedon=(TextView)itemView.findViewById(R.id.time);
             etattend=(TextView)itemView.findViewById(R.id.etattend);
         }
 
@@ -294,7 +233,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 try {
 
                     // Enter URL address where your php file resides
-                    url = new URL("https://nitd.000webhostapp.com/cse%20nitd/attendclass.php");
+                    url = new URL("https://nitd.000webhostapp.com/cse%20nitd/requestclass.php");
                 } catch (MalformedURLException e) {
                     // TODO Auto-generated catch block
 
@@ -378,11 +317,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                        Toast.makeText(context, "Attending", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, "Attending", Toast.LENGTH_LONG).show();
                         int cur=Integer.parseInt(holder.noofpeople.getText().toString());
                         cur++;
                         holder.attended.setBackgroundColor(0xff00dfff);
-                        holder.attended.setText("ATTENDING");
+                        holder.attended.setText("REQUESTED");
                         holder.noofpeople.setText(cur+"");
                         obj.setattended("1");
                         obj.setnoofpeople(cur + "");
@@ -393,7 +332,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                         int cur=Integer.parseInt(holder.noofpeople.getText().toString());
                         cur--;
                         holder.attended.setBackgroundColor(0xffcdcec2);
-                        holder.attended.setText("ATTEND");
+                        holder.attended.setText("REQUEST");
                         holder.noofpeople.setText(cur+"");
                         obj.setattended("0");
                         obj.setnoofpeople(cur + "");
@@ -413,26 +352,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         new likeTask().execute(idd,user);
     }
 
-int getmon(String s)
-{
-    switch (s)
-    {
-        case "Jan":return 1;
-        case "Feb":return 2;
-        case "Mar":return 3;
-        case "Apr":return 4;
-        case "May":return 5;
-        case "June":return 6;
-        case "July":return 7;
-        case "Aug":return 8;
-        case "Sept":return 9;
-        case "Oct":return 10;
-        case "Nov":return 11;
-        case "Dec":return 12;
-    }
-    return 1;
-
-}
 
 }
 
