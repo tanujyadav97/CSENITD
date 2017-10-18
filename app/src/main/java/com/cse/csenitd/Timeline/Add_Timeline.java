@@ -39,8 +39,20 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.cse.csenitd.DbHelper.Upload;
 import com.cse.csenitd.R;
 import com.cse.csenitd.openingActivity;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
+import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.InputStreamContent;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
@@ -51,19 +63,6 @@ import com.nguyenhoanglam.imagepicker.model.Image;
 import net.alhazmy13.mediapicker.Video.VideoPicker;
 
 import org.xmlpull.v1.XmlPullParserException;
-
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -669,7 +668,7 @@ public class Add_Timeline extends AppCompatActivity {
 
                 }
                 for (int i = 0; i < result.size(); i++) {
-                    imgstrs.add(i,getStringImage(arr.get(i)));
+                    imgstrs.add(i, getStringImage(arr.get(i)));
                 }
                 Log.d("img", imgstrs.get(0));
                 insert i = new insert(imgstrs);
@@ -734,7 +733,7 @@ public class Add_Timeline extends AppCompatActivity {
                         .appendQueryParameter("text", params[0])
                         .appendQueryParameter("video", params[1])
                         .appendQueryParameter("datetime", timeStamp)
-                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
+                        .appendQueryParameter("username", openingActivity.ps.getString("username", "n/a"));
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -796,7 +795,7 @@ public class Add_Timeline extends AppCompatActivity {
             if (result.equals("true")) {
 
                 //        Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
-                Intent in=new Intent(Add_Timeline.this,TimelineP.class);
+                Intent in = new Intent(Add_Timeline.this, TimelineP.class);
                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(in);
 
@@ -908,7 +907,7 @@ public class Add_Timeline extends AppCompatActivity {
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("text", params[0])
                         .appendQueryParameter("datetime", timeStamp)
-                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
+                        .appendQueryParameter("username", openingActivity.ps.getString("username", "n/a"));
 
                 for (int i = 0; i < img.size(); i++) {
                     int k = i + 1;
@@ -975,7 +974,7 @@ public class Add_Timeline extends AppCompatActivity {
             if (result.equals("true")) {
 
                 //     Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
-                Intent in=new Intent(Add_Timeline.this,TimelineP.class);
+                Intent in = new Intent(Add_Timeline.this, TimelineP.class);
                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(in);
 

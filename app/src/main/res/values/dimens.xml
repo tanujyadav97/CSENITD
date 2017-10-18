@@ -6,5 +6,4 @@
     <dimen name="al3">130dp</dimen>
     <dimen name="al4">0dp</dimen>
     <dimen name="al2">10dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
 </resources>

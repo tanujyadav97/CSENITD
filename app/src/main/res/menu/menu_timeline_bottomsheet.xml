@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/upload_image" android:title="Image" android:icon="@drawable/image"/>
-    <item android:id="@+id/upload_video" android:title="Video" android:icon="@drawable/video"/>
-    <item android:id="@+id/upload_gif" android:title="GIF" android:icon="@drawable/file_image"/>
+    <item
+        android:id="@+id/upload_image"
+        android:icon="@drawable/image"
+        android:title="Image" />
+    <item
+        android:id="@+id/upload_video"
+        android:icon="@drawable/video"
+        android:title="Video" />
+    <item
+        android:id="@+id/upload_gif"
+        android:icon="@drawable/file_image"
+        android:title="GIF" />
 
 </menu>

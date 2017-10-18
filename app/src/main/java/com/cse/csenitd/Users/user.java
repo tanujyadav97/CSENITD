@@ -27,31 +27,32 @@ import mehdi.sakout.dynamicbox.DynamicBox;
  * Created by lenovo on 02-07-2017.Mohit yadaav
  */
 
-public class user extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<User_DATA>>{
+public class user extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<User_DATA>> {
     MaterialSearchView searchView;
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
     private adapter_users adapter;
     DynamicBox box;
-    private static final String url="https://nitd.000webhostapp.com/cse%20nitd/mohit/getUsers.php";
+    private static final String url = "https://nitd.000webhostapp.com/cse%20nitd/mohit/getUsers.php";
     Toolbar toolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-       // searchView= (MaterialSearchView) findViewById(R.id.search_view);
-        recyclerView=(RecyclerView)findViewById(R.id.user_rcy);
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        // searchView= (MaterialSearchView) findViewById(R.id.search_view);
+        recyclerView = (RecyclerView) findViewById(R.id.user_rcy);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Users");
         setSupportActionBar(toolbar);
-        gridLayoutManager=new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-       box= new DynamicBox(this,recyclerView);
+        box = new DynamicBox(this, recyclerView);
         box.showLoadingLayout();
         box.setLoadingMessage("Loading Users");
 
 
-        getLoaderManager().initLoader(0,null,this);
+        getLoaderManager().initLoader(0, null, this);
 //        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {
@@ -78,6 +79,7 @@ public class user extends AppCompatActivity implements LoaderManager.LoaderCallb
 //            }
 //        });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_users, menu);
@@ -88,6 +90,7 @@ public class user extends AppCompatActivity implements LoaderManager.LoaderCallb
 
         return true;
     }
+
     private void search(SearchView searchView) {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -100,31 +103,33 @@ public class user extends AppCompatActivity implements LoaderManager.LoaderCallb
             @Override
             public boolean onQueryTextChange(String newText) {
 
-               adapter.getFilter().filter(newText);
+                adapter.getFilter().filter(newText);
 
                 return true;
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         return super.onOptionsItemSelected(item);
     }
-    private void updateUi(ArrayList<User_DATA> da){
-        adapter=new adapter_users(this,da);
+
+    private void updateUi(ArrayList<User_DATA> da) {
+        adapter = new adapter_users(this, da);
         box.hideAll();
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public Loader<ArrayList<User_DATA>> onCreateLoader(int i, Bundle bundle) {
-        return new User_Display(this,url);
+        return new User_Display(this, url);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<User_DATA>> loader, ArrayList<User_DATA> user_datas) {
-        if(user_datas!=null){
+        if (user_datas != null) {
             updateUi(user_datas);
         }
     }

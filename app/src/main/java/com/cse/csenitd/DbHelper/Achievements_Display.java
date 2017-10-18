@@ -12,14 +12,15 @@ import java.util.ArrayList;
  * Created by lenovo on 22-06-2017.Mohit yadav
  */
 
-public class Achievements_Display extends AsyncTaskLoader<ArrayList<Acheivements_DATA>>{
+public class Achievements_Display extends AsyncTaskLoader<ArrayList<Acheivements_DATA>> {
 
     private String mUrl;
     private Context context;
-    public Achievements_Display(Context context,String s) {
+
+    public Achievements_Display(Context context, String s) {
         super(context);
-        this.context=context;
-        this.mUrl=s;
+        this.context = context;
+        this.mUrl = s;
     }
 
     @Override
@@ -29,8 +30,8 @@ public class Achievements_Display extends AsyncTaskLoader<ArrayList<Acheivements
 
     @Override
     public ArrayList<Acheivements_DATA> loadInBackground() {
-        Log.d("asynkloader","loadinback");
-        ArrayList<Acheivements_DATA> achievemt=QueryUtils.extractAchievements(mUrl);
+        Log.d("asynkloader", "loadinback");
+        ArrayList<Acheivements_DATA> achievemt = QueryUtils.extractAchievements(mUrl);
         return achievemt;
     }
 }

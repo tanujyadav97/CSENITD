@@ -53,25 +53,25 @@ import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
  * Created by tanuj on 19-06-2017.Mohit yadav
  */
 
-public class Acheivements extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Acheivements_DATA>>{
+public class Acheivements extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Acheivements_DATA>> {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private static final String JSON_RESPONSE="https://nitd.000webhostapp.com/cse%20nitd/mohit/retrieveAchievements.php";
+    private static final String JSON_RESPONSE = "https://nitd.000webhostapp.com/cse%20nitd/mohit/retrieveAchievements.php";
     ProgressBar pgbar;
     private RecyclerView.Adapter mAdapter;
 
-    private EditText mPtext,mPtitle;
+    private EditText mPtext, mPtitle;
     private ImageView mpImg;
-    private Button mbutton,cancel;
-    public String edes,bitstr,tm,etitle;
-    public static final int ACHIEVEMENT_LOADER_ID=1;
-    public static final String furl="https://nitd.000webhostapp.com/cse%20nitd/mohit/insertachievement.php";
-    public static final int  PICK_IMAGE_REQUEST=1;
+    private Button mbutton, cancel;
+    public String edes, bitstr, tm, etitle;
+    public static final int ACHIEVEMENT_LOADER_ID = 1;
+    public static final String furl = "https://nitd.000webhostapp.com/cse%20nitd/mohit/insertachievement.php";
+    public static final int PICK_IMAGE_REQUEST = 1;
     private Bitmap bitmap;
     private Uri filePath;
-    public int flag=0;
+    public int flag = 0;
     Menu menuu;
-    ProgressDialog progressDialog,progressDialog1;
+    ProgressDialog progressDialog, progressDialog1;
     FloatingActionButton add;
     RelativeLayout layout;
 
@@ -79,28 +79,25 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievements);
-        mpImg=(ImageView)findViewById(R.id.pimg);
-        mPtext=(EditText)findViewById(R.id.ptext);
-        mPtitle=(EditText)findViewById(R.id.ptitle);
-        mbutton=(Button)findViewById(R.id.buttonImg);
-        cancel=(Button)findViewById(R.id.cancel);
+        mpImg = (ImageView) findViewById(R.id.pimg);
+        mPtext = (EditText) findViewById(R.id.ptext);
+        mPtitle = (EditText) findViewById(R.id.ptitle);
+        mbutton = (Button) findViewById(R.id.buttonImg);
+        cancel = (Button) findViewById(R.id.cancel);
         // progressBar=(ProgressBar)findViewById(R.id.progress);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 showFileChooser();
             }
         });
-        add=(FloatingActionButton)findViewById(R.id.add);
-        layout=(RelativeLayout)findViewById(R.id.layout);
-
+        add = (FloatingActionButton) findViewById(R.id.add);
+        layout = (RelativeLayout) findViewById(R.id.layout);
 
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 mRecyclerView.setVisibility(View.GONE);
                 add.setVisibility(View.GONE);
@@ -112,8 +109,7 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 mRecyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
@@ -123,14 +119,14 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        mRecyclerView=(RecyclerView)findViewById(R.id.acheivemnts_recycler_view);
-        mLinearLayoutManager=new LinearLayoutManager(this);
+        mRecyclerView = (RecyclerView) findViewById(R.id.acheivemnts_recycler_view);
+        mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
-        progressDialog1 = ProgressDialog.show(Acheivements.this, "Loading Acheivements", "Please wait...",false,false);
+        progressDialog1 = ProgressDialog.show(Acheivements.this, "Loading Acheivements", "Please wait...", false, false);
 
-        getLoaderManager().initLoader(0,null,this);
+        getLoaderManager().initLoader(0, null, this);
 
     }
 
@@ -144,16 +140,13 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onBackPressed() {
         //  super.onBackPressed();
-        if((layout.getVisibility()==View.VISIBLE))
-        {
+        if ((layout.getVisibility() == View.VISIBLE)) {
             mRecyclerView.setVisibility(View.VISIBLE);
             add.setVisibility(View.VISIBLE);
             layout.setVisibility(View.GONE);
             getSupportActionBar().setTitle("Achievements");
             menuu.findItem(R.id.post).setVisible(false);
-        }
-        else
-        {
+        } else {
             super.onBackPressed();
         }
     }
@@ -163,7 +156,7 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            flag=1;
+            flag = 1;
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
@@ -175,17 +168,17 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_achievements,menu);
-        menuu=menu;
+        getMenuInflater().inflate(R.menu.menu_achievements, menu);
+        menuu = menu;
 
         menuu.findItem(R.id.post).setVisible(false);
         return super.onCreateOptionsMenu(menu);
 
     }
-    public String getStringImage(Bitmap bmp){
+
+    public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -196,18 +189,15 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        if(id==R.id.post)
-        {
-            edes=mPtext.getText().toString().trim();
-            etitle=mPtitle.getText().toString().trim();
-            String a1=edes,a2=etitle;
+        int id = item.getItemId();
+        if (id == R.id.post) {
+            edes = mPtext.getText().toString().trim();
+            etitle = mPtitle.getText().toString().trim();
+            String a1 = edes, a2 = etitle;
 
-            if(a1.replace(" ","").length()==0||a2.replace(" ","").length()==0)
-            {
+            if (a1.replace(" ", "").length() == 0 || a2.replace(" ", "").length() == 0) {
                 Toast.makeText(this, "Please Don't leave the fields empty!", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 if (flag == 1)
                     bitstr = getStringImage(bitmap);
                 else
@@ -232,9 +222,10 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
         @Override
         protected void onPreExecute() {
 
-            progressDialog = ProgressDialog.show(Acheivements.this, "Posting Achievement", "Please wait...",false,false);
+            progressDialog = ProgressDialog.show(Acheivements.this, "Posting Achievement", "Please wait...", false, false);
 
         }
+
         @Override
         protected String doInBackground(String... params) {
 
@@ -250,7 +241,7 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -265,10 +256,10 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("des", params[0])
                         .appendQueryParameter("image", params[1])
-                        .appendQueryParameter("datetime",params[2])
-                        .appendQueryParameter("title",params[3])
-                        .appendQueryParameter("imgname",timeStamp)
-                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
+                        .appendQueryParameter("datetime", params[2])
+                        .appendQueryParameter("title", params[3])
+                        .appendQueryParameter("imgname", timeStamp)
+                        .appendQueryParameter("username", openingActivity.ps.getString("username", "n/a"));
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -305,11 +296,11 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
                     }
                     //return params[0]+"/"+params[1];
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -321,7 +312,6 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
         }
 
 
-
         @Override
         protected void onPostExecute(String result) {
 
@@ -329,8 +319,7 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
             progressDialog.dismiss();
             //  Toast.makeText(Acheivements.this, result, Toast.LENGTH_LONG).show();
 
-            if(result.equals("true"))
-            {
+            if (result.equals("true")) {
 
                 Toast.makeText(Acheivements.this, "Post updated successfully", Toast.LENGTH_LONG).show();
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -339,11 +328,11 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
                 getSupportActionBar().setTitle("Achievements");
                 menuu.findItem(R.id.post).setVisible(false);
 
-                Intent intent=getIntent();
+                Intent intent = getIntent();
                 finish();
                 startActivity(intent);
                 // getLoaderManager().initLoader(0,null,Acheivements.this);
-            } else if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            } else if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 //set old image to profile
                 Toast.makeText(Acheivements.this, "OOPs! Error posting the post.", Toast.LENGTH_LONG).show();
@@ -359,10 +348,9 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-
     @Override
     public Loader<ArrayList<Acheivements_DATA>> onCreateLoader(int i, Bundle bundle) {
-        return new Achievements_Display(this,JSON_RESPONSE);
+        return new Achievements_Display(this, JSON_RESPONSE);
     }
 
     @Override
@@ -376,7 +364,7 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void updateUi(ArrayList<Acheivements_DATA> data) {
-        mAdapter=new adapter_acheivement(this,data);
+        mAdapter = new adapter_acheivement(this, data);
         mRecyclerView.setAdapter(mAdapter);
 
     }

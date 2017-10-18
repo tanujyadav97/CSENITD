@@ -13,9 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.cse.csenitd.Adapters.adapter_acheivement;
 import com.cse.csenitd.Adapters.adapter_timeline;
-import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.Data.Timeline_DATA;
 import com.cse.csenitd.DbHelper.Timeline_Display;
 import com.cse.csenitd.R;
@@ -27,11 +25,11 @@ import java.util.ArrayList;
  * Created by lenovo on 27-06-2017.Mohit yadav
  */
 
-public class TimelineP extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Timeline_DATA>>{
+public class TimelineP extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Timeline_DATA>> {
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private RecyclerView.Adapter madapter;
-    private static final String JSON_RESPONSE="https://nitd.000webhostapp.com/cse%20nitd/mohit/getTimeline.php";
+    private static final String JSON_RESPONSE = "https://nitd.000webhostapp.com/cse%20nitd/mohit/getTimeline.php";
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<Timeline_DATA> rst;
     FloatingActionButton add;
@@ -41,15 +39,15 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        recyclerView=(RecyclerView)findViewById(R.id.timeline_recyclerView);
-        add=(FloatingActionButton)findViewById(R.id.add);
-        manager=new LinearLayoutManager(this);
+        recyclerView = (RecyclerView) findViewById(R.id.timeline_recyclerView);
+        add = (FloatingActionButton) findViewById(R.id.add);
+        manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        progressDialog = ProgressDialog.show(TimelineP.this, "Loading Timeline", "Please wait...",false,false);
+        progressDialog = ProgressDialog.show(TimelineP.this, "Loading Timeline", "Please wait...", false, false);
 
-        getLoaderManager().initLoader(0,null,this);
-        rst=new ArrayList<>();
-        mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        getLoaderManager().initLoader(0, null, this);
+        rst = new ArrayList<>();
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -61,7 +59,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in=new Intent(TimelineP.this,Add_Timeline.class);
+                Intent in = new Intent(TimelineP.this, Add_Timeline.class);
                 startActivity(in);
             }
         });
@@ -71,7 +69,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     void refreshItems() {
         // Load items
         // ...
-        madapter=new adapter_timeline(this,rst);
+        madapter = new adapter_timeline(this, rst);
         madapter.notifyDataSetChanged();
         recyclerView.setAdapter(madapter);
         // Load complete
@@ -88,7 +86,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
 
     @Override
     public Loader<ArrayList<Timeline_DATA>> onCreateLoader(int i, Bundle bundle) {
-        return new Timeline_Display(this,JSON_RESPONSE);
+        return new Timeline_Display(this, JSON_RESPONSE);
     }
 
     @Override
@@ -100,11 +98,12 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
             updateUi(data);
         }
     }
+
     private void updateUi(ArrayList<Timeline_DATA> data) {
-        madapter=new adapter_timeline(this,data);
+        madapter = new adapter_timeline(this, data);
         //madapter.notifyDataSetChanged();
-        madapter.notifyItemRangeInserted(0, data.size() );
-        rst=data;
+        madapter.notifyItemRangeInserted(0, data.size());
+        rst = data;
         recyclerView.setAdapter(madapter);
     }
 

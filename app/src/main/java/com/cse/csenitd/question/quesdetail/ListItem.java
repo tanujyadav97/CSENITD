@@ -80,13 +80,17 @@ public class ListItem {
         return ansbyrepo;
     }
 
-    public void setansbyrepo(String ansbyrepo) {this.ansbyrepo = ansbyrepo;}
+    public void setansbyrepo(String ansbyrepo) {
+        this.ansbyrepo = ansbyrepo;
+    }
 
     public String getaccepted() {
         return accepted;
     }
 
-    public void setaccepted(String accepted) {this.accepted = accepted;}
+    public void setaccepted(String accepted) {
+        this.accepted = accepted;
+    }
 
     public String getlink() {
         return link;

@@ -9,12 +9,13 @@ public class Notices_DATA {
     String _post;
     String _dtm;
 
-    public Notices_DATA(String _name, String _post,String _dtm) {
+    public Notices_DATA(String _name, String _post, String _dtm) {
         this._name = _name;
         this._post = _post;
 
-        this._dtm=_dtm;
+        this._dtm = _dtm;
     }
+
     public String get_dtm() {
         return _dtm;
     }

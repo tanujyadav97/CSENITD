@@ -23,27 +23,30 @@ public class adapter_notice extends RecyclerView.Adapter<adapter_notice.gridRowH
     private Context mContext;
 
     private ArrayList<Notices_DATA> data;
-    public adapter_notice(Context context,ArrayList<Notices_DATA> Data) {
-        this.data=Data;
-        this.mContext=context;
+
+    public adapter_notice(Context context, ArrayList<Notices_DATA> Data) {
+        this.data = Data;
+        this.mContext = context;
 
     }
 
     @Override
     public adapter_notice.gridRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_notice,parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_notice, parent, false);
 
         return new adapter_notice.gridRowHolder(v);
     }
-    protected int getRandomIntInRange(int max, int min){
+
+    protected int getRandomIntInRange(int max, int min) {
         Random r = new Random();
-        int i1 = r.nextInt(max-min)+min;
+        int i1 = r.nextInt(max - min) + min;
         return i1;
     }
+
     @Override
     public void onBindViewHolder(adapter_notice.gridRowHolder holder, int position) {
-        String c=chooseColor();
-        int cl= Color.parseColor(c);
+        String c = chooseColor();
+        int cl = Color.parseColor(c);
         holder.notice.setBackgroundColor(cl);
         holder.notice.setText(data.get(position).get_post());
         holder.notice.setTextColor(Color.WHITE);
@@ -55,7 +58,7 @@ public class adapter_notice extends RecyclerView.Adapter<adapter_notice.gridRowH
     }
 
     private String chooseColor() {
-       String [] color={"#FF6E40","#607D8B","#FF5722","#757575","#00ACC1","#009688","#8E24AA"};
+        String[] color = {"#FF6E40", "#607D8B", "#FF5722", "#757575", "#00ACC1", "#009688", "#8E24AA"};
         Random r = new Random();
         int i1 = r.nextInt(7);
         return color[i1];
@@ -65,15 +68,17 @@ public class adapter_notice extends RecyclerView.Adapter<adapter_notice.gridRowH
     public int getItemCount() {
         return data.size();
     }
+
     public class gridRowHolder extends RecyclerView.ViewHolder {
-        TextView notice,name,date;
+        TextView notice, name, date;
         LinearLayout ll;
+
         public gridRowHolder(View itemView) {
             super(itemView);
-            notice=(TextView) (itemView).findViewById(R.id.notice);
-            name=(TextView)itemView.findViewById(R.id.user);
-            date=(TextView)itemView.findViewById(R.id.date);
-            ll =(LinearLayout)itemView.findViewById(R.id.ll);
+            notice = (TextView) (itemView).findViewById(R.id.notice);
+            name = (TextView) itemView.findViewById(R.id.user);
+            date = (TextView) itemView.findViewById(R.id.date);
+            ll = (LinearLayout) itemView.findViewById(R.id.ll);
         }
     }
 }

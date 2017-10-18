@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:paddingBottom="0dp"
     tools:context="com.cse.csenitd.question.questionsActivity">
 
-<SearchView
-    android:id="@+id/searchview"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:iconifiedByDefault="false"
-    android:queryHint="Enter tags..."
-    android:visibility="gone"/>
+    <SearchView
+        android:id="@+id/searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Enter tags..."
+        android:visibility="gone" />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/noques"
@@ -35,145 +35,140 @@
             android:visibility="gone"
             tools:layout_gravity="center_vertical" />
 
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/recyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"></android.support.v7.widget.RecyclerView>
-
-<android.support.design.widget.FloatingActionButton
-    android:id="@+id/askque"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/floatt"
-    android:layout_margin="5dp"
-    android:visibility="visible"
-    android:layout_marginBottom="10dp"
-    android:layout_gravity="bottom|right"/>
-
-
-<LinearLayout
-    android:id="@+id/askques"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:visibility="gone">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:text="Heading"/>
-
-    <EditText
-        android:id="@+id/addqueshead"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Write question heading..."
-        android:maxLines="1"
-        android:background="@drawable/twitter_im_edittext_normal"
-        />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:text="Content"/>
-
-    <EditText
-        android:id="@+id/addquestext"
-        android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:layout_marginTop="10dp"
-        android:textAlignment="viewStart"
-        android:hint="Write question content..."
-        android:background="@drawable/twitter_im_edittext_normal"
-        />
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_web_link"/>
-
-        <android.support.design.widget.TextInputLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:visibility="visible"></android.support.v7.widget.RecyclerView>
 
-            <AutoCompleteTextView
-                android:id="@+id/addqueslink"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/askque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/floatt"
+            android:visibility="visible" />
+
+
+        <LinearLayout
+            android:id="@+id/askques"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Add Link"
-                android:maxLines="1"
-                />
+                android:text="Heading"
+                android:textColor="#000000"
+                android:textSize="20dp" />
 
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_tags"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <AutoCompleteTextView
-                android:id="@+id/addquestags"
+            <EditText
+                android:id="@+id/addqueshead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Add Tags"
-                android:maxLines="1"
-                />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/twitter_im_edittext_normal"
+                android:hint="Write question heading..."
+                android:maxLines="1" />
 
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Content"
+                android:textColor="#000000"
+                android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:layout_gravity="left"/>
+            <EditText
+                android:id="@+id/addquestext"
+                android:layout_width="match_parent"
+                android:layout_height="245dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/twitter_im_edittext_normal"
+                android:hint="Write question content..."
+                android:textAlignment="viewStart" />
 
-    <Button
-        android:id="@+id/addques"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Post"
-        android:layout_alignParentEnd="true"/>
 
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-</LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_web_link" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/addqueslink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Add Link"
+                        android:maxLines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_tags" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/addquestags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Add Tags"
+                        android:maxLines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Cancel" />
+
+                <Button
+                    android:id="@+id/addques"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="Post" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

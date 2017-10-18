@@ -4,18 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,7 +24,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
 import com.cse.csenitd.R;
 import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.req_class.requested_classes;
@@ -49,23 +46,23 @@ import java.net.URL;
 import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
 import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
-public class hostclass extends AppCompatActivity{
+public class hostclass extends AppCompatActivity {
 
     RecyclerView.Adapter adapter;
     public static RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public int count=0,numberofclasses=0;
+    public int count = 0, numberofclasses = 0;
     ProgressDialog progressDialog;
     Config config;
     static RelativeLayout layout;
     static FloatingActionButton add;
-    Button cancel,cdate,ctime;
+    Button cancel, cdate, ctime;
     static Button post;
     DatePicker datep;
     TimePicker timep;
-    LinearLayout date,time;
-    static TextView tdate,ttime;
-    static EditText title,desc,link,tutor,venue;
+    LinearLayout date, time;
+    static TextView tdate, ttime;
+    static EditText title, desc, link, tutor, venue;
     static int id;
     Button getinfo;
     static String titlee;
@@ -78,31 +75,30 @@ public class hostclass extends AppCompatActivity{
         //recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        progressDialog = ProgressDialog.show(hostclass.this, "Fetching Classes", "Please wait...",false,false);
+        progressDialog = ProgressDialog.show(hostclass.this, "Fetching Classes", "Please wait...", false, false);
 
-        layout=(RelativeLayout)findViewById(R.id.layout);
-        add=(FloatingActionButton)findViewById(R.id.add);
-        cancel=(Button)findViewById(R.id.cancel);
-        post=(Button)findViewById(R.id.post);
-        datep=(DatePicker)findViewById(R.id.datep);
-        cdate=(Button)findViewById(R.id.cdate);
-        ctime=(Button)findViewById(R.id.ctime);
-        timep=(TimePicker)findViewById(R.id.timep);
-        date=(LinearLayout)findViewById(R.id.date);
-        time=(LinearLayout)findViewById(R.id.time);
-        ttime=(TextView)findViewById(R.id.ttime);
-        tdate=(TextView)findViewById(R.id.tdate);
-        title=(EditText)findViewById(R.id.title);
-        desc=(EditText)findViewById(R.id.desc);
-        link=(EditText)findViewById(R.id.link);
-        tutor=(EditText)findViewById(R.id.tutor);
-        venue=(EditText)findViewById(R.id.venue);
-        getinfo=(Button)findViewById(R.id.getinfo);
+        layout = (RelativeLayout) findViewById(R.id.layout);
+        add = (FloatingActionButton) findViewById(R.id.add);
+        cancel = (Button) findViewById(R.id.cancel);
+        post = (Button) findViewById(R.id.post);
+        datep = (DatePicker) findViewById(R.id.datep);
+        cdate = (Button) findViewById(R.id.cdate);
+        ctime = (Button) findViewById(R.id.ctime);
+        timep = (TimePicker) findViewById(R.id.timep);
+        date = (LinearLayout) findViewById(R.id.date);
+        time = (LinearLayout) findViewById(R.id.time);
+        ttime = (TextView) findViewById(R.id.ttime);
+        tdate = (TextView) findViewById(R.id.tdate);
+        title = (EditText) findViewById(R.id.title);
+        desc = (EditText) findViewById(R.id.desc);
+        link = (EditText) findViewById(R.id.link);
+        tutor = (EditText) findViewById(R.id.tutor);
+        venue = (EditText) findViewById(R.id.venue);
+        getinfo = (Button) findViewById(R.id.getinfo);
 
         cdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 date.setVisibility(View.VISIBLE);
                 cancel.setClickable(false);
                 post.setClickable(false);
@@ -114,8 +110,7 @@ public class hostclass extends AppCompatActivity{
 
         ctime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 cancel.setClickable(false);
                 post.setClickable(false);
                 time.setVisibility(View.VISIBLE);
@@ -127,8 +122,7 @@ public class hostclass extends AppCompatActivity{
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 title.setText("");
                 desc.setText("");
@@ -148,8 +142,7 @@ public class hostclass extends AppCompatActivity{
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
@@ -161,13 +154,10 @@ public class hostclass extends AppCompatActivity{
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (title.getText().toString().equals("")||desc.getText().toString().equals(""))
-                {
+            public void onClick(View v) {
+                if (title.getText().toString().equals("") || desc.getText().toString().equals("")) {
                     Toast.makeText(hostclass.this, "Title and Description are Compulsory!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     String titlee = title.getText().toString();
                     String descc = desc.getText().toString();
                     String linkk = link.getText().toString();
@@ -190,9 +180,9 @@ public class hostclass extends AppCompatActivity{
 
                         new addclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee);
                     } else if (post.getText().equals("Save")) {
-                        progressDialog = ProgressDialog.show(hostclass.this, "Saving Class", "Please wait...",false,false);
+                        progressDialog = ProgressDialog.show(hostclass.this, "Saving Class", "Please wait...", false, false);
 
-                        new saveclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee,id+"");
+                        new saveclassTask().execute(titlee, descc, linkk, tutorr, venuee, timee, datee, id + "");
 
                     }
                 }
@@ -201,11 +191,10 @@ public class hostclass extends AppCompatActivity{
 
         getinfo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                progressDialog = ProgressDialog.show(hostclass.this, "Sending Info", "Please wait...",false,false);
+            public void onClick(View v) {
+                progressDialog = ProgressDialog.show(hostclass.this, "Sending Info", "Please wait...", false, false);
 
-                new getInfoTask().execute(id+"",titlee);
+                new getInfoTask().execute(id + "", titlee);
             }
         });
 
@@ -214,7 +203,7 @@ public class hostclass extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_host,menu);
+        getMenuInflater().inflate(R.menu.menu_host, menu);
         //menuu=menu;
 
         //menuu.findItem(R.id.post).setVisible(false);
@@ -224,9 +213,8 @@ public class hostclass extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        if(id==R.id.req)
-        {
+        int id = item.getItemId();
+        if (id == R.id.req) {
             Intent intent = new Intent(this, requested_classes.class);
             startActivity(intent);
         }
@@ -236,67 +224,59 @@ public class hostclass extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-       if(date.getVisibility()==View.VISIBLE)
-        {
+        if (date.getVisibility() == View.VISIBLE) {
             date.setVisibility(View.GONE);
             post.setClickable(true);
             cancel.setClickable(true);
             cdate.setClickable(true);
             ctime.setClickable(true);
-            int day=datep.getDayOfMonth();
-            String month=month(datep.getMonth());
-            int year=datep.getYear();
-            String datee=month+" "+day+","+year;
+            int day = datep.getDayOfMonth();
+            String month = month(datep.getMonth());
+            int year = datep.getYear();
+            String datee = month + " " + day + "," + year;
             tdate.setText(datee);
-        }
-        else if(time.getVisibility()==View.VISIBLE)
-        {
+        } else if (time.getVisibility() == View.VISIBLE) {
             time.setVisibility(View.GONE);
             post.setClickable(true);
             cancel.setClickable(true);
             cdate.setClickable(true);
             ctime.setClickable(true);
-            int hour,minute;
-            if(Build.VERSION.SDK_INT < 23){
+            int hour, minute;
+            if (Build.VERSION.SDK_INT < 23) {
                 hour = timep.getCurrentHour();
                 minute = timep.getCurrentMinute();
 
-            } else{
+            } else {
                 hour = timep.getHour();
                 minute = timep.getMinute();
             }
-            if(hour>12)
-            ttime.setText(hour-12+":"+minute+" pm");
+            if (hour > 12)
+                ttime.setText(hour - 12 + ":" + minute + " pm");
             else
-            ttime.setText(hour+":"+minute+" am");
-        }
-        else  if((layout.getVisibility()==View.VISIBLE))
-       {
-           recyclerView.setVisibility(View.VISIBLE);
-           add.setVisibility(View.VISIBLE);
-           layout.setVisibility(View.GONE);
-           getSupportActionBar().setTitle("Available Classes");
-       }
-
-        else
-        {
+                ttime.setText(hour + ":" + minute + " am");
+        } else if ((layout.getVisibility() == View.VISIBLE)) {
+            recyclerView.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Available Classes");
+        } else {
             super.onBackPressed();
         }
     }
 
-    private void getData(){
-        class GetData extends AsyncTask<String,String,String> {
+    private void getData() {
+        class GetData extends AsyncTask<String, String, String> {
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                }
+            }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
 
-                if(s.equals("false")||s.equals("exception")||s.equals("unsuccessful"))
+                if (s.equals("false") || s.equals("exception") || s.equals("unsuccessful"))
                     Toast.makeText(hostclass.this, "Unable to fetch answers.", Toast.LENGTH_LONG).show();
                 else {
 
@@ -325,7 +305,7 @@ public class hostclass extends AppCompatActivity{
                 }
                 try {
                     // Setup HttpURLConnection class to send and receive data from php and mysql
-                    con = (HttpURLConnection)url.openConnection();
+                    con = (HttpURLConnection) url.openConnection();
                     con.setReadTimeout(READ_TIMEOUT);
                     con.setConnectTimeout(CONNECTION_TIMEOUT);
                     con.setRequestMethod("POST");
@@ -336,7 +316,7 @@ public class hostclass extends AppCompatActivity{
 
                     // Append parameters to URL
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
+                            .appendQueryParameter("username", openingActivity.ps.getString("username", "n/a"));
                     String query = builder.build().getEncodedQuery();
 
                     // Open connection for sending data
@@ -371,16 +351,15 @@ public class hostclass extends AppCompatActivity{
                             while ((json = reader.readLine()) != null) {
                                 result.append(json + "\n");
                             }
-                        }catch (NullPointerException e)
-                        {
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                             return "exception";
                         }
                         return result.toString().trim();
 
-                    }else{
+                    } else {
 
-                        return("unsuccessful");
+                        return ("unsuccessful");
                     }
 
                 } catch (IOException e) {
@@ -404,22 +383,22 @@ public class hostclass extends AppCompatActivity{
         gd.execute();
     }
 
-    public void showData(){
-        adapter = new CardAdapter(this.getApplicationContext(),Config.classids, Config.titles,Config.descs,Config.links,Config.tutors,Config.noofpeoples,Config.venues,Config.dates,Config.postbynames,Config.postbyusernames,Config.dps,Config.attendeds);
+    public void showData() {
+        adapter = new CardAdapter(this.getApplicationContext(), Config.classids, Config.titles, Config.descs, Config.links, Config.tutors, Config.noofpeoples, Config.venues, Config.dates, Config.postbynames, Config.postbyusernames, Config.dps, Config.attendeds);
         recyclerView.setAdapter(adapter);
 
         // Toast.makeText(questionsActivity.this, ""+adapter.getItemCount()+"", Toast.LENGTH_LONG).show();
     }
 
-    private void parseJSON(String json){
-        String dpurls[]=null;
+    private void parseJSON(String json) {
+        String dpurls[] = null;
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray array = jsonObject.getJSONArray("result");
 
             config = new Config(array.length());
-            dpurls=new String[array.length()];
-            for(int i=0; i<array.length(); i++){
+            dpurls = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject j = array.getJSONObject(i);
 
                 Config.classids[i] = getclassid(j);
@@ -433,7 +412,7 @@ public class hostclass extends AppCompatActivity{
                 Config.postbynames[i] = getpostbyname(j);
                 Config.postbyusernames[i] = getusername(j);
                 Config.attendeds[i] = getattending(j);
-                dpurls[i]=getdpurl(j);
+                dpurls[i] = getdpurl(j);
             }
 
         } catch (JSONException e) {
@@ -445,14 +424,12 @@ public class hostclass extends AppCompatActivity{
         getdpofanswers(dpurls);
     }
 
-    public void getdpofanswers(String[] dpurls)
-    {
-        Integer i=0;
-        count=0;
-        numberofclasses=dpurls.length;
-        for(i=0;i<dpurls.length;i++)
-        {
-            new getansdpTask().execute(dpurls[i],i.toString());
+    public void getdpofanswers(String[] dpurls) {
+        Integer i = 0;
+        count = 0;
+        numberofclasses = dpurls.length;
+        for (i = 0; i < dpurls.length; i++) {
+            new getansdpTask().execute(dpurls[i], i.toString());
         }
         //start asynctask to get dp in a for loop passing dpurl at one by one
         // if in getansdptask() in false or unsuccessful, make all dp=null and call show data
@@ -460,29 +437,28 @@ public class hostclass extends AppCompatActivity{
     }
 
 
-
     public class getansdpTask extends AsyncTask<String, String, String> {
-        Bitmap image,retrieved=null;
+        Bitmap image, retrieved = null;
         URL url;
 
         @Override
         protected String doInBackground(String... params) {
 
             //int index=params[1];
-            try{
+            try {
 
                 url = new URL(params[0]);
                 image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                retrieved=image;
-                return "true"+" "+params[1];
+                retrieved = image;
+                return "true" + " " + params[1];
 
-            }catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
-                return "exception"+" "+params[1];
+                return "exception" + " " + params[1];
                 //Toast.makeText(profile1.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-                return "exception"+" "+params[1];
+                return "exception" + " " + params[1];
                 //Toast.makeText(profile1.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
 
             }
@@ -494,21 +470,20 @@ public class hostclass extends AppCompatActivity{
         protected void onPostExecute(String result) {
 
 
-            int index=(Integer.parseInt((result.split(" "))[1]));
+            int index = (Integer.parseInt((result.split(" "))[1]));
             //Toast.makeText(profile1.this, result, Toast.LENGTH_LONG).show();
 
-            if (result.startsWith("exception") ) {
+            if (result.startsWith("exception")) {
 
-             //   Toast.makeText(hostclass.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
-                retrieved=null;
+                //   Toast.makeText(hostclass.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+                retrieved = null;
             }
-            if(result.startsWith("true"))
-            {
+            if (result.startsWith("true")) {
 
             }
-            Config.dps[index]=retrieved;
+            Config.dps[index] = retrieved;
             count++;
-            if(count==numberofclasses)
+            if (count == numberofclasses)
                 showData();
 
 
@@ -520,7 +495,7 @@ public class hostclass extends AppCompatActivity{
         }
     }
 
-    private String getclassid(JSONObject j){
+    private String getclassid(JSONObject j) {
         String name = null;
         try {
             name = j.getString("id");
@@ -530,7 +505,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String gettitle(JSONObject j){
+    private String gettitle(JSONObject j) {
         String name = null;
         try {
             name = j.getString("title");
@@ -539,7 +514,8 @@ public class hostclass extends AppCompatActivity{
         }
         return name;
     }
-    private String getdesc(JSONObject j){
+
+    private String getdesc(JSONObject j) {
         String name = null;
         try {
             name = j.getString("desc");
@@ -548,7 +524,8 @@ public class hostclass extends AppCompatActivity{
         }
         return name;
     }
-    private String getlink(JSONObject j){
+
+    private String getlink(JSONObject j) {
         String name = null;
         try {
             name = j.getString("link");
@@ -557,7 +534,8 @@ public class hostclass extends AppCompatActivity{
         }
         return name;
     }
-    private String getusername(JSONObject j){
+
+    private String getusername(JSONObject j) {
         String name = null;
         try {
             name = j.getString("username");
@@ -567,7 +545,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String getstudattending(JSONObject j){
+    private String getstudattending(JSONObject j) {
         String name = null;
         try {
             name = j.getString("studattending");
@@ -577,7 +555,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String gettutor(JSONObject j){
+    private String gettutor(JSONObject j) {
         String name = null;
         try {
             name = j.getString("tutor");
@@ -587,7 +565,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String getdate(JSONObject j){
+    private String getdate(JSONObject j) {
         String name = null;
         try {
             name = j.getString("date");
@@ -597,7 +575,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String getvenue(JSONObject j){
+    private String getvenue(JSONObject j) {
         String name = null;
         try {
             name = j.getString("venue");
@@ -609,7 +587,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String getpostbyname(JSONObject j){
+    private String getpostbyname(JSONObject j) {
         String name = null;
         try {
             name = j.getString("postbyname");
@@ -619,7 +597,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String getattending(JSONObject j){
+    private String getattending(JSONObject j) {
         String name = null;
         try {
             name = j.getString("attending");
@@ -629,7 +607,7 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    private String getdpurl(JSONObject j){
+    private String getdpurl(JSONObject j) {
         String name = null;
         try {
             name = j.getString("dpurl");
@@ -639,24 +617,34 @@ public class hostclass extends AppCompatActivity{
         return name;
     }
 
-    String month(int t)
-    {
-        switch (t)
-        {
-            case 1:return "Jan";
-            case 2:return "Feb";
-            case 3:return "Mar";
-            case 4:return "Apr";
-            case 5:return "May";
-            case 6:return "June";
-            case 7:return "July";
-            case 8:return "Aug";
-            case 9:return "Sept";
-            case 10:return "Oct";
-            case 11:return "Nov";
-            case 12:return "Dec";
+    String month(int t) {
+        switch (t) {
+            case 1:
+                return "Jan";
+            case 2:
+                return "Feb";
+            case 3:
+                return "Mar";
+            case 4:
+                return "Apr";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "Aug";
+            case 9:
+                return "Sept";
+            case 10:
+                return "Oct";
+            case 11:
+                return "Nov";
+            case 12:
+                return "Dec";
         }
-       return "";
+        return "";
 
     }
 
@@ -665,10 +653,11 @@ public class hostclass extends AppCompatActivity{
 
         HttpURLConnection conn;
         URL url = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-             }
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -687,7 +676,7 @@ public class hostclass extends AppCompatActivity{
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -697,13 +686,13 @@ public class hostclass extends AppCompatActivity{
                 conn.setDoOutput(true);
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"))
+                        .appendQueryParameter("user", openingActivity.ps.getString("username", "n/a"))
                         .appendQueryParameter("title", params[0])
                         .appendQueryParameter("desc", params[1])
                         .appendQueryParameter("link", params[2])
                         .appendQueryParameter("tutor", params[3])
                         .appendQueryParameter("venue", params[4])
-                        .appendQueryParameter("date", params[5]+" "+params[6]);
+                        .appendQueryParameter("date", params[5] + " " + params[6]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -740,11 +729,11 @@ public class hostclass extends AppCompatActivity{
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -760,12 +749,10 @@ public class hostclass extends AppCompatActivity{
 
             // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
-            if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 Toast.makeText(hostclass.this, "OOPs! Unable to add class.", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(hostclass.this, "Class added successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
@@ -788,6 +775,7 @@ public class hostclass extends AppCompatActivity{
 
         HttpURLConnection conn;
         URL url = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -810,7 +798,7 @@ public class hostclass extends AppCompatActivity{
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -820,7 +808,7 @@ public class hostclass extends AppCompatActivity{
                 conn.setDoOutput(true);
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"))
+                        .appendQueryParameter("username", openingActivity.ps.getString("username", "n/a"))
                         .appendQueryParameter("id", params[0])
                         .appendQueryParameter("title", params[1]);
                 String query = builder.build().getEncodedQuery();
@@ -859,11 +847,11 @@ public class hostclass extends AppCompatActivity{
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -879,16 +867,12 @@ public class hostclass extends AppCompatActivity{
 
             // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
-            if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 Toast.makeText(hostclass.this, "OOPs! Unable to Send Info.", Toast.LENGTH_LONG).show();
-            }
-            else if(result.equals("mailerror"))
-            {
+            } else if (result.equals("mailerror")) {
                 Toast.makeText(hostclass.this, "Invalid email-id! Please change if from the profile menu", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(hostclass.this, "Participation info mailed to you.", Toast.LENGTH_LONG).show();
 
             }
@@ -902,12 +886,12 @@ public class hostclass extends AppCompatActivity{
     }
 
 
-
     class saveclassTask extends AsyncTask<String, String, String> {
 
 
         HttpURLConnection conn;
         URL url = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -930,7 +914,7 @@ public class hostclass extends AppCompatActivity{
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -945,8 +929,8 @@ public class hostclass extends AppCompatActivity{
                         .appendQueryParameter("link", params[2])
                         .appendQueryParameter("tutor", params[3])
                         .appendQueryParameter("venue", params[4])
-                        .appendQueryParameter("date", params[5]+" "+params[6])
-                        .appendQueryParameter("id",params[7]);
+                        .appendQueryParameter("date", params[5] + " " + params[6])
+                        .appendQueryParameter("id", params[7]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -983,11 +967,11 @@ public class hostclass extends AppCompatActivity{
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -1003,12 +987,10 @@ public class hostclass extends AppCompatActivity{
 
             // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
-            if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 Toast.makeText(hostclass.this, "OOPs! Unable to save class.", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(hostclass.this, "Class saved successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
@@ -1026,8 +1008,7 @@ public class hostclass extends AppCompatActivity{
         }
     }
 
-    public static void onedit(String a,String b,String c,String d,String e,String f,String g)
-    {
+    public static void onedit(String a, String b, String c, String d, String e, String f, String g) {
         recyclerView.setVisibility(View.GONE);
         add.setVisibility(View.GONE);
         layout.setVisibility(View.VISIBLE);
@@ -1038,14 +1019,12 @@ public class hostclass extends AppCompatActivity{
         link.setText(d);
         tutor.setText(e);
         venue.setText(g);
-        id=Integer.parseInt(a);
-        titlee=b;
-        if(f.equals("n/a"))
-        {
+        id = Integer.parseInt(a);
+        titlee = b;
+        if (f.equals("n/a")) {
             ttime.setText("n/a");
             tdate.setText("n/a");
-        }
-        else {
+        } else {
             String s[] = f.split(" ");
             ttime.setText(s[0] + " " + s[1]);
             tdate.setText(s[2] + " " + s[3]);

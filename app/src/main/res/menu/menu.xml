@@ -5,21 +5,19 @@
 
     <item
         android:id="@+id/search"
+        android:icon="@drawable/ic_search_black_24dp"
         android:orderInCategory="200"
         android:title="Search"
         android:visible="true"
-        android:icon="@drawable/ic_search_black_24dp"
-        app:showAsAction="ifRoom"
-        ></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/refresh"
+        android:icon="@drawable/ic_loop_black_24dp"
         android:orderInCategory="200"
         android:title="Refresh"
         android:visible="true"
-        android:icon="@drawable/ic_loop_black_24dp"
-        app:showAsAction="ifRoom"
-        ></item>
+        app:showAsAction="ifRoom"/>
 
 
 </menu>

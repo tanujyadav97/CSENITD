@@ -30,20 +30,20 @@ public class Config {
     public static final String TAG_LINK = "link";
     public static final String TAG_ACCEPTED = "accepted";
     public static final String TAG_ANSID = "ansid";
-    public static final String TAG_JSON_ARRAY="result";
+    public static final String TAG_JSON_ARRAY = "result";
 
-    public Config(int i){
+    public Config(int i) {
         times = new String[i];
         votess = new String[i];
-        quesids= new String[i];
-        anss= new String[i];
-        ansbys= new String[i];
-        ansbynames= new String[i];
-        ansbyrepos= new String[i];
-        links= new String[i];
-        accepteds= new String[i];
-        ansids= new String[i];
-        voteds= new String[i];
-        dps= new Bitmap[i];
+        quesids = new String[i];
+        anss = new String[i];
+        ansbys = new String[i];
+        ansbynames = new String[i];
+        ansbyrepos = new String[i];
+        links = new String[i];
+        accepteds = new String[i];
+        ansids = new String[i];
+        voteds = new String[i];
+        dps = new Bitmap[i];
     }
 }

@@ -67,8 +67,9 @@
             android:name=".Users.user"
             android:label="Users"
             android:theme="@style/homeTheme" />
-        <activity android:name=".req_class.requested_classes"
-            android:label="Requested Classes"/>
+        <activity
+            android:name=".req_class.requested_classes"
+            android:label="Requested Classes" />
     </application>
 
 </manifest>

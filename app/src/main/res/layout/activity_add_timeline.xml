@@ -3,65 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:orientation="vertical">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".92"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/timeline_post"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".92"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/timeline_post"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/border"
-                android:gravity="start"
-                android:hint="Out lonely there! Post Something"
-                android:maxLines="4"
-                android:padding="10dp" />
+            android:layout_height="150dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/border"
+            android:gravity="start"
+            android:hint="Out lonely there! Post Something"
+            android:maxLines="4"
+            android:padding="10dp" />
 
 
+        <FrameLayout
+            android:id="@+id/imgframe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
 
-                <FrameLayout
-                    android:id="@+id/imgframe"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp">
+            <VideoView
+                android:id="@+id/videoview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:visibility="invisible" />
 
-                    <VideoView
-                        android:id="@+id/videoview"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="20dp"
-                        android:visibility="invisible" />
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/btn_dialog" />
 
-                    <ImageButton
-                        android:id="@+id/imageButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/btn_dialog" />
-
-                </FrameLayout>
-        </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 
     <Button
         android:id="@+id/upload_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight=".08"
         android:background="#90A4AE"
         android:drawableLeft="@drawable/upload_network"
         android:paddingLeft="25dp"
         android:text="Upload"
-        android:layout_weight=".08"
         android:textAlignment="viewStart"
         android:textColor="#FF9800" />
 

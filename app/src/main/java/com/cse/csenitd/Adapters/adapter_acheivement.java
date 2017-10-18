@@ -8,21 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
 import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.DbHelper.ImageLoader;
 import com.cse.csenitd.R;
 import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.profile1;
-
-import org.mortbay.jetty.servlet.Holder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -48,19 +44,19 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     public Context mContext;
     ImageLoader imageLoader;
     public ItemrowHolder useholder;
-    boolean isImageFitToScreen=false;
+    boolean isImageFitToScreen = false;
 
 
     public adapter_acheivement(Context context, ArrayList<Acheivements_DATA> list) {
         this.mContext = context;
         this.DataList_ach = list;
-        imageLoader=new ImageLoader(mContext);
+        imageLoader = new ImageLoader(mContext);
     }
 
     @Override
-    public ItemrowHolder onCreateViewHolder(ViewGroup  parent, int viewType) {
+    public ItemrowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_achievements,parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_achievements, parent, false);
         return new ItemrowHolder(v);
     }
 
@@ -76,7 +72,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
         final int usepos;
         final String id;
         obj = DataList_ach.get(position);
-        usepos=position;
+        usepos = position;
         holder.desciption.setText(obj.get_des());
         holder.Likes.setText(Integer.valueOf(obj.get_likes()).toString());
         holder.postby.setText(obj.get_UserName());
@@ -85,30 +81,30 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
         holder.usernm.setText(obj.get_UserName());
         holder.postby.setText(obj.get_name());
         //holder.rep.setText(Integer.valueOf(obj.get_rep()).toString());
-        imageLoader.DisplayImage(obj.getUserImag(),holder.UserImg);
+        imageLoader.DisplayImage(obj.getUserImag(), holder.UserImg);
         holder.title.setText(obj.get_title());
 
-        String arr[]=obj.getliked().split(" ");
-        String liked=arr[0];
-        id=arr[1];
-        if(liked.equals("1"))
+        String arr[] = obj.getliked().split(" ");
+        String liked = arr[0];
+        id = arr[1];
+        if (liked.equals("1"))
             holder.likebutton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
 
         holder.UserImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openingActivity.pe.putString("useusername",holder.usernm.getText().toString());
+                openingActivity.pe.putString("useusername", holder.usernm.getText().toString());
                 openingActivity.pe.commit();
-                Intent in=new Intent(mContext,profile1.class);
+                Intent in = new Intent(mContext, profile1.class);
                 mContext.startActivity(in);
             }
         });
         holder.info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openingActivity.pe.putString("useusername",holder.usernm.getText().toString());
+                openingActivity.pe.putString("useusername", holder.usernm.getText().toString());
                 openingActivity.pe.commit();
-                Intent in=new Intent(mContext,profile1.class);
+                Intent in = new Intent(mContext, profile1.class);
                 mContext.startActivity(in);
             }
         });
@@ -116,11 +112,11 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
         holder.likebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idd=id;
-                String user=openingActivity.ps.getString("username","n/a");
-                    useholder=holder;
-               // Toast.makeText(mContext, idd, Toast.LENGTH_LONG).show();
-                castlike(idd,user,usepos,obj);
+                String idd = id;
+                String user = openingActivity.ps.getString("username", "n/a");
+                useholder = holder;
+                // Toast.makeText(mContext, idd, Toast.LENGTH_LONG).show();
+                castlike(idd, user, usepos, obj);
 
 
             }
@@ -133,26 +129,27 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
     }
 
     public class ItemrowHolder extends RecyclerView.ViewHolder {
-        public TextView desciption, datetime, postby, Likes, title,usernm;
+        public TextView desciption, datetime, postby, Likes, title, usernm;
         public ImageView imageView, UserImg;
         public ImageButton likebutton;
         LinearLayout info;
+
         public ItemrowHolder(View itemView) {
             super(itemView);
             desciption = (TextView) itemView.findViewById(R.id.des);
-           imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
             datetime = (TextView) itemView.findViewById(R.id.datetime);
             postby = (TextView) itemView.findViewById(R.id.postby);
             Likes = (TextView) itemView.findViewById(R.id.noOfLikes);
             UserImg = (ImageView) itemView.findViewById(R.id.poster);
-            title=(TextView)itemView.findViewById(R.id.title);
-            usernm=(TextView)itemView.findViewById(R.id.usrnm);
-            info=(LinearLayout)itemView.findViewById(R.id.info);
-            likebutton=(ImageButton)itemView.findViewById(R.id.likebutton);
+            title = (TextView) itemView.findViewById(R.id.title);
+            usernm = (TextView) itemView.findViewById(R.id.usrnm);
+            info = (LinearLayout) itemView.findViewById(R.id.info);
+            likebutton = (ImageButton) itemView.findViewById(R.id.likebutton);
         }
     }
 
-    public  void castlike(final String idd,String user,final int usepos,final Acheivements_DATA obj) {
+    public void castlike(final String idd, String user, final int usepos, final Acheivements_DATA obj) {
         class likeTask extends AsyncTask<String, String, String> {
 
 
@@ -251,7 +248,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                  //Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.Likes.getText().toString());
                         String newvote = "" + (curlikes + 1);
                         useholder.Likes.setText(newvote);
@@ -260,7 +257,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                         DataList_ach.set(usepos, obj);
                         useholder.likebutton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
                     } else if (result.equals("two")) {
-                      //  Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
+                        //  Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.Likes.getText().toString());
                         String newvote = "" + (curlikes - 1);
                         useholder.Likes.setText(newvote);
@@ -279,7 +276,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
             }
         }
 
-        new likeTask().execute(idd,user);
+        new likeTask().execute(idd, user);
     }
 
 

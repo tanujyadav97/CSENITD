@@ -11,17 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cse.csenitd.R;
 import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.question.quesdetail.questiondetailActivity;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,10 +31,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     List<ListItem> items;
 
-    public CardAdapter(String[] time, String[] vote,String[] topic,String[] ques,String[] tag,String[] username,String[] accepted){
+    public CardAdapter(String[] time, String[] vote, String[] topic, String[] ques, String[] tag, String[] username, String[] accepted) {
         super();
         items = new ArrayList<ListItem>();
-        for(int i =0; i<time.length; i++){
+        for (int i = 0; i < time.length; i++) {
             ListItem item = new ListItem();
             item.settime(time[i]);
             item.setvotes(vote[i]);
@@ -62,13 +57,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ListItem list =  items.get(position);
+        ListItem list = items.get(position);
         holder.votes.setText(list.getvotes());
         holder.ques.setText(list.gettopic());
         holder.tag.setText(list.gettags());
         holder.timee.setText(getDate(Long.parseLong(list.gettime())));
-        holder.id.setText(list.gettime()+"~~~"+list.getusername());
-        if(list.getaccepted().equals("1")) {
+        holder.id.setText(list.gettime() + "~~~" + list.getusername());
+        if (list.getaccepted().equals("1")) {
             holder.votes.setTextColor(Color.parseColor("#FFFFFF"));
             holder.votes.setBackgroundResource(R.drawable.votes1);
         }
@@ -84,7 +79,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         return items.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         public Button votes;
         public TextView ques;
         public TextView tag;
@@ -102,26 +97,26 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     String s[];
-                    s=id.getText().toString().split("~~~");
-                    openingActivity.pe.putString("quesid",s[0]);
+                    s = id.getText().toString().split("~~~");
+                    openingActivity.pe.putString("quesid", s[0]);
                     openingActivity.pe.commit();
 
-                    openingActivity.pe.putString("quesusername",s[1]);
+                    openingActivity.pe.putString("quesusername", s[1]);
                     openingActivity.pe.commit();
 
-                    v.getContext().startActivity(new Intent(v.getContext(),questiondetailActivity.class));
+                    v.getContext().startActivity(new Intent(v.getContext(), questiondetailActivity.class));
                 }
             });
 
         }
 
     }
-    public  String getDate(long timestamp) {
+
+    public String getDate(long timestamp) {
         //     Toast.makeText(questiondetailActivity.this, ""+timestamp, Toast.LENGTH_LONG).show();
-        try{
+        try {
             Calendar calendar = Calendar.getInstance();
             TimeZone tz = TimeZone.getDefault();
 
@@ -130,7 +125,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
 
             return sdf.format(new Date(timestamp * 1000));
-        }catch (Exception e) {
+        } catch (Exception e) {
         }
         return "";
     }

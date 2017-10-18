@@ -59,17 +59,25 @@ public class ListItem {
         return postedon;
     }
 
-    public void setpostbyname(String ansbyrepo) {this.postbyname = ansbyrepo;}
+    public void setpostbyname(String ansbyrepo) {
+        this.postbyname = ansbyrepo;
+    }
 
     public String getpostbyname() {
         return postbyname;
     }
 
-    public void setpostbyusername(String ansbyrepo) {this.postbyusername = ansbyrepo;}
+    public void setpostbyusername(String ansbyrepo) {
+        this.postbyusername = ansbyrepo;
+    }
 
-    public String getpostbyusername() {return postbyusername;}
+    public String getpostbyusername() {
+        return postbyusername;
+    }
 
-    public void setattended(String accepted) {this.attended = accepted;}
+    public void setattended(String accepted) {
+        this.attended = accepted;
+    }
 
     public String getattended() {
         return attended;

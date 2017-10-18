@@ -1,37 +1,30 @@
 package com.cse.csenitd.question;
 
-import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import com.cse.csenitd.R;
-import com.cse.csenitd.openingActivity;
-import com.cse.csenitd.profile1;
-
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cse.csenitd.R;
+import com.cse.csenitd.openingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -48,26 +41,26 @@ import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
 public class questionsActivity extends AppCompatActivity {
 
+    public Menu menuu;
+    public SearchView search;
+    int searched;
+    TextView noques;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private Config config;
     private FloatingActionButton ask;
     private LinearLayout askques;
-    private Button cancel,post;
-    private EditText addqueshead,addquestext,addqueslink,addquestags;
-    public Menu menuu;
-    public SearchView search;
-    int searched;
-    TextView noques;
+    private Button cancel, post;
+    private EditText addqueshead, addquestext, addqueslink, addquestags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-searched=0;
+        searched = 0;
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -75,28 +68,25 @@ searched=0;
 
         recyclerView.setLayoutManager(layoutManager);
 
-        ask=(FloatingActionButton)findViewById(R.id.askque);
-        askques=(LinearLayout)findViewById(R.id.askques);
-        cancel=(Button)findViewById(R.id.cancel);
-        post=(Button)findViewById(R.id.addques);
-        addqueshead=(EditText)findViewById(R.id.addqueshead);
-        addquestext=(EditText)findViewById(R.id.addquestext);
-        addqueslink=(EditText)findViewById(R.id.addqueslink);
-        addquestags=(EditText)findViewById(R.id.addquestags);
-        search=(SearchView)findViewById(R.id.searchview);
-        noques=(TextView)findViewById(R.id.noques);
+        ask = (FloatingActionButton) findViewById(R.id.askque);
+        askques = (LinearLayout) findViewById(R.id.askques);
+        cancel = (Button) findViewById(R.id.cancel);
+        post = (Button) findViewById(R.id.addques);
+        addqueshead = (EditText) findViewById(R.id.addqueshead);
+        addquestext = (EditText) findViewById(R.id.addquestext);
+        addqueslink = (EditText) findViewById(R.id.addqueslink);
+        addquestags = (EditText) findViewById(R.id.addquestags);
+        search = (SearchView) findViewById(R.id.searchview);
+        noques = (TextView) findViewById(R.id.noques);
 
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                if (query.equals(""))
-                {
+                if (query.equals("")) {
 
-                }
-                else
-                {
+                } else {
                     handle_search(query);
                 }
                 return false;
@@ -111,9 +101,8 @@ searched=0;
 
         ask.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-               recyclerView.setVisibility(View.GONE);
+            public void onClick(View v) {
+                recyclerView.setVisibility(View.GONE);
                 ask.setVisibility(View.GONE);
                 askques.setVisibility(View.VISIBLE);
                 getSupportActionBar().setTitle("Ask Question");
@@ -124,23 +113,20 @@ searched=0;
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                String head=addqueshead.getText().toString();
-                String text=addquestext.getText().toString();
-                String link=addqueslink.getText().toString();
-                String tags=addquestags.getText().toString();
-                String a1=head,a2=text;
-                if(a1.replace(" ","").length()==0||a2.replace(" ","").length()==0)
-                {
+            public void onClick(View v) {
+                String head = addqueshead.getText().toString();
+                String text = addquestext.getText().toString();
+                String link = addqueslink.getText().toString();
+                String tags = addquestags.getText().toString();
+                String a1 = head, a2 = text;
+                if (a1.replace(" ", "").length() == 0 || a2.replace(" ", "").length() == 0) {
                     Toast.makeText(questionsActivity.this, "Don't leave topic and question fields empty!", Toast.LENGTH_LONG).show();
-                }
-                else {
-                  //  recyclerView.setVisibility(View.VISIBLE);
-                  //  ask.setVisibility(View.VISIBLE);
-                  //  askques.setVisibility(View.GONE);
+                } else {
+                    //  recyclerView.setVisibility(View.VISIBLE);
+                    //  ask.setVisibility(View.VISIBLE);
+                    //  askques.setVisibility(View.GONE);
 
-                    addquestion(head,text,link,tags);
+                    addquestion(head, text, link, tags);
                     //getData(); call only if successful
                 }
             }
@@ -148,8 +134,7 @@ searched=0;
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 recyclerView.setVisibility(View.VISIBLE);
                 ask.setVisibility(View.VISIBLE);
                 askques.setVisibility(View.GONE);
@@ -164,17 +149,15 @@ searched=0;
 
     @Override
     public void onBackPressed() {
-      //  super.onBackPressed();
-        if((askques.getVisibility()==View.VISIBLE))
-        {
+        //  super.onBackPressed();
+        if ((askques.getVisibility() == View.VISIBLE)) {
             recyclerView.setVisibility(View.VISIBLE);
             ask.setVisibility(View.VISIBLE);
             askques.setVisibility(View.GONE);
             menuu.findItem(R.id.refresh).setVisible(true);
             menuu.findItem(R.id.search).setVisible(true);
             getSupportActionBar().setTitle("Questions");
-        }
-        else {
+        } else {
 
 
             if (search.getVisibility() == View.VISIBLE) {
@@ -185,9 +168,8 @@ searched=0;
                     searched = 0;
                     getData("");
                 }
-            }
-            else
-            {  super.onBackPressed();
+            } else {
+                super.onBackPressed();
             }
         }
     }
@@ -196,7 +178,7 @@ searched=0;
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        this.menuu=menu;
+        this.menuu = menu;
         return true;
     }
 
@@ -211,51 +193,47 @@ searched=0;
         if (id == R.id.refresh) {
             search.setVisibility(View.GONE);
             ask.setVisibility(View.VISIBLE);
-            if(searched==1)
-            {
+            if (searched == 1) {
                 getSupportActionBar().setTitle("Questions");
-                searched=0;
+                searched = 0;
 
             }
             getData("");
             return true;
-        }
-        else if (id == R.id.search) {
+        } else if (id == R.id.search) {
             //getData();
-            if (search.getVisibility()==View.GONE) {
+            if (search.getVisibility() == View.GONE) {
                 search.setVisibility(View.VISIBLE);
                 ask.setVisibility(View.GONE);
-            }
-                else {
+            } else {
                 search.setVisibility(View.GONE);
                 ask.setVisibility(View.VISIBLE);
-                if (searched==1)
-                {
+                if (searched == 1) {
                     getSupportActionBar().setTitle("Questions");
-                    searched=0;
+                    searched = 0;
                     getData("");
 
                 }
             }
-                return true;
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    public void addquestion(String a,String b,String c,String d)
-    {
+    public void addquestion(String a, String b, String c, String d) {
         class addquesTask extends AsyncTask<String, String, String> {
 
 
             HttpURLConnection conn;
             URL url = null;
             ProgressDialog progressDialog;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = ProgressDialog.show(questionsActivity.this, "Posting Question", "Please wait...",false,false);
+                progressDialog = ProgressDialog.show(questionsActivity.this, "Posting Question", "Please wait...", false, false);
             }
 
             @Override
@@ -275,7 +253,7 @@ searched=0;
                 }
                 try {
                     // Setup HttpURLConnection class to send and receive data from php and mysql
-                    conn = (HttpURLConnection)url.openConnection();
+                    conn = (HttpURLConnection) url.openConnection();
                     conn.setReadTimeout(READ_TIMEOUT);
                     conn.setConnectTimeout(CONNECTION_TIMEOUT);
                     conn.setRequestMethod("POST");
@@ -327,11 +305,11 @@ searched=0;
                         }
 
                         // Pass data to onPostExecute method
-                        return(result.toString());
+                        return (result.toString());
 
-                    }else{
+                    } else {
 
-                        return("unsuccessful");
+                        return ("unsuccessful");
                     }
 
                 } catch (IOException e) {
@@ -347,13 +325,11 @@ searched=0;
 
                 // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
-                if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+                if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                     Toast.makeText(questionsActivity.this, "OOPs! Unable to post question.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                  //  Toast.makeText(questionsActivity.this, "Question added successfully", Toast.LENGTH_LONG).show();
+                } else {
+                    //  Toast.makeText(questionsActivity.this, "Question added successfully", Toast.LENGTH_LONG).show();
                     addquestext.setText("");
                     addqueslink.setText("");
                     addqueshead.setText("");
@@ -375,25 +351,26 @@ searched=0;
                 progressDialog.dismiss();
             }
         }
-        new addquesTask().execute(a,b,c,d, openingActivity.ps.getString("username","n/a"));
+        new addquesTask().execute(a, b, c, d, openingActivity.ps.getString("username", "n/a"));
     }
 
 
-    private void getData(final String ss){
+    private void getData(final String ss) {
         noques.setVisibility(View.GONE);
-        class GetData extends AsyncTask<String,String,String>{
+        class GetData extends AsyncTask<String, String, String> {
             ProgressDialog progressDialog;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = ProgressDialog.show(questionsActivity.this, "Fetching Data", "Please wait...",false,false);
+                progressDialog = ProgressDialog.show(questionsActivity.this, "Fetching Data", "Please wait...", false, false);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 progressDialog.dismiss();
-                if(!ss.equals(""))
+                if (!ss.equals(""))
                     getSupportActionBar().setTitle("Search Results");
                 parseJSON(s);
             }
@@ -419,7 +396,7 @@ searched=0;
                 }
                 try {
                     // Setup HttpURLConnection class to send and receive data from php and mysql
-                    con = (HttpURLConnection)url.openConnection();
+                    con = (HttpURLConnection) url.openConnection();
                     con.setReadTimeout(READ_TIMEOUT);
                     con.setConnectTimeout(CONNECTION_TIMEOUT);
                     con.setRequestMethod("POST");
@@ -465,16 +442,15 @@ searched=0;
                             while ((json = reader.readLine()) != null) {
                                 result.append(json + "\n");
                             }
-                        }catch (NullPointerException e)
-                        {
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                             return "exception";
                         }
                         return result.toString().trim();
 
-                    }else{
+                    } else {
 
-                        return("unsuccessful");
+                        return ("unsuccessful");
                     }
 
                 } catch (IOException e) {
@@ -490,25 +466,24 @@ searched=0;
         gd.execute(ss);
     }
 
-    public void showData(){
+    public void showData() {
 
-        if(Config.times==null||Config.times.length==0)
+        if (Config.times == null || Config.times.length == 0)
             noques.setVisibility(View.VISIBLE);
-        else
-        {
-            adapter = new CardAdapter(Config.times, Config.votess,Config.topics,Config.quess,Config.tagss,Config.usernames,Config.accepteds);
+        else {
+            adapter = new CardAdapter(Config.times, Config.votess, Config.topics, Config.quess, Config.tagss, Config.usernames, Config.accepteds);
             recyclerView.setAdapter(adapter);
         }
-       // Toast.makeText(questionsActivity.this, ""+adapter.getItemCount()+"", Toast.LENGTH_LONG).show();
+        // Toast.makeText(questionsActivity.this, ""+adapter.getItemCount()+"", Toast.LENGTH_LONG).show();
     }
 
-    private void parseJSON(String json){
+    private void parseJSON(String json) {
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray array = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
 
             config = new Config(array.length());
-            for(int i=0; i<array.length(); i++){
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject j = array.getJSONObject(i);
 
                 Config.times[i] = getTime(j);
@@ -526,7 +501,7 @@ searched=0;
         showData();
     }
 
-    private String getTime(JSONObject j){
+    private String getTime(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_TIME);
@@ -536,7 +511,7 @@ searched=0;
         return name;
     }
 
-    private String getVote(JSONObject j){
+    private String getVote(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_VOTES);
@@ -545,7 +520,8 @@ searched=0;
         }
         return name;
     }
-    private String getTopic(JSONObject j){
+
+    private String getTopic(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_TOPIC);
@@ -554,7 +530,8 @@ searched=0;
         }
         return name;
     }
-    private String getQues(JSONObject j){
+
+    private String getQues(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_QUES);
@@ -563,7 +540,8 @@ searched=0;
         }
         return name;
     }
-    private String getTags(JSONObject j){
+
+    private String getTags(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_TAGS);
@@ -573,7 +551,7 @@ searched=0;
         return name;
     }
 
-    private String getAccep(JSONObject j){
+    private String getAccep(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_ACCEPTED);
@@ -583,7 +561,7 @@ searched=0;
         return name;
     }
 
-    private String getUser(JSONObject j){
+    private String getUser(JSONObject j) {
         String name = null;
         try {
             name = j.getString(Config.TAG_USERNAME);
@@ -593,9 +571,8 @@ searched=0;
         return name;
     }
 
-    private void handle_search(String query)
-    {
-        searched=1;
+    private void handle_search(String query) {
+        searched = 1;
         //Toast.makeText(questionsActivity.this, "searched", Toast.LENGTH_LONG).show();
         getData(query);
     }

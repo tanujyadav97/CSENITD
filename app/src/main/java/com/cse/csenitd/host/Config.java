@@ -25,18 +25,18 @@ public class Config {
     public static final String GET_URL = "https://nitd.000webhostapp.com/cse%20nitd/getclasses.php";
 
 
-    public Config(int i){
+    public Config(int i) {
         classids = new String[i];
         titles = new String[i];
-        descs= new String[i];
-        links= new String[i];
-        tutors= new String[i];
-        noofpeoples= new String[i];
-        venues= new String[i];
-        dates= new String[i];
-        postbynames= new String[i];
-        postbyusernames= new String[i];
-        attendeds= new String[i];
-        dps= new Bitmap[i];
+        descs = new String[i];
+        links = new String[i];
+        tutors = new String[i];
+        noofpeoples = new String[i];
+        venues = new String[i];
+        dates = new String[i];
+        postbynames = new String[i];
+        postbyusernames = new String[i];
+        attendeds = new String[i];
+        dps = new Bitmap[i];
     }
 }

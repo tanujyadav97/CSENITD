@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b2acac">
-
+    android:background="#b2acac"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/acheivemnts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:visibility="visible"
-        android:id="@+id/acheivemnts_recycler_view"/>
+        android:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/layout"
@@ -25,44 +24,44 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:layout_above="@+id/bbbb"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/ptitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Title"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:background="@drawable/twitter_im_edittext_normal"
                     android:layout_margin="10dp"
+                    android:background="@drawable/twitter_im_edittext_normal"
+                    android:hint="Title"
+                    android:maxLines="1"
+                    android:padding="10dp"
                     tools:ignore="HardcodedText" />
+
                 <EditText
                     android:id="@+id/ptext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Description. . ."
-                    android:padding="10dp"
-                    android:lines="5"
                     android:layout_margin="10dp"
-                    tools:ignore="HardcodedText"
-                    android:background="@drawable/twitter_im_edittext_normal"/>
+                    android:background="@drawable/twitter_im_edittext_normal"
+                    android:hint="Description. . ."
+                    android:lines="5"
+                    android:padding="10dp"
+                    tools:ignore="HardcodedText" />
+
                 <com.cse.csenitd.Behaviours.DynamicImageView
                     android:id="@+id/pimg"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
                     android:layout_margin="20dp"
-                    />
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
         </ScrollView>
@@ -71,29 +70,29 @@
             android:id="@+id/bbbb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="Cancel"
                 android:background="#808080"
-                android:layout_marginRight="5dp"/>
+                android:text="Cancel" />
 
             <Button
                 android:id="@+id/buttonImg"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:background="#808080"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#808080"
                 android:drawableStart="@drawable/ic_image_black_24dp"
                 android:paddingStart="10dp"
                 android:text="Photo"
@@ -104,14 +103,15 @@
 
 
     </RelativeLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
+        android:layout_gravity="bottom|right"
         android:layout_margin="5dp"
-        android:visibility="visible"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="bottom|right"/>
+        android:src="@drawable/ic_add"
+        android:visibility="visible" />
 
 </android.support.design.widget.CoordinatorLayout>

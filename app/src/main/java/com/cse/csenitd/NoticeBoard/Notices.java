@@ -1,6 +1,5 @@
 package com.cse.csenitd.NoticeBoard;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -15,16 +14,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.cse.csenitd.Adapters.adapter_acheivement;
 import com.cse.csenitd.Adapters.adapter_notice;
-import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.Data.Notices_DATA;
 import com.cse.csenitd.DbHelper.Notice_Display;
 import com.cse.csenitd.R;
@@ -40,9 +35,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
 import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
@@ -51,23 +44,24 @@ import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
  * Created by lenovo on 23-06-2017.Mohit yadav
  */
 
-public class Notices extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Notices_DATA>>{
+public class Notices extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Notices_DATA>> {
     RecyclerView mrecycler;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
     private RecyclerView.Adapter adapter;
     ProgressDialog progressDialog1;
     private FloatingActionButton ask;
-    Button post,cancel;
+    Button post, cancel;
     EditText content;
 
-    public static final String nurl="https://nitd.000webhostapp.com/cse%20nitd/mohit/getNotices.php";
+    public static final String nurl = "https://nitd.000webhostapp.com/cse%20nitd/mohit/getNotices.php";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
 
-         progressDialog1= ProgressDialog.show(Notices.this, "Loading Notices", "Please wait...",false,false);
-        ArrayList<String> dta =new ArrayList<>();
+        progressDialog1 = ProgressDialog.show(Notices.this, "Loading Notices", "Please wait...", false, false);
+        ArrayList<String> dta = new ArrayList<>();
 //        dta.add("No need to parse string colors in your code If you want to hardcode color values in your ");
 //        dta.add("So you should check which kind ");
 //
@@ -80,17 +74,15 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
 //                "mohit yadav");
 
 
+        mrecycler = (RecyclerView) findViewById(R.id.noticeRecycleView);
+        ask = (FloatingActionButton) findViewById(R.id.add);
 
-        mrecycler=(RecyclerView)findViewById(R.id.noticeRecycleView);
-        ask=(FloatingActionButton)findViewById(R.id.add);
-
-        staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mrecycler.setLayoutManager(staggeredGridLayoutManager);
 
         ask.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(Notices.this);
                 final EditText edittext = new EditText(Notices.this);
@@ -104,16 +96,14 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                         //What ever you want to do with the value
 
                         String YouEditTextValue = edittext.getText().toString();
-                        String a1=YouEditTextValue;
-                        if (a1.replace(" ","").length()==0) {
+                        String a1 = YouEditTextValue;
+                        if (a1.replace(" ", "").length() == 0) {
 
                             Toast.makeText(Notices.this, "Don't leave Content field empty!", Toast.LENGTH_LONG).show();
 
-                        }
-                        else
-                        {
-                            addnotice AddNotice=new addnotice(Notices.this);
-                            new addnotice(Notices.this).execute(a1, openingActivity.ps.getString("username","n/a"));
+                        } else {
+                            addnotice AddNotice = new addnotice(Notices.this);
+                            new addnotice(Notices.this).execute(a1, openingActivity.ps.getString("username", "n/a"));
 
                         }
                     }
@@ -128,16 +118,15 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                 alert.show();
             }
         });
-        getLoaderManager().initLoader(0,null,this);
+        getLoaderManager().initLoader(0, null, this);
 
 
     }
 
 
-
     @Override
     public void onBackPressed() {
-          super.onBackPressed();
+        super.onBackPressed();
 
     }
 
@@ -148,7 +137,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
 
     @Override
     public Loader<ArrayList<Notices_DATA>> onCreateLoader(int i, Bundle bundle) {
-        return new Notice_Display(this,nurl);
+        return new Notice_Display(this, nurl);
     }
 
     @Override
@@ -159,8 +148,9 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             updateUi(data);
         }
     }
+
     private void updateUi(ArrayList<Notices_DATA> data) {
-        adapter=new adapter_notice(this,data);
+        adapter = new adapter_notice(this, data);
         mrecycler.setAdapter(adapter);
         progressDialog1.dismiss();
     }
@@ -177,13 +167,15 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
         URL url = null;
         ProgressDialog progressDialog;
         public Notices activity;
-        public addnotice(Notices activity){
-            this.activity=activity;
+
+        public addnotice(Notices activity) {
+            this.activity = activity;
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-             progressDialog = ProgressDialog.show(Notices.this, "Posting Notice", "Please wait...",false,false);
+            progressDialog = ProgressDialog.show(Notices.this, "Posting Notice", "Please wait...", false, false);
         }
 
         @Override
@@ -203,7 +195,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -251,11 +243,11 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -265,28 +257,27 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                 conn.disconnect();
             }
         }
-private int stt=0;
+
+        private int stt = 0;
+
         @Override
         protected void onPostExecute(String result) {
 
             // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
-            if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 Toast.makeText(Notices.this, "OOPs! Unable to post notice.", Toast.LENGTH_LONG).show();
-            }
-            else if(result.equals("negative"))
-            {
+            } else if (result.equals("negative")) {
                 Toast.makeText(Notices.this, "Sorry! you are not authorized to post notice.", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(Notices.this, "Notice posted successfully", Toast.LENGTH_LONG).show();
-                Intent i=new Intent(Notices.this,Notices.class);
+                Intent i = new Intent(Notices.this, Notices.class);
                 startActivity(i);
                 finish();
             }
         }
+
         @Override
         protected void onCancelled() {
             progressDialog.dismiss();
@@ -294,7 +285,7 @@ private int stt=0;
     }
 
     private void updd() {
-        getLoaderManager().initLoader(0,null,Notices.this);
+        getLoaderManager().initLoader(0, null, Notices.this);
     }
 
 }

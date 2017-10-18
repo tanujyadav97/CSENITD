@@ -1,74 +1,59 @@
 package com.cse.csenitd.req_class;
 
-        import android.app.ProgressDialog;
-        import android.content.Intent;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.graphics.drawable.shapes.OvalShape;
-        import android.icu.util.Calendar;
-        import android.net.Uri;
-        import android.os.AsyncTask;
-        import android.os.Build;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.text.format.DateFormat;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.MotionEvent;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.DatePicker;
-        import android.widget.EditText;
-        import android.widget.LinearLayout;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
-        import android.widget.TimePicker;
-        import android.widget.Toast;
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
-        import com.cse.csenitd.R;
-        import com.cse.csenitd.openingActivity;
+import com.cse.csenitd.R;
+import com.cse.csenitd.openingActivity;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.io.BufferedReader;
-        import java.io.BufferedWriter;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.io.OutputStream;
-        import java.io.OutputStreamWriter;
-        import java.net.HttpURLConnection;
-        import java.net.MalformedURLException;
-        import java.net.URL;
-        import android.text.format.DateFormat;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
-        import java.text.SimpleDateFormat;
-        import java.util.Date;
-        import java.util.Locale;
-        import java.util.TimeZone;
+import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
+import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
 
-        import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
-        import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
-
-public class requested_classes extends AppCompatActivity{
+public class requested_classes extends AppCompatActivity {
 
     RecyclerView.Adapter adapter;
     public static RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public int count=0,numberofclasses=0;
+    public int count = 0, numberofclasses = 0;
     ProgressDialog progressDialog;
     Config config;
     static RelativeLayout layout;
     static FloatingActionButton add;
     Button cancel;
     static Button post;
-    static EditText title,desc;
+    static EditText title, desc;
     static int id;
     Button getinfo;
     static String titlee;
@@ -82,21 +67,20 @@ public class requested_classes extends AppCompatActivity{
         //recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Fetching Classes", "Please wait...",false,false);
+        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Fetching Classes", "Please wait...", false, false);
 
-        layout=(RelativeLayout)findViewById(R.id.layout);
-        add=(FloatingActionButton)findViewById(R.id.add);
-        cancel=(Button)findViewById(R.id.cancel);
-        post=(Button)findViewById(R.id.post);
-        title=(EditText)findViewById(R.id.title);
-        desc=(EditText)findViewById(R.id.desc);
-        postedon=(TextView)findViewById(R.id.time);
+        layout = (RelativeLayout) findViewById(R.id.layout);
+        add = (FloatingActionButton) findViewById(R.id.add);
+        cancel = (Button) findViewById(R.id.cancel);
+        post = (Button) findViewById(R.id.post);
+        title = (EditText) findViewById(R.id.title);
+        desc = (EditText) findViewById(R.id.desc);
+        postedon = (TextView) findViewById(R.id.time);
 
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 title.setText("");
                 desc.setText("");
@@ -110,8 +94,7 @@ public class requested_classes extends AppCompatActivity{
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
@@ -122,13 +105,10 @@ public class requested_classes extends AppCompatActivity{
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (title.getText().toString().equals("")||desc.getText().toString().equals(""))
-                {
+            public void onClick(View v) {
+                if (title.getText().toString().equals("") || desc.getText().toString().equals("")) {
                     Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Title and Description are Compulsory!", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     String titlee = title.getText().toString();
                     String descc = desc.getText().toString();
 
@@ -137,9 +117,9 @@ public class requested_classes extends AppCompatActivity{
 
                         new com.cse.csenitd.req_class.requested_classes.addclassTask().execute(titlee, descc);
                     } else if (post.getText().equals("Save")) {
-                        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Saving Class", "Please wait...",false,false);
+                        progressDialog = ProgressDialog.show(com.cse.csenitd.req_class.requested_classes.this, "Saving Class", "Please wait...", false, false);
 
-                        new com.cse.csenitd.req_class.requested_classes.saveclassTask().execute(titlee, descc,id+"");
+                        new com.cse.csenitd.req_class.requested_classes.saveclassTask().execute(titlee, descc, id + "");
 
                     }
                 }
@@ -151,26 +131,20 @@ public class requested_classes extends AppCompatActivity{
     }
 
 
-
-
     @Override
     public void onBackPressed() {
-        if((layout.getVisibility()==View.VISIBLE))
-        {
+        if ((layout.getVisibility() == View.VISIBLE)) {
             recyclerView.setVisibility(View.VISIBLE);
             add.setVisibility(View.VISIBLE);
             layout.setVisibility(View.GONE);
             getSupportActionBar().setTitle("Requested Classes");
-        }
-
-        else
-        {
+        } else {
             super.onBackPressed();
         }
     }
 
-    private void getData(){
-        class GetData extends AsyncTask<String,String,String> {
+    private void getData() {
+        class GetData extends AsyncTask<String, String, String> {
 
             @Override
             protected void onPreExecute() {
@@ -181,7 +155,7 @@ public class requested_classes extends AppCompatActivity{
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
 
-                if(s.equals("false")||s.equals("exception")||s.equals("unsuccessful"))
+                if (s.equals("false") || s.equals("exception") || s.equals("unsuccessful"))
                     Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Unable to fetch answers.", Toast.LENGTH_LONG).show();
                 else {
 
@@ -210,7 +184,7 @@ public class requested_classes extends AppCompatActivity{
                 }
                 try {
                     // Setup HttpURLConnection class to send and receive data from php and mysql
-                    con = (HttpURLConnection)url.openConnection();
+                    con = (HttpURLConnection) url.openConnection();
                     con.setReadTimeout(READ_TIMEOUT);
                     con.setConnectTimeout(CONNECTION_TIMEOUT);
                     con.setRequestMethod("POST");
@@ -221,7 +195,7 @@ public class requested_classes extends AppCompatActivity{
 
                     // Append parameters to URL
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
+                            .appendQueryParameter("username", openingActivity.ps.getString("username", "n/a"));
                     String query = builder.build().getEncodedQuery();
 
                     // Open connection for sending data
@@ -256,16 +230,15 @@ public class requested_classes extends AppCompatActivity{
                             while ((json = reader.readLine()) != null) {
                                 result.append(json + "\n");
                             }
-                        }catch (NullPointerException e)
-                        {
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                             return "exception";
                         }
                         return result.toString().trim();
 
-                    }else{
+                    } else {
 
-                        return("unsuccessful");
+                        return ("unsuccessful");
                     }
 
                 } catch (IOException e) {
@@ -289,22 +262,22 @@ public class requested_classes extends AppCompatActivity{
         gd.execute();
     }
 
-    public void showData(){
-        adapter = new CardAdapter(this.getApplicationContext(),Config.classids, Config.titles,Config.descs,Config.noofpeoples,Config.postbynames,Config.postbyusernames,Config.postedon,Config.dps,Config.attendeds);
+    public void showData() {
+        adapter = new CardAdapter(this.getApplicationContext(), Config.classids, Config.titles, Config.descs, Config.noofpeoples, Config.postbynames, Config.postbyusernames, Config.postedon, Config.dps, Config.attendeds);
         recyclerView.setAdapter(adapter);
 
         // Toast.makeText(questionsActivity.this, ""+adapter.getItemCount()+"", Toast.LENGTH_LONG).show();
     }
 
-    private void parseJSON(String json){
-        String dpurls[]=null;
+    private void parseJSON(String json) {
+        String dpurls[] = null;
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray array = jsonObject.getJSONArray("result");
 
             config = new Config(array.length());
-            dpurls=new String[array.length()];
-            for(int i=0; i<array.length(); i++){
+            dpurls = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject j = array.getJSONObject(i);
 
                 Config.classids[i] = getclassid(j);
@@ -315,7 +288,7 @@ public class requested_classes extends AppCompatActivity{
                 Config.postbyusernames[i] = getusername(j);
                 Config.attendeds[i] = getattending(j);
                 Config.postedon[i] = getpostedon(j);
-                dpurls[i]=getdpurl(j);
+                dpurls[i] = getdpurl(j);
             }
 
         } catch (JSONException e) {
@@ -327,14 +300,12 @@ public class requested_classes extends AppCompatActivity{
         getdpofanswers(dpurls);
     }
 
-    public void getdpofanswers(String[] dpurls)
-    {
-        Integer i=0;
-        count=0;
-        numberofclasses=dpurls.length;
-        for(i=0;i<dpurls.length;i++)
-        {
-            new com.cse.csenitd.req_class.requested_classes.getansdpTask().execute(dpurls[i],i.toString());
+    public void getdpofanswers(String[] dpurls) {
+        Integer i = 0;
+        count = 0;
+        numberofclasses = dpurls.length;
+        for (i = 0; i < dpurls.length; i++) {
+            new com.cse.csenitd.req_class.requested_classes.getansdpTask().execute(dpurls[i], i.toString());
         }
         //start asynctask to get dp in a for loop passing dpurl at one by one
         // if in getansdptask() in false or unsuccessful, make all dp=null and call show data
@@ -342,29 +313,28 @@ public class requested_classes extends AppCompatActivity{
     }
 
 
-
     public class getansdpTask extends AsyncTask<String, String, String> {
-        Bitmap image,retrieved=null;
+        Bitmap image, retrieved = null;
         URL url;
 
         @Override
         protected String doInBackground(String... params) {
 
             //int index=params[1];
-            try{
+            try {
 
                 url = new URL(params[0]);
                 image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                retrieved=image;
-                return "true"+" "+params[1];
+                retrieved = image;
+                return "true" + " " + params[1];
 
-            }catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
-                return "exception"+" "+params[1];
+                return "exception" + " " + params[1];
                 //Toast.makeText(profile1.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-                return "exception"+" "+params[1];
+                return "exception" + " " + params[1];
                 //Toast.makeText(profile1.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
 
             }
@@ -376,21 +346,20 @@ public class requested_classes extends AppCompatActivity{
         protected void onPostExecute(String result) {
 
 
-            int index=(Integer.parseInt((result.split(" "))[1]));
+            int index = (Integer.parseInt((result.split(" "))[1]));
             //Toast.makeText(profile1.this, result, Toast.LENGTH_LONG).show();
 
-            if (result.startsWith("exception") ) {
+            if (result.startsWith("exception")) {
 
-             //   Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
-                retrieved=null;
+                //   Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+                retrieved = null;
             }
-            if(result.startsWith("true"))
-            {
+            if (result.startsWith("true")) {
 
             }
-            Config.dps[index]=retrieved;
+            Config.dps[index] = retrieved;
             count++;
-            if(count==numberofclasses)
+            if (count == numberofclasses)
                 showData();
 
 
@@ -402,7 +371,7 @@ public class requested_classes extends AppCompatActivity{
         }
     }
 
-    private String getclassid(JSONObject j){
+    private String getclassid(JSONObject j) {
         String name = null;
         try {
             name = j.getString("id");
@@ -412,7 +381,7 @@ public class requested_classes extends AppCompatActivity{
         return name;
     }
 
-    private String gettitle(JSONObject j){
+    private String gettitle(JSONObject j) {
         String name = null;
         try {
             name = j.getString("title");
@@ -421,7 +390,8 @@ public class requested_classes extends AppCompatActivity{
         }
         return name;
     }
-    private String getdesc(JSONObject j){
+
+    private String getdesc(JSONObject j) {
         String name = null;
         try {
             name = j.getString("desc");
@@ -430,7 +400,8 @@ public class requested_classes extends AppCompatActivity{
         }
         return name;
     }
-    private String getusername(JSONObject j){
+
+    private String getusername(JSONObject j) {
         String name = null;
         try {
             name = j.getString("username");
@@ -440,7 +411,7 @@ public class requested_classes extends AppCompatActivity{
         return name;
     }
 
-    private String getstudattending(JSONObject j){
+    private String getstudattending(JSONObject j) {
         String name = null;
         try {
             name = j.getString("requesting");
@@ -451,7 +422,7 @@ public class requested_classes extends AppCompatActivity{
     }
 
 
-    private String getpostedon(JSONObject j){
+    private String getpostedon(JSONObject j) {
         String name = null;
         try {
             name = j.getString("postedon");
@@ -463,7 +434,7 @@ public class requested_classes extends AppCompatActivity{
         return getDate(Long.parseLong(name));
     }
 
-    private String getpostbyname(JSONObject j){
+    private String getpostbyname(JSONObject j) {
         String name = null;
         try {
             name = j.getString("postbyname");
@@ -473,7 +444,7 @@ public class requested_classes extends AppCompatActivity{
         return name;
     }
 
-    private String getattending(JSONObject j){
+    private String getattending(JSONObject j) {
         String name = null;
         try {
             name = j.getString("attending");
@@ -483,7 +454,7 @@ public class requested_classes extends AppCompatActivity{
         return name;
     }
 
-    private String getdpurl(JSONObject j){
+    private String getdpurl(JSONObject j) {
         String name = null;
         try {
             name = j.getString("dpurl");
@@ -494,12 +465,12 @@ public class requested_classes extends AppCompatActivity{
     }
 
 
-
     class addclassTask extends AsyncTask<String, String, String> {
 
 
         HttpURLConnection conn;
         URL url = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -522,7 +493,7 @@ public class requested_classes extends AppCompatActivity{
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -532,7 +503,7 @@ public class requested_classes extends AppCompatActivity{
                 conn.setDoOutput(true);
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"))
+                        .appendQueryParameter("user", openingActivity.ps.getString("username", "n/a"))
                         .appendQueryParameter("title", params[0])
                         .appendQueryParameter("desc", params[1]);
                 String query = builder.build().getEncodedQuery();
@@ -571,11 +542,11 @@ public class requested_classes extends AppCompatActivity{
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -591,13 +562,11 @@ public class requested_classes extends AppCompatActivity{
 
             // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
-            if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Unable to add class.", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-           //     Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class added successfully", Toast.LENGTH_LONG).show();
+            } else {
+                //     Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class added successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
@@ -615,11 +584,11 @@ public class requested_classes extends AppCompatActivity{
     }
 
 
-
     class saveclassTask extends AsyncTask<String, String, String> {
 
         HttpURLConnection conn;
         URL url = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -642,7 +611,7 @@ public class requested_classes extends AppCompatActivity{
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -654,7 +623,7 @@ public class requested_classes extends AppCompatActivity{
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("title", params[0])
                         .appendQueryParameter("desc", params[1])
-                        .appendQueryParameter("id",params[2]);
+                        .appendQueryParameter("id", params[2]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -691,11 +660,11 @@ public class requested_classes extends AppCompatActivity{
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -711,13 +680,11 @@ public class requested_classes extends AppCompatActivity{
 
             // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
-            if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
+            if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
                 Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Unable to save class.", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-            //    Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class saved successfully", Toast.LENGTH_LONG).show();
+            } else {
+                //    Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class saved successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
@@ -734,8 +701,7 @@ public class requested_classes extends AppCompatActivity{
         }
     }
 
-    public static void onedit(String a,String b,String c)
-    {
+    public static void onedit(String a, String b, String c) {
         recyclerView.setVisibility(View.GONE);
         add.setVisibility(View.GONE);
         layout.setVisibility(View.VISIBLE);
@@ -743,13 +709,13 @@ public class requested_classes extends AppCompatActivity{
         post.setText("Save");
         title.setText(b);
         desc.setText(c);
-        id=Integer.parseInt(a);
-        titlee=b;
+        id = Integer.parseInt(a);
+        titlee = b;
     }
 
-    public  String getDate(long timestamp) {
+    public String getDate(long timestamp) {
         //     Toast.makeText(questiondetailActivity.this, ""+timestamp, Toast.LENGTH_LONG).show();
-        try{
+        try {
             java.util.Calendar calendar = java.util.Calendar.getInstance();
             TimeZone tz = TimeZone.getDefault();
 
@@ -758,7 +724,7 @@ public class requested_classes extends AppCompatActivity{
 
 
             return sdf.format(new Date(timestamp * 1000));
-        }catch (Exception e) {
+        } catch (Exception e) {
         }
         return "";
     }

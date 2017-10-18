@@ -3,14 +3,12 @@ package com.cse.csenitd.DbHelper;
 
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.Data.Comment_DATA;
 import com.cse.csenitd.Data.Notices_DATA;
 import com.cse.csenitd.Data.Timeline_DATA;
 import com.cse.csenitd.Data.User_DATA;
-import com.cse.csenitd.NoticeBoard.Notices;
 import com.cse.csenitd.openingActivity;
 
 import org.json.JSONArray;
@@ -30,7 +28,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -73,8 +70,8 @@ public final class QueryUtils {
         if (url == null) {
             return jsonResponse;
         }
-        HttpURLConnection urlConnection=null;
-        InputStream inputStream=null;
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -118,8 +115,7 @@ public final class QueryUtils {
         return output.toString();
     }
 
-    public static ArrayList<Acheivements_DATA> extractAchievements(String s)
-    {
+    public static ArrayList<Acheivements_DATA> extractAchievements(String s) {
 /*
         // Create an empty ArrayList that we can start adding achievements to
         URL url = createUrl(s);
@@ -136,7 +132,7 @@ public final class QueryUtils {
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         */
 
-        ArrayList<Acheivements_DATA> es=null;
+        ArrayList<Acheivements_DATA> es = null;
         URL url;
         HttpURLConnection con;
         String result1;
@@ -153,7 +149,7 @@ public final class QueryUtils {
         }
         try {
             // Setup HttpURLConnection class to send and receive data from php and mysql
-            con = (HttpURLConnection)url.openConnection();
+            con = (HttpURLConnection) url.openConnection();
             con.setReadTimeout(READ_TIMEOUT);
             con.setConnectTimeout(CONNECTION_TIMEOUT);
             con.setRequestMethod("POST");
@@ -165,7 +161,7 @@ public final class QueryUtils {
             // Append parameters to URL
             Uri.Builder builder = new Uri.Builder()
 
-                    .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"));
+                    .appendQueryParameter("user", openingActivity.ps.getString("username", "n/a"));
             String query = builder.build().getEncodedQuery();
 
             // Open connection for sending data
@@ -200,14 +196,13 @@ public final class QueryUtils {
                     while ((json = reader.readLine()) != null) {
                         result.append(json + "\n");
                     }
-                }catch (NullPointerException e)
-                {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                     return es;
                 }
-               result1=result.toString().trim();
+                result1 = result.toString().trim();
 
-            }else{
+            } else {
 
                 return es;
             }
@@ -220,111 +215,105 @@ public final class QueryUtils {
         }
 
 
-
-        es=result(result1);
+        es = result(result1);
         return es;
     }
 
-    public static ArrayList<Acheivements_DATA> result(String jsonresponc)
-    {
+    public static ArrayList<Acheivements_DATA> result(String jsonresponc) {
         ArrayList<Acheivements_DATA> achievements = new ArrayList<>();
 
         try {
 
-        JSONObject jsonObject=new JSONObject(jsonresponc);
-        JSONArray jsonArray = jsonObject.getJSONArray("result");
-        for (int i = 0, size = jsonArray.length(); i < size; i++)
-        {
-            JSONObject objectInArray = jsonArray.getJSONObject(i);
-            String y= objectInArray.getString("des");
-            String z=objectInArray.getString("img");
-            String tdate=objectInArray.getString("datetime");
-            int w=objectInArray.getInt("likes");
-            String user=objectInArray.getString("username");
-            String usrimg=objectInArray.getString("userimage");
-            String title=objectInArray.getString("title");
-            String liked=objectInArray.getString("liked");
-            String nm=objectInArray.getString("name");
-            int rp=objectInArray.getInt("reputation");
-            long id= Long.parseLong(tdate);
-            Date dateObject = new Date(id);
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
-                    " HH:mm:ss");
-            tdate=simpleDateFormat.format(dateObject);
-            Acheivements_DATA Obj=new Acheivements_DATA(title,y,z,w,tdate,user,usrimg,nm,rp,liked);
-            achievements.add(Obj);
+            JSONObject jsonObject = new JSONObject(jsonresponc);
+            JSONArray jsonArray = jsonObject.getJSONArray("result");
+            for (int i = 0, size = jsonArray.length(); i < size; i++) {
+                JSONObject objectInArray = jsonArray.getJSONObject(i);
+                String y = objectInArray.getString("des");
+                String z = objectInArray.getString("img");
+                String tdate = objectInArray.getString("datetime");
+                int w = objectInArray.getInt("likes");
+                String user = objectInArray.getString("username");
+                String usrimg = objectInArray.getString("userimage");
+                String title = objectInArray.getString("title");
+                String liked = objectInArray.getString("liked");
+                String nm = objectInArray.getString("name");
+                int rp = objectInArray.getInt("reputation");
+                long id = Long.parseLong(tdate);
+                Date dateObject = new Date(id);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, d MMM yyyy \n" +
+                        " HH:mm:ss");
+                tdate = simpleDateFormat.format(dateObject);
+                Acheivements_DATA Obj = new Acheivements_DATA(title, y, z, w, tdate, user, usrimg, nm, rp, liked);
+                achievements.add(Obj);
+            }
+
+
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the Ach JSON results", e);
         }
-
-
-
-    } catch (JSONException e) {
-        // If an error is thrown when executing any of the above statements in the "try" block,
-        // catch the exception here, so the app doesn't crash. Print a log message
-        // with the message from the exception.
-        Log.e("QueryUtils", "Problem parsing the Ach JSON results", e);
-    }
 
 
         return achievements;
 
-}
-public static ArrayList<Notices_DATA> extractNotices(String s)
-{
-    URL url = createUrl(s);
-    Log.d("fetch","Notices");
-    String jsonresponse = null;
-
-    try {
-        jsonresponse = makeHttprequest(url);
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-    // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
-    // is formatted, a JSONException exception object will be thrown.
-    // Catch the exception so the app doesn't crash, and print the error message to the logs.
-    ArrayList<Notices_DATA> es= Noticeresult(jsonresponse);
-    return es;
-}
 
-   public static ArrayList<Notices_DATA> Noticeresult(String jsonresponse) {
-       ArrayList<Notices_DATA> Notices = new ArrayList<>();
+    public static ArrayList<Notices_DATA> extractNotices(String s) {
+        URL url = createUrl(s);
+        Log.d("fetch", "Notices");
+        String jsonresponse = null;
 
-       try {
+        try {
+            jsonresponse = makeHttprequest(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        ArrayList<Notices_DATA> es = Noticeresult(jsonresponse);
+        return es;
+    }
 
-           JSONObject jsonObject=new JSONObject(jsonresponse);
-           JSONArray jsonArray = jsonObject.getJSONArray("noticeresult");
-           for (int i = 0, size = jsonArray.length(); i < size; i++)
-           {
-               JSONObject objectInArray = jsonArray.getJSONObject(i);
-               String y= objectInArray.getString("name");
-               String z=objectInArray.getString("notice");
-               String tdate=objectInArray.getString("datetime");
-               long id= Long.parseLong(tdate);
-               TimeZone tz = TimeZone.getDefault();
+    public static ArrayList<Notices_DATA> Noticeresult(String jsonresponse) {
+        ArrayList<Notices_DATA> Notices = new ArrayList<>();
 
-               SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
-               sdf.setTimeZone(tz);
-               tdate=sdf.format(new Date(id * 1000));;
-               Notices_DATA Obj=new Notices_DATA(y,z,tdate);
-               Notices.add(Obj);
-           }
+        try {
 
+            JSONObject jsonObject = new JSONObject(jsonresponse);
+            JSONArray jsonArray = jsonObject.getJSONArray("noticeresult");
+            for (int i = 0, size = jsonArray.length(); i < size; i++) {
+                JSONObject objectInArray = jsonArray.getJSONObject(i);
+                String y = objectInArray.getString("name");
+                String z = objectInArray.getString("notice");
+                String tdate = objectInArray.getString("datetime");
+                long id = Long.parseLong(tdate);
+                TimeZone tz = TimeZone.getDefault();
 
-
-       } catch (JSONException e) {
-           // If an error is thrown when executing any of the above statements in the "try" block,
-           // catch the exception here, so the app doesn't crash. Print a log message
-           // with the message from the exception.
-           Log.e("QueryUtils", "Problem parsing the Notice JSON results", e);
-       }
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
+                sdf.setTimeZone(tz);
+                tdate = sdf.format(new Date(id * 1000));
+                Notices_DATA Obj = new Notices_DATA(y, z, tdate);
+                Notices.add(Obj);
+            }
 
 
-       return Notices;
+        } catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the Notice JSON results", e);
+        }
 
-   }
-    public static ArrayList<Timeline_DATA> extractTimeline(String s)
-    {
-        URL url ;
+
+        return Notices;
+
+    }
+
+    public static ArrayList<Timeline_DATA> extractTimeline(String s) {
+        URL url;
         ArrayList<Timeline_DATA> es = null;
         HttpURLConnection con;
         String resultt;
@@ -343,7 +332,7 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
         }
         try {
             // Setup HttpURLConnection class to send and receive data from php and mysql
-            con = (HttpURLConnection)url.openConnection();
+            con = (HttpURLConnection) url.openConnection();
             con.setReadTimeout(READ_TIMEOUT);
             con.setConnectTimeout(CONNECTION_TIMEOUT);
             con.setRequestMethod("POST");
@@ -355,7 +344,7 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
             // Append parameters to URL
             Uri.Builder builder = new Uri.Builder()
 
-                    .appendQueryParameter("user", openingActivity.ps.getString("username","n/a"));
+                    .appendQueryParameter("user", openingActivity.ps.getString("username", "n/a"));
             String query = builder.build().getEncodedQuery();
 
             // Open connection for sending data
@@ -390,14 +379,13 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
                     while ((json = reader.readLine()) != null) {
                         result.append(json + "\n");
                     }
-                }catch (NullPointerException e)
-                {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                     return es;
                 }
-                resultt=result.toString().trim();
+                resultt = result.toString().trim();
 
-            }else{
+            } else {
 
                 return es;
             }
@@ -413,42 +401,41 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        es= Timelineresult(resultt);
+        es = Timelineresult(resultt);
         return es;
     }
-    public static ArrayList<Timeline_DATA> Timelineresult(String jsonresponse){
+
+    public static ArrayList<Timeline_DATA> Timelineresult(String jsonresponse) {
         ArrayList<Timeline_DATA> timeline = new ArrayList<>();
 
         try {
 
-            JSONObject jsonObject=new JSONObject(jsonresponse);
+            JSONObject jsonObject = new JSONObject(jsonresponse);
             JSONArray jsonArray = jsonObject.getJSONArray("timelineresult");
-            for (int i = 0, size = jsonArray.length(); i < size; i++)
-            {
+            for (int i = 0, size = jsonArray.length(); i < size; i++) {
                 JSONObject objectInArray = jsonArray.getJSONObject(i);
-                String name= objectInArray.getString("name");
-                String text=objectInArray.getString("text");
-                String tdate=objectInArray.getString("datetime");
+                String name = objectInArray.getString("name");
+                String text = objectInArray.getString("text");
+                String tdate = objectInArray.getString("datetime");
 //                long id= Long.parseLong(tdate);
 //                Date dateObject = new Date(id);
 //                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
 //                        " HH:mm:ss");
 //                tdate=simpleDateFormat.format(dateObject);
-                String img1=objectInArray.getString("img1");
-                String img2=objectInArray.getString("img2");
-                String img3=objectInArray.getString("img3");
-                String img4=objectInArray.getString("img4");
-                String img5=objectInArray.getString("img5");
-                String video=objectInArray.getString("video");
-                int likes=objectInArray.getInt("likes");
-                String id=objectInArray.getString("post_id");
-                String usrimg=objectInArray.getString("userimage");
-                int noCmts=objectInArray.getInt("comments");
+                String img1 = objectInArray.getString("img1");
+                String img2 = objectInArray.getString("img2");
+                String img3 = objectInArray.getString("img3");
+                String img4 = objectInArray.getString("img4");
+                String img5 = objectInArray.getString("img5");
+                String video = objectInArray.getString("video");
+                int likes = objectInArray.getInt("likes");
+                String id = objectInArray.getString("post_id");
+                String usrimg = objectInArray.getString("userimage");
+                int noCmts = objectInArray.getInt("comments");
 
-                Timeline_DATA Obj=new Timeline_DATA(name,tdate,text,img1,img2,img3,img4,img5,video,likes,id,usrimg,noCmts);
+                Timeline_DATA Obj = new Timeline_DATA(name, tdate, text, img1, img2, img3, img4, img5, video, likes, id, usrimg, noCmts);
                 timeline.add(Obj);
             }
-
 
 
         } catch (JSONException e) {
@@ -461,12 +448,12 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
 
         return timeline;
     }
-    public static ArrayList<Comment_DATA> extractComments(String s,int id)
-    {
+
+    public static ArrayList<Comment_DATA> extractComments(String s, int id) {
         URL url = createUrl(s);
         String jsonresponse = null;
-        int idp=id;
-        Log.d("iddddddddddd",Integer.toString(idp));
+        int idp = id;
+        Log.d("iddddddddddd", Integer.toString(idp));
         try {
             jsonresponse = makeHttprequest(url);
         } catch (IOException e) {
@@ -475,38 +462,38 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        ArrayList<Comment_DATA> es= Commentresult(jsonresponse,idp);
+        ArrayList<Comment_DATA> es = Commentresult(jsonresponse, idp);
         return es;
     }
-    public static ArrayList<Comment_DATA> Commentresult(String jsonresponse,int pid){
+
+    public static ArrayList<Comment_DATA> Commentresult(String jsonresponse, int pid) {
         ArrayList<Comment_DATA> comment = new ArrayList<>();
 
         try {
 
-            JSONObject jsonObject=new JSONObject(jsonresponse);
+            JSONObject jsonObject = new JSONObject(jsonresponse);
             JSONArray jsonArray = jsonObject.getJSONArray("commentresult");
-            for (int i = 0, size = jsonArray.length(); i < size; i++)
-            {
+            for (int i = 0, size = jsonArray.length(); i < size; i++) {
 
                 JSONObject objectInArray = jsonArray.getJSONObject(i);
-                Log.d("idddddddddddddddddddddd",Integer.toString(pid));
+                Log.d("idddddddddddddddddddddd", Integer.toString(pid));
 
-              if(objectInArray.getInt("postid")==pid){
-                  Log.d("chla","hbbbbbbbbbbbb");
-                String text= objectInArray.getString("comment");
-                String name=objectInArray.getString("commentername");
-                String img=objectInArray.getString("commenterimg");
-                String date=objectInArray.getString("date");
-              long id= Long.parseLong(date);
-               Date dateObject = new Date(id);
-               SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, d MMM yyyy \n" +
-                       " HH:mm:ss");
-               date=simpleDateFormat.format(dateObject);
+                if (objectInArray.getInt("postid") == pid) {
+                    Log.d("chla", "hbbbbbbbbbbbb");
+                    String text = objectInArray.getString("comment");
+                    String name = objectInArray.getString("commentername");
+                    String img = objectInArray.getString("commenterimg");
+                    String date = objectInArray.getString("date");
+                    long id = Long.parseLong(date);
+                    Date dateObject = new Date(id);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, d MMM yyyy \n" +
+                            " HH:mm:ss");
+                    date = simpleDateFormat.format(dateObject);
 
-               Comment_DATA Obj=new Comment_DATA(text,date,img,name);
-                comment.add(Obj);}
-           }
-
+                    Comment_DATA Obj = new Comment_DATA(text, date, img, name);
+                    comment.add(Obj);
+                }
+            }
 
 
         } catch (JSONException e) {
@@ -533,7 +520,7 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        ArrayList<User_DATA> es= Userresult(jsonresponse);
+        ArrayList<User_DATA> es = Userresult(jsonresponse);
         return es;
     }
 
@@ -542,22 +529,19 @@ public static ArrayList<Notices_DATA> extractNotices(String s)
 
         try {
 
-            JSONObject jsonObject=new JSONObject(jsonresponse);
+            JSONObject jsonObject = new JSONObject(jsonresponse);
             JSONArray jsonArray = jsonObject.getJSONArray("userresult");
-            for (int i = 0, size = jsonArray.length(); i < size; i++)
-            {
+            for (int i = 0, size = jsonArray.length(); i < size; i++) {
 
                 JSONObject objectInArray = jsonArray.getJSONObject(i);
 
-                    String name= objectInArray.getString("name");
-                    String city=objectInArray.getString("username");
-                    String img=objectInArray.getString("image");
-                    int rep=objectInArray.getInt("reputation");
-                     User_DATA Obj=new User_DATA(name,city,img,rep);
-                   users.add(Obj);
+                String name = objectInArray.getString("name");
+                String city = objectInArray.getString("username");
+                String img = objectInArray.getString("image");
+                int rep = objectInArray.getInt("reputation");
+                User_DATA Obj = new User_DATA(name, city, img, rep);
+                users.add(Obj);
             }
-
-
 
 
         } catch (JSONException e) {

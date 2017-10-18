@@ -10,6 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter" />
 
 </RelativeLayout>

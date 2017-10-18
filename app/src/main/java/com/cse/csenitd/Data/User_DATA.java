@@ -5,7 +5,7 @@ package com.cse.csenitd.Data;
  */
 
 public class User_DATA {
-    String name,username,img;
+    String name, username, img;
     int rep;
 
     public User_DATA(String name, String username, String img, int rep) {

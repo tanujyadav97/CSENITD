@@ -2,10 +2,10 @@ package com.cse.csenitd.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +13,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cse.csenitd.ACHIEVEMENTS.Acheivements;
 import com.cse.csenitd.NoticeBoard.Notices;
 import com.cse.csenitd.R;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.cse.csenitd.Timeline.TimelineP;
 import com.cse.csenitd.Users.user;
 import com.cse.csenitd.host.hostclass;
-import com.cse.csenitd.openingActivity;
 import com.cse.csenitd.profile1;
 import com.cse.csenitd.question.questionsActivity;
 import com.cse.csenitd.req_class.requested_classes;
@@ -54,8 +53,7 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         images = new ArrayList<Image>();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-     //   Toast.makeText(homeActivity.this, openingActivity.ps.getString("username","n/a"), Toast.LENGTH_LONG).show();
-
+        //   Toast.makeText(homeActivity.this, openingActivity.ps.getString("username","n/a"), Toast.LENGTH_LONG).show();
 
 
         fetchImages();
@@ -135,19 +133,19 @@ public class homeActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-            page=position;
-            if(position==0) {
-                viewPager.setCurrentItem(images.size()-1);
-                 page=images.size()-1;
-            }else if(position==images.size()-1) {
+            page = position;
+            if (position == 0) {
+                viewPager.setCurrentItem(images.size() - 1);
+                page = images.size() - 1;
+            } else if (position == images.size() - 1) {
                 viewPager.setCurrentItem(1);
-            page=1;
+                page = 1;
             }
         }
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-          //  Toast.makeText(homeActivity.this, "scrolled."+arg0+" "+arg1, Toast.LENGTH_LONG).show();
+            //  Toast.makeText(homeActivity.this, "scrolled."+arg0+" "+arg1, Toast.LENGTH_LONG).show();
 
         }
 
@@ -168,7 +166,7 @@ public class homeActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-           // Toast.makeText(homeActivity.this, "scrolled."+position, Toast.LENGTH_LONG).show();
+            // Toast.makeText(homeActivity.this, "scrolled."+position, Toast.LENGTH_LONG).show();
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(R.layout.image_fullscreen_preview, container, false);
 
@@ -194,7 +192,7 @@ public class homeActivity extends AppCompatActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object obj) {
-            return view == ((View) obj);
+            return view == obj;
         }
 
 
@@ -203,8 +201,6 @@ public class homeActivity extends AppCompatActivity {
             container.removeView((View) object);
         }
     }
-
-
 
 
     public void pageSwitcher(int seconds) {
@@ -225,7 +221,7 @@ public class homeActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
 
-                        viewPager.setCurrentItem(page++);
+                    viewPager.setCurrentItem(page++);
 
                 }
             });
@@ -233,51 +229,43 @@ public class homeActivity extends AppCompatActivity {
         }
     }
 
-    public void openreqclass(View v)
-    {
-        Intent in=new Intent(homeActivity.this,requested_classes.class);
+    public void openreqclass(View v) {
+        Intent in = new Intent(homeActivity.this, requested_classes.class);
         startActivity(in);
     }
 
-    public void openques(View v)
-    {
-        Intent in=new Intent(homeActivity.this,questionsActivity.class);
+    public void openques(View v) {
+        Intent in = new Intent(homeActivity.this, questionsActivity.class);
         startActivity(in);
     }
 
-    public void opennotice(View v)
-    {
-        Intent in=new Intent(homeActivity.this,Notices.class);
+    public void opennotice(View v) {
+        Intent in = new Intent(homeActivity.this, Notices.class);
         startActivity(in);
     }
 
-    public void openachievement(View v)
-    {
-        Intent in=new Intent(homeActivity.this,Acheivements.class);
+    public void openachievement(View v) {
+        Intent in = new Intent(homeActivity.this, Acheivements.class);
         startActivity(in);
     }
 
-    public void opentimeline(View v)
-    {
-        Intent in=new Intent(homeActivity.this,TimelineP.class);
+    public void opentimeline(View v) {
+        Intent in = new Intent(homeActivity.this, TimelineP.class);
         startActivity(in);
     }
 
-    public void openusers(View v)
-    {
-        Intent in=new Intent(homeActivity.this,user.class);
+    public void openusers(View v) {
+        Intent in = new Intent(homeActivity.this, user.class);
         startActivity(in);
     }
 
-    public void openhost(View v)
-    {
-        Intent in=new Intent(homeActivity.this,hostclass.class);
+    public void openhost(View v) {
+        Intent in = new Intent(homeActivity.this, hostclass.class);
         startActivity(in);
     }
 
-    public void openmyprofile(View v)
-    {
-        Intent in=new Intent(homeActivity.this,profile1.class);
+    public void openmyprofile(View v) {
+        Intent in = new Intent(homeActivity.this, profile1.class);
         startActivity(in);
     }
 }

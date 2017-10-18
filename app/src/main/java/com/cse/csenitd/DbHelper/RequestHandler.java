@@ -1,4 +1,5 @@
 package com.cse.csenitd.DbHelper;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -29,7 +30,7 @@ public class RequestHandler {
 
             StringBuilder sb = new StringBuilder();
 
-            while((result = bufferedReader.readLine())!=null){
+            while ((result = bufferedReader.readLine()) != null) {
                 sb.append(result);
             }
 

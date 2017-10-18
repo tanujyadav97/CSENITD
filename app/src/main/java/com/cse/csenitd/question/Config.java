@@ -21,15 +21,15 @@ public class Config {
     public static final String TAG_TAGS = "tags";
     public static final String TAG_USERNAME = "username";
     public static final String TAG_ACCEPTED = "accepted";
-    public static final String TAG_JSON_ARRAY="result";
+    public static final String TAG_JSON_ARRAY = "result";
 
-    public Config(int i){
+    public Config(int i) {
         times = new String[i];
         votess = new String[i];
-        topics= new String[i];
-        quess= new String[i];
-        usernames= new String[i];
-        accepteds= new String[i];
-        tagss= new String[i];
+        topics = new String[i];
+        quess = new String[i];
+        usernames = new String[i];
+        accepteds = new String[i];
+        tagss = new String[i];
     }
 }

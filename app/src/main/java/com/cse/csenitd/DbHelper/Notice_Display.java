@@ -14,10 +14,11 @@ import java.util.ArrayList;
 public class Notice_Display extends AsyncTaskLoader<ArrayList<Notices_DATA>> {
     private String mUrl;
     private Context context;
-    public Notice_Display(Context context,String s) {
+
+    public Notice_Display(Context context, String s) {
         super(context);
-        this.context=context;
-        this.mUrl=s;
+        this.context = context;
+        this.mUrl = s;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class Notice_Display extends AsyncTaskLoader<ArrayList<Notices_DATA>> {
 
     @Override
     public ArrayList<Notices_DATA> loadInBackground() {
-        ArrayList<Notices_DATA> notices=QueryUtils.extractNotices(mUrl);
+        ArrayList<Notices_DATA> notices = QueryUtils.extractNotices(mUrl);
         return notices;
     }
 }

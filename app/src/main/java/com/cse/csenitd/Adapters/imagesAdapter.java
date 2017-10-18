@@ -20,32 +20,35 @@ public class imagesAdapter extends RecyclerView.Adapter<imagesAdapter.gridholder
     private Context mContext;
     private ArrayList<String> listimages;
     ImageLoader imageLoader;
+
     public imagesAdapter(Context mContext, ArrayList<String> listimages) {
         this.mContext = mContext;
         this.listimages = listimages;
-        imageLoader=new ImageLoader(mContext);
+        imageLoader = new ImageLoader(mContext);
     }
 
     @Override
     public imagesAdapter.gridholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.images_row,parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.images_row, parent, false);
         return new imagesAdapter.gridholder(v);
     }
 
     @Override
     public void onBindViewHolder(imagesAdapter.gridholder holder, int position) {
-            imageLoader.DisplayImage(listimages.get(position),holder.imageview);
+        imageLoader.DisplayImage(listimages.get(position), holder.imageview);
     }
 
     @Override
     public int getItemCount() {
         return listimages.size();
     }
-    public class gridholder extends RecyclerView.ViewHolder{
+
+    public class gridholder extends RecyclerView.ViewHolder {
         ImageView imageview;
+
         public gridholder(View itemView) {
             super(itemView);
-            imageview=(ImageView)itemView.findViewById(R.id.img);
+            imageview = (ImageView) itemView.findViewById(R.id.img);
         }
     }
 }

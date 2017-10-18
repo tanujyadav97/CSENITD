@@ -22,15 +22,15 @@ public class Config {
     public static final String GET_URL = "https://nitd.000webhostapp.com/cse%20nitd/getreqclass.php";
 
 
-    public Config(int i){
+    public Config(int i) {
         classids = new String[i];
         titles = new String[i];
-        descs= new String[i];
-        noofpeoples= new String[i];
-        postedon= new String[i];
-        postbynames= new String[i];
-        postbyusernames= new String[i];
-        attendeds= new String[i];
-        dps= new Bitmap[i];
+        descs = new String[i];
+        noofpeoples = new String[i];
+        postedon = new String[i];
+        postbynames = new String[i];
+        postbyusernames = new String[i];
+        attendeds = new String[i];
+        dps = new Bitmap[i];
     }
 }

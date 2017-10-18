@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b2acac">
+    android:background="#b2acac"
+    android:orientation="vertical">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
+        android:layout_gravity="bottom|right"
         android:layout_margin="5dp"
-        android:visibility="visible"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="bottom|right"/>
+        android:src="@drawable/ic_add"
+        android:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:visibility="visible"
-        android:id="@+id/recycler"/>
+        android:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/layout"
@@ -33,56 +33,55 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:layout_above="@+id/bbbb"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="Title"/>
+                    android:text="Title"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Title"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:background="@drawable/twitter_im_edittext_normal"
                     android:layout_margin="10dp"
+                    android:background="@drawable/twitter_im_edittext_normal"
+                    android:hint="Title"
+                    android:maxLines="1"
+                    android:padding="10dp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="Description"/>
+                    android:text="Description"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Description. . ."
-                    android:padding="10dp"
-                    android:lines="5"
                     android:layout_margin="10dp"
-                    tools:ignore="HardcodedText"
-                    android:background="@drawable/twitter_im_edittext_normal"/>
+                    android:background="@drawable/twitter_im_edittext_normal"
+                    android:hint="Description. . ."
+                    android:lines="5"
+                    android:padding="10dp"
+                    tools:ignore="HardcodedText" />
 
 
             </LinearLayout>
@@ -92,27 +91,27 @@
             android:id="@+id/bbbb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="Cancel"
-                android:layout_marginRight="5dp"/>
+                android:text="Cancel" />
 
             <Button
                 android:id="@+id/post"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="1"
                 android:paddingStart="10dp"
                 android:text="Post"
                 android:textAlignment="center" />

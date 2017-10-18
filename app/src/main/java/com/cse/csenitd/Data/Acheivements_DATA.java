@@ -4,12 +4,12 @@ package com.cse.csenitd.Data;
  * Created by lenovo on 19-06-2017. Mohit yadav
  */
 
-public class Acheivements_DATA{
+public class Acheivements_DATA {
     private String _des;
     private String _title;
     private String _urlString;
     private String userImag;
-    private int    _likes;
+    private int _likes;
     private String _UserName;
     private String Date;
     private String _name;
@@ -18,18 +18,19 @@ public class Acheivements_DATA{
 
 
     public Acheivements_DATA(String ttl, String _des, String _urlString, int _likes, String date, String usenm,
-                             String usrimg,String nm,int rp,String liked) {
+                             String usrimg, String nm, int rp, String liked) {
         this._des = _des;
         this._urlString = _urlString;
         this._likes = _likes;
-        this.liked=liked;
+        this.liked = liked;
         Date = date;
-        this._UserName=usenm;
-        this.userImag=usrimg;
-        this._title=ttl;
-        this._name=nm;
-        this._rep=rp;
+        this._UserName = usenm;
+        this.userImag = usrimg;
+        this._title = ttl;
+        this._name = nm;
+        this._rep = rp;
     }
+
     public String get_name() {
         return _name;
     }
@@ -53,6 +54,7 @@ public class Acheivements_DATA{
     public void set_title(String _title) {
         this._title = _title;
     }
+
     public String getUserImag() {
         return userImag;
     }
@@ -60,6 +62,7 @@ public class Acheivements_DATA{
     public void setUserImag(String userImag) {
         this.userImag = userImag;
     }
+
     public String get_UserName() {
         return _UserName;
     }

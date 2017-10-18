@@ -14,10 +14,11 @@ import java.util.ArrayList;
 public class User_Display extends AsyncTaskLoader {
     private Context context;
     private String url;
-    public User_Display(Context context,String ur) {
+
+    public User_Display(Context context, String ur) {
         super(context);
-        this.context=context;
-        this.url=ur;
+        this.context = context;
+        this.url = ur;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class User_Display extends AsyncTaskLoader {
 
     @Override
     public Object loadInBackground() {
-        ArrayList<User_DATA> user_datas=QueryUtils.extractUsers(url);
+        ArrayList<User_DATA> user_datas = QueryUtils.extractUsers(url);
         return user_datas;
     }
 }

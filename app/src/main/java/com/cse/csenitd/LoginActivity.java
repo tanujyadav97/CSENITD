@@ -6,30 +6,18 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cse.csenitd.home.homeActivity;
-import com.cse.csenitd.question.questionsActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,17 +37,13 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-    public static final int CONNECTION_TIMEOUT=10000;
-    public static final int READ_TIMEOUT=15000;
+    public static final int CONNECTION_TIMEOUT = 10000;
+    public static final int READ_TIMEOUT = 15000;
     public String globalusername;
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -101,20 +84,20 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-       // populateAutoComplete();
+        // populateAutoComplete();
 
         username = (EditText) findViewById(R.id.username);
         rpass = (EditText) findViewById(R.id.rpassword);
         rcpass = (EditText) findViewById(R.id.rcpassword);
-        urname=(EditText) findViewById(R.id.usname);
-        rname=(EditText) findViewById(R.id.rname);
-        remail=(EditText) findViewById(R.id.remail);
-        rphone=(EditText) findViewById(R.id.phone);
-        rlocation=(EditText) findViewById(R.id.location);
-        rdesig=(Spinner) findViewById(R.id.desig);
-        getcode=(Button) findViewById(R.id.getcode);
-        codee=(EditText) findViewById(R.id.code);
-        newpass=(EditText) findViewById(R.id.newpass);
+        urname = (EditText) findViewById(R.id.usname);
+        rname = (EditText) findViewById(R.id.rname);
+        remail = (EditText) findViewById(R.id.remail);
+        rphone = (EditText) findViewById(R.id.phone);
+        rlocation = (EditText) findViewById(R.id.location);
+        rdesig = (Spinner) findViewById(R.id.desig);
+        getcode = (Button) findViewById(R.id.getcode);
+        codee = (EditText) findViewById(R.id.code);
+        newpass = (EditText) findViewById(R.id.newpass);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -129,12 +112,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        Button bregister=(Button) findViewById(R.id.bregister);
-        Button register=(Button) findViewById(R.id.register);
-        Button haveacc=(Button) findViewById(R.id.haveacc);
-        Button forgot=(Button) findViewById(R.id.forgot);
-        Button reset=(Button)findViewById(R.id.reset);
-        Button back=(Button)findViewById(R.id.back);
+        Button bregister = (Button) findViewById(R.id.bregister);
+        Button register = (Button) findViewById(R.id.register);
+        Button haveacc = (Button) findViewById(R.id.haveacc);
+        Button forgot = (Button) findViewById(R.id.forgot);
+        Button reset = (Button) findViewById(R.id.reset);
+        Button back = (Button) findViewById(R.id.back);
 
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -153,12 +136,10 @@ public class LoginActivity extends AppCompatActivity {
         getcode.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                String usernam=urname.getText().toString();
-                if(isUsernameValid(usernam))
-                {
+                String usernam = urname.getText().toString();
+                if (isUsernameValid(usernam)) {
                     attemptcode();
-                }
-                else
+                } else
                     Toast.makeText(LoginActivity.this, "Invalid username.", Toast.LENGTH_LONG).show();
 
             }
@@ -188,7 +169,6 @@ public class LoginActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Sign Up");
             }
         });
-
 
 
         haveacc.setOnClickListener(new OnClickListener() {
@@ -249,20 +229,15 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(reset_form.getVisibility()==View.VISIBLE)
-        {
+        if (reset_form.getVisibility() == View.VISIBLE) {
             mLoginFormView.setVisibility(View.VISIBLE);
             reset_form.setVisibility(View.GONE);
             getSupportActionBar().setTitle("Sign In");
-        }
-        else if(reg_form.getVisibility()==View.VISIBLE)
-        {
+        } else if (reg_form.getVisibility() == View.VISIBLE) {
             mLoginFormView.setVisibility(View.VISIBLE);
             reg_form.setVisibility(View.GONE);
             getSupportActionBar().setTitle("Sign In");
-        }
-        else
-        {
+        } else {
             if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -337,7 +312,7 @@ public class LoginActivity extends AppCompatActivity {
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        globalusername=email;
+        globalusername = email;
 
         boolean cancel = false;
         View focusView = null;
@@ -367,74 +342,67 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true,mLoginFormView);
+            showProgress(true, mLoginFormView);
 
-            new UserLoginTask().execute(email,password);
+            new UserLoginTask().execute(email, password);
         }
     }
 
-    private void attemptregister()
-    {
+    private void attemptregister() {
 
-        String name=rname.getText().toString();
-        String email=remail.getText().toString();
-        String phone=rphone.getText().toString();
-        String location=rlocation.getText().toString();
-        String desig=rdesig.getSelectedItem().toString();
+        String name = rname.getText().toString();
+        String email = remail.getText().toString();
+        String phone = rphone.getText().toString();
+        String location = rlocation.getText().toString();
+        String desig = rdesig.getSelectedItem().toString();
         String usernam = username.getText().toString();
         String password = rpass.getText().toString();
         String cpassword = rcpass.getText().toString();
 
-        String a1=location,a2=usernam,a3=name;
+        String a1 = location, a2 = usernam, a3 = name;
 
-        if(password.equals(cpassword)) {
+        if (password.equals(cpassword)) {
 
-            if(!isPasswordValid(password))
+            if (!isPasswordValid(password))
                 Toast.makeText(LoginActivity.this, "Password should be atleast 8 character long.", Toast.LENGTH_LONG).show();
-            else if(!isEmailValid(email))
+            else if (!isEmailValid(email))
                 Toast.makeText(LoginActivity.this, "Invalid Email.", Toast.LENGTH_LONG).show();
-            else if(!(phone.length() == 10 || (phone.length() == 12 && phone.startsWith("91")) || (phone.length() == 13 && phone.startsWith("+91"))))
+            else if (!(phone.length() == 10 || (phone.length() == 12 && phone.startsWith("91")) || (phone.length() == 13 && phone.startsWith("+91"))))
                 Toast.makeText(LoginActivity.this, "Invalid phone number.", Toast.LENGTH_LONG).show();
-            else if(a1.replace(" ","").length()==0 || desig == null || a2.replace(" ","").length()==0 || a3.replace(" ","").length()==0 )
+            else if (a1.replace(" ", "").length() == 0 || desig == null || a2.replace(" ", "").length() == 0 || a3.replace(" ", "").length() == 0)
                 Toast.makeText(LoginActivity.this, "All fields are necessary.", Toast.LENGTH_LONG).show();
-            else
-            {
-                showProgress(true,reg_form);
+            else {
+                showProgress(true, reg_form);
                 new UserRegisTask().execute(usernam, password, name, email, phone, location, desig);
             }
 
-        }
-        else
+        } else
             Toast.makeText(LoginActivity.this, "Passwords don't match.", Toast.LENGTH_LONG).show();
 
     }
 
-    private void attemptcode()
-    {
-        showProgress(true,reset_form);
+    private void attemptcode() {
+        showProgress(true, reset_form);
         String usernam = urname.getText().toString();
 
 
         new UserCodeTask().execute(usernam);
 
 
-
     }
 
 
-    private void attemptreset()
-    {
-        showProgress(true,reset_form);
+    private void attemptreset() {
+        showProgress(true, reset_form);
         String usernam = urname.getText().toString();
-        String code=codee.getText().toString();
-        String password=newpass.getText().toString();
-         String a1=code,a2=password;
-        if(a1.replace(" ","").length()==0||a2.replace(" ","").length()==0)
+        String code = codee.getText().toString();
+        String password = newpass.getText().toString();
+        String a1 = code, a2 = password;
+        if (a1.replace(" ", "").length() == 0 || a2.replace(" ", "").length() == 0)
             Toast.makeText(LoginActivity.this, "Please enter the data.", Toast.LENGTH_LONG).show();
 
         else
-            new UserResetTask().execute(usernam,code,password);
-
+            new UserResetTask().execute(usernam, code, password);
 
 
     }
@@ -442,14 +410,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        String a=email;
-        return (a.replace(" ","").length()>=3&&a.contains("@"));
+        String a = email;
+        return (a.replace(" ", "").length() >= 3 && a.contains("@"));
     }
 
     private boolean isUsernameValid(String email) {
         //TODO: Replace this with your own logic
-        String a=email;
-        return (a.replace(" ","").length()>0);
+        String a = email;
+        return (a.replace(" ", "").length() > 0);
     }
 
     private boolean isPasswordValid(String password) {
@@ -461,7 +429,7 @@ public class LoginActivity extends AppCompatActivity {
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show,View form) {
+    private void showProgress(final boolean show, View form) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
@@ -473,7 +441,7 @@ public class LoginActivity extends AppCompatActivity {
                     show ? Float.parseFloat(new Float(0.5).toString()) : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-              //      mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    //      mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
@@ -547,19 +515,14 @@ public class LoginActivity extends AppCompatActivity {
         int IS_PRIMARY = 1;
     }
 */
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
 
 
-
-
-
-   /////////////    HANDLES LOGIN             ///////////////////////////////////////////////////////////
-
-
-
+    /////////////    HANDLES LOGIN             ///////////////////////////////////////////////////////////
 
 
     public class UserLoginTask extends AsyncTask<String, String, String> {
@@ -585,7 +548,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -634,11 +597,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -652,12 +615,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             mAuthTask = null;
-            showProgress(false,mLoginFormView);
+            showProgress(false, mLoginFormView);
 
-          //  Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
+            //  Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
 
-            if(result.equalsIgnoreCase("true"))
-            {
+            if (result.equalsIgnoreCase("true")) {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
@@ -665,18 +627,18 @@ public class LoginActivity extends AppCompatActivity {
                 //Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
                 //startActivity(intent);
                 //MainActivity.this.finish();
-              //  Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
+                //  Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
 
                 //start with username
 
-                openingActivity.pe.putString("username",globalusername);
+                openingActivity.pe.putString("username", globalusername);
                 openingActivity.pe.commit();
 
-                Intent in=new Intent(LoginActivity.this,homeActivity.class);
+                Intent in = new Intent(LoginActivity.this, homeActivity.class);
                 startActivity(in);
 
 
-            }else if (result.equalsIgnoreCase("false")){
+            } else if (result.equalsIgnoreCase("false")) {
 
 
                 // If username and password does not match display a error message
@@ -692,10 +654,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false,mLoginFormView);
+            showProgress(false, mLoginFormView);
         }
     }
-
 
 
     /////////////////////////////////////////    HANDLES  REGISTRATION/////////////////////////////////////////////////
@@ -724,7 +685,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -735,13 +696,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                         .appendQueryParameter("username", params[0])
-                         .appendQueryParameter("password", params[1])
-                         .appendQueryParameter("name", params[2])
-                         .appendQueryParameter("email", params[3])
-                         .appendQueryParameter("phone", params[4])
-                         .appendQueryParameter("location", params[5])
-                         .appendQueryParameter("desig", params[6]);
+                        .appendQueryParameter("username", params[0])
+                        .appendQueryParameter("password", params[1])
+                        .appendQueryParameter("name", params[2])
+                        .appendQueryParameter("email", params[3])
+                        .appendQueryParameter("phone", params[4])
+                        .appendQueryParameter("location", params[5])
+                        .appendQueryParameter("desig", params[6]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -778,11 +739,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -825,10 +786,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false,reg_form);
+            showProgress(false, reg_form);
         }
     }
-
 
 
     /////////////////////////////////////////////    HANDLES    PASSWORD RESET   //////////////////////////////////////////////////////
@@ -856,7 +816,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -869,8 +829,7 @@ public class LoginActivity extends AppCompatActivity {
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("username", params[0])
                         .appendQueryParameter("code", params[1])
-                        .appendQueryParameter("password", params[2])
-                        ;
+                        .appendQueryParameter("password", params[2]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -907,11 +866,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -925,11 +884,10 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             mAuthTask = null;
-            showProgress(false,reset_form);
+            showProgress(false, reset_form);
 
 
-            if(result.equalsIgnoreCase("true"))
-            {
+            if (result.equalsIgnoreCase("true")) {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
@@ -939,16 +897,16 @@ public class LoginActivity extends AppCompatActivity {
                 //MainActivity.this.finish();
                 Toast.makeText(LoginActivity.this, "reset successfully", Toast.LENGTH_LONG).show();
 
-            }else if (result.equalsIgnoreCase("notexist")){
+            } else if (result.equalsIgnoreCase("notexist")) {
 
                 // If username and password does not match display a error message
                 Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_LONG).show();
 
-            } else if (result.equalsIgnoreCase("false") ) {
+            } else if (result.equalsIgnoreCase("false")) {
 
                 Toast.makeText(LoginActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
 
-            }else if (result.equalsIgnoreCase("wrongcode") ) {
+            } else if (result.equalsIgnoreCase("wrongcode")) {
 
                 Toast.makeText(LoginActivity.this, "Wrong code.", Toast.LENGTH_LONG).show();
 
@@ -958,10 +916,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false,reset_form);
+            showProgress(false, reset_form);
         }
     }
-
 
 
     public class UserCodeTask extends AsyncTask<String, String, String> {
@@ -987,7 +944,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             try {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
                 conn.setConnectTimeout(CONNECTION_TIMEOUT);
                 conn.setRequestMethod("POST");
@@ -998,8 +955,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("username", params[0])
-                        ;
+                        .appendQueryParameter("username", params[0]);
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -1036,11 +992,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    return (result.toString());
 
-                }else{
+                } else {
 
-                    return("unsuccessful");
+                    return ("unsuccessful");
                 }
 
             } catch (IOException e) {
@@ -1054,12 +1010,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             mAuthTask = null;
-            showProgress(false,reset_form);
+            showProgress(false, reset_form);
 
             //  Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
 
-            if(result.equalsIgnoreCase("true"))
-            {
+            if (result.equalsIgnoreCase("true")) {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
@@ -1069,17 +1024,16 @@ public class LoginActivity extends AppCompatActivity {
                 //MainActivity.this.finish();
                 Toast.makeText(LoginActivity.this, "Reset code has been sent to the email address provided by you", Toast.LENGTH_LONG).show();
 
-            }else if (result.equalsIgnoreCase("notexist")){
+            } else if (result.equalsIgnoreCase("notexist")) {
 
                 // If username and password does not match display a error message
                 Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_LONG).show();
 
-            } else if (result.equalsIgnoreCase("false") ) {
+            } else if (result.equalsIgnoreCase("false")) {
 
                 Toast.makeText(LoginActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
 
-            }
-            else if (result.equalsIgnoreCase("mailerror") ) {
+            } else if (result.equalsIgnoreCase("mailerror")) {
 
                 Toast.makeText(LoginActivity.this, "Error in sending e-mail.", Toast.LENGTH_LONG).show();
 
@@ -1089,13 +1043,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false,reset_form);
+            showProgress(false, reset_form);
         }
     }
-
-
-
-
 
 
 }

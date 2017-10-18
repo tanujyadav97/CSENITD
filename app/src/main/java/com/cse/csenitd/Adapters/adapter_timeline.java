@@ -2,7 +2,6 @@ package com.cse.csenitd.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,15 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,23 +28,14 @@ import com.cse.csenitd.openingActivity;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Format;
-import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.audio.AudioRendererEventListener;
-import com.google.android.exoplayer2.decoder.DecoderCounters;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.video.VideoRendererEventListener;
-import com.felipecsl.asymmetricgridview.library.Utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -62,7 +49,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.cse.csenitd.LoginActivity.CONNECTION_TIMEOUT;
 import static com.cse.csenitd.LoginActivity.READ_TIMEOUT;
@@ -85,8 +71,9 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private App app;
     public static int k = 0;
-    public timelineitemrow_holder useholder=null;
+    public timelineitemrow_holder useholder = null;
     imagesAdapter imagesAdaptr;
+
     @Override
     public timelineitemrow_holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timeline, parent, false);
@@ -132,49 +119,48 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     @Override
     public void onBindViewHolder(final timelineitemrow_holder holder, int pos) {
         int position = getItemViewType(pos);
-        final Integer usepos=pos;
+        final Integer usepos = pos;
 
         final Timeline_DATA obj = DataList_timeline.get(pos);
         holder.name.setText(obj.getName());
         holder.like.setText(Integer.valueOf(obj.getLikes()).toString());
-        holder.comment.setText("comments "+Integer.valueOf(obj.getNocmts()).toString());
+        holder.comment.setText("comments " + Integer.valueOf(obj.getNocmts()).toString());
         holder.des.setText(obj.getPtext());
-        imageLoader.DisplayImage(obj.getUserimg(),holder.userimg);
-        String a1[]=obj.getPostId().toString().split(" ");
+        imageLoader.DisplayImage(obj.getUserimg(), holder.userimg);
+        String a1[] = obj.getPostId().toString().split(" ");
 
         holder.Id.setText(a1[0]);
 
-        if(a1[1].equals("1"))
-        {
+        if (a1[1].equals("1")) {
             holder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
         }
 
         holder.thumbup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id=holder.Id.getText().toString();
-                String user=openingActivity.ps.getString("username","p/a");
-                useholder=holder;
-                castlike(id,user,usepos,obj);
+                String id = holder.Id.getText().toString();
+                String user = openingActivity.ps.getString("username", "p/a");
+                useholder = holder;
+                castlike(id, user, usepos, obj);
             }
         });
 
         int id = 0;
-        ArrayList<String> images=new ArrayList<>();
+        ArrayList<String> images = new ArrayList<>();
         if (!obj.getImg5().isEmpty()) id = 5;
         else if (!obj.getImg4().isEmpty()) id = 4;
         else if (!obj.getImg3().isEmpty()) id = 3;
         else if (!obj.getImg2().isEmpty()) id = 2;
         else if (!obj.getImg1().isEmpty()) id = 1;
         else id = 0;
-        if(!obj.getImg1().isEmpty())images.add(obj.getImg1());
-        if(!obj.getImg2().isEmpty())images.add(obj.getImg2());
-        if(!obj.getImg3().isEmpty())images.add(obj.getImg3());
-        if(!obj.getImg4().isEmpty())images.add(obj.getImg4());
-        if(!obj.getImg5().isEmpty())images.add(obj.getImg5());
+        if (!obj.getImg1().isEmpty()) images.add(obj.getImg1());
+        if (!obj.getImg2().isEmpty()) images.add(obj.getImg2());
+        if (!obj.getImg3().isEmpty()) images.add(obj.getImg3());
+        if (!obj.getImg4().isEmpty()) images.add(obj.getImg4());
+        if (!obj.getImg5().isEmpty()) images.add(obj.getImg5());
         //Exo Player View Show your magic
         //Pro Skills
-       // Toast.makeText(mContext, id+" "+holder.Id.getText(), Toast.LENGTH_LONG).show();
+        // Toast.makeText(mContext, id+" "+holder.Id.getText(), Toast.LENGTH_LONG).show();
 
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -183,7 +169,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         int width = size.x;
         int height = size.y;
 
-        if (!obj.getVideo().isEmpty()&&!obj.getVideo().equals("null")) {
+        if (!obj.getVideo().isEmpty() && !obj.getVideo().equals("null")) {
             holder.frameLayout.removeAllViews();
 
             holder.simple.getVideoSurfaceView();
@@ -192,8 +178,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
 
             initializePlayer(holder, position);
 
-        }
-        else {
+        } else {
 
             holder.frameLayout.removeAllViews();
             if (id == 1) {
@@ -201,7 +186,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
 
                 holder.imageView1.setPadding(0, 5, 0, 0);
                 holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
+                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
                 holder.frameLayout.addView(holder.imageView1);
                 // imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
 
@@ -209,14 +194,14 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             if (id == 2) {
 
 
-                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width/2-5,ViewGroup.LayoutParams.WRAP_CONTENT ));
-                holder.imageView2.setX(width/2-5);
-                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width/ 2, ViewGroup.LayoutParams.WRAP_CONTENT));
+                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5, ViewGroup.LayoutParams.WRAP_CONTENT));
+                holder.imageView2.setX(width / 2 - 5);
+                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width / 2, ViewGroup.LayoutParams.WRAP_CONTENT));
                 holder.imageView1.setPadding(0, 5, 0, 0);
-               holder.imageView2.setPadding(5, 5, 0, 0);
-                imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
+                holder.imageView2.setPadding(5, 5, 0, 0);
+                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
                 holder.frameLayout.addView(holder.imageView1);
-                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
+                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
                 holder.frameLayout.addView(holder.imageView2);
 //                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
 //                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
@@ -230,26 +215,24 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView3.setPadding(5, 5, 0, 0);
 
 
+                holder.imageView2.setX(width / 2 - 5);
 
-                holder.imageView2.setX(width/2-5);
-
-                imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
-
-
-                holder.imageView3.setX(width/2-5);
+                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
 
 
+                holder.imageView3.setX(width / 2 - 5);
 
-                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
+
+                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width/ 2-5,
+                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
-                holder.imageView3.setY(holder.imageView1.getHeight()/2);
-                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
+                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
+                holder.imageView3.setY(holder.imageView1.getHeight() / 2);
+                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                imageLoader.DisplayImage(obj.getImg3(),holder.imageView3);
-             //   Toast.makeText(mContext, Integer.toString(holder.imageView1.getHeight()), Toast.LENGTH_SHORT).show();
+                imageLoader.DisplayImage(obj.getImg3(), holder.imageView3);
+                //   Toast.makeText(mContext, Integer.toString(holder.imageView1.getHeight()), Toast.LENGTH_SHORT).show();
                 holder.frameLayout.addView(holder.imageView1);
                 holder.frameLayout.addView(holder.imageView2);
                 holder.frameLayout.addView(holder.imageView3);
@@ -265,30 +248,30 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView2.setPadding(2, 5, 0, 0);
                 holder.imageView3.setPadding(2, 5, 0, 0);
                 holder.imageView4.setPadding(2, 5, 0, 0);
-                holder.imageView2.setX(width/ 2-5);
+                holder.imageView2.setX(width / 2 - 5);
 
                 holder.imageView1.setAdjustViewBounds(true);
                 holder.imageView2.setAdjustViewBounds(true);
                 holder.imageView3.setAdjustViewBounds(true);
                 holder.imageView4.setAdjustViewBounds(true);
 
-                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width/ 2-5,
+                holder.imageView1.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-                holder.imageView3.setY( holder.imageView1.getHeight()/ 3);
-                holder.imageView4.setY(holder.imageView1.getHeight()*2/3);
+                holder.imageView3.setY(holder.imageView1.getHeight() / 3);
+                holder.imageView4.setY(holder.imageView1.getHeight() * 2 / 3);
                 holder.imageView3.setX(width / 2);
 
                 holder.imageView4.setX(width / 2);
-                holder.imageView4.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
+                holder.imageView4.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5,
                         holder.imageView1.getHeight() / 3));
-                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
+                holder.imageView2.setLayoutParams(new FrameLayout.LayoutParams(width / 2 - 5,
                         holder.imageView1.getHeight() / 3));
-                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width/ 2,
+                holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width / 2,
                         holder.imageView1.getHeight() / 3));
-                imageLoader.DisplayImage(obj.getImg1(),holder.imageView1);
-                imageLoader.DisplayImage(obj.getImg2(),holder.imageView2);
-                imageLoader.DisplayImage(obj.getImg3(),holder.imageView3);
-                imageLoader.DisplayImage(obj.getImg4(),holder.imageView4);
+                imageLoader.DisplayImage(obj.getImg1(), holder.imageView1);
+                imageLoader.DisplayImage(obj.getImg2(), holder.imageView2);
+                imageLoader.DisplayImage(obj.getImg3(), holder.imageView3);
+                imageLoader.DisplayImage(obj.getImg4(), holder.imageView4);
 
                 holder.frameLayout.addView(holder.imageView1);
                 holder.frameLayout.addView(holder.imageView2);
@@ -303,14 +286,13 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     }
 
 
-
     @Override
     public int getItemCount() {
         return DataList_timeline.size();
     }
 
     public class timelineitemrow_holder extends RecyclerView.ViewHolder {
-        TextView des, like, comment, name,Id;
+        TextView des, like, comment, name, Id;
         FrameLayout frameLayout;
         ImageView userimg;
         DynamicImageView imageView1, imageView2, imageView3, imageView4;
@@ -318,6 +300,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
         ImageButton thumbup;
 
         RecyclerView stgg;
+
         public timelineitemrow_holder(View itemView) {
             super(itemView);
             des = (TextView) itemView.findViewById(R.id.posttext);
@@ -326,14 +309,14 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             frameLayout = (FrameLayout) itemView.findViewById(R.id.frame);
             userimg = (ImageView) itemView.findViewById(R.id.userimg);
             name = (TextView) itemView.findViewById(R.id.dp);
-            thumbup=(ImageButton)itemView.findViewById(R.id.like);
-            stgg=new RecyclerView(mContext);
+            thumbup = (ImageButton) itemView.findViewById(R.id.like);
+            stgg = new RecyclerView(mContext);
             imageView1 = new DynamicImageView(mContext);
             imageView2 = new DynamicImageView(mContext);
             imageView3 = new DynamicImageView(mContext);
             imageView4 = new DynamicImageView(mContext);
-            simple=new SimpleExoPlayerView(mContext);
-            Id=new TextView(mContext);
+            simple = new SimpleExoPlayerView(mContext);
+            Id = new TextView(mContext);
             imageView1.setDrawingCacheEnabled(true);
             imageView2.setDrawingCacheEnabled(true);
             imageView3.setDrawingCacheEnabled(true);
@@ -342,10 +325,10 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int k=Integer.parseInt(Id.getText().toString());
+                    int k = Integer.parseInt(Id.getText().toString());
 
-                   Intent i= new Intent(view.getContext(),postDetail.class);
-                    i.putExtra("postid",k);
+                    Intent i = new Intent(view.getContext(), postDetail.class);
+                    i.putExtra("postid", k);
                     view.getContext().startActivity(i);
 
                 }
@@ -354,7 +337,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
     }
 
 
-    public  void castlike(final String idd,String user,final int usepos,final Timeline_DATA obj) {
+    public void castlike(final String idd, String user, final int usepos, final Timeline_DATA obj) {
         class likeTask extends AsyncTask<String, String, String> {
 
 
@@ -453,20 +436,20 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                  //      Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
+                        //      Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.like.getText().toString());
                         String newvote = "" + (curlikes + 1);
                         useholder.like.setText(newvote);
-                        obj.setPostId(idd+" 1");
+                        obj.setPostId(idd + " 1");
                         obj.setLikes(curlikes + 1);
                         DataList_timeline.set(usepos, obj);
                         useholder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
                     } else if (result.equals("two")) {
-                    //    Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
+                        //    Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.like.getText().toString());
                         String newvote = "" + (curlikes - 1);
                         useholder.like.setText(newvote);
-                        obj.setPostId(idd+ "0");
+                        obj.setPostId(idd + "0");
                         obj.setLikes(curlikes - 1);
                         DataList_timeline.set(usepos, obj);
                         useholder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.like));
@@ -481,7 +464,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
             }
         }
 
-        new likeTask().execute(idd,user);
+        new likeTask().execute(idd, user);
     }
 
 

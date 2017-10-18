@@ -1,17 +1,13 @@
 package com.cse.csenitd.DbHelper;
 
-import android.net.Uri;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +15,7 @@ import java.net.URL;
 
 public class Upload {
 
-    public static final String UPLOAD_URL= "https://nitd.000webhostapp.com/cse%20nitd/mohit/uploadVideo.php";
+    public static final String UPLOAD_URL = "https://nitd.000webhostapp.com/cse%20nitd/mohit/uploadVideo.php";
 
     private int serverResponseCode;
 
@@ -34,7 +30,7 @@ public class Upload {
         int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;
         int maxBufferSize = 1 * 1024 * 1024;
-        String p="hj";
+        String p = "hj";
         File sourceFile = new File(file);
         if (!sourceFile.isFile()) {
             Log.e("Huzza", "Source File Does not exist");
@@ -57,10 +53,10 @@ public class Upload {
             dos = new DataOutputStream(conn.getOutputStream());
 
             dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"myFile\";filename=\""+fileName+"\""+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"myFile\";filename=\"" + fileName + "\"" + lineEnd);
             //dos.writeBytes(lineEnd);
             //dos.writeBytes(twoHyphens + boundary + lineEnd);
-          //  dos.writeBytes("Content-Disposition: form-data;name=\"text\";filename=\""+p+"\"" + lineEnd);
+            //  dos.writeBytes("Content-Disposition: form-data;name=\"text\";filename=\""+p+"\"" + lineEnd);
             dos.writeBytes(lineEnd);
 
             bytesAvailable = fileInputStream.available();
@@ -105,7 +101,7 @@ public class Upload {
             } catch (IOException ioex) {
             }
             return sb.toString();
-        }else {
+        } else {
             return "Could not upload";
         }
     }

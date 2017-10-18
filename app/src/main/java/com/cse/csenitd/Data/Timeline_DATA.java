@@ -18,7 +18,7 @@ public class Timeline_DATA {
     }
 
     private String userimg;
-    private String img1,img2,img3,img4,img5,video;
+    private String img1, img2, img3, img4, img5, video;
     private int likes;
 
     private int nocmts;
@@ -44,9 +44,9 @@ public class Timeline_DATA {
         this.img5 = img5;
         this.video = video;
         this.likes = likes;
-        this.postId=id;
-        this.userimg=img;
-        this.nocmts=cmts;
+        this.postId = id;
+        this.userimg = img;
+        this.nocmts = cmts;
 
     }
 
@@ -54,6 +54,7 @@ public class Timeline_DATA {
 
         return name;
     }
+
     public String getPostId() {
         return postId;
     }
