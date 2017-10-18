@@ -66,7 +66,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
 
-        progressDialog1= ProgressDialog.show(Notices.this, "Loading Notices", "Please wait...",false,false);
+         progressDialog1= ProgressDialog.show(Notices.this, "Loading Notices", "Please wait...",false,false);
         ArrayList<String> dta =new ArrayList<>();
 //        dta.add("No need to parse string colors in your code If you want to hardcode color values in your ");
 //        dta.add("So you should check which kind ");
@@ -137,7 +137,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+          super.onBackPressed();
 
     }
 
@@ -183,7 +183,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(Notices.this, "Posting Notice", "Please wait...",false,false);
+             progressDialog = ProgressDialog.show(Notices.this, "Posting Notice", "Please wait...",false,false);
         }
 
         @Override
@@ -265,7 +265,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                 conn.disconnect();
             }
         }
-        private int stt=0;
+private int stt=0;
         @Override
         protected void onPostExecute(String result) {
 
