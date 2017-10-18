@@ -137,8 +137,8 @@ public class homeActivity extends AppCompatActivity {
         public void onPageSelected(int position) {
             page=position;
             if(position==0) {
-                viewPager.setCurrentItem(images.size()-2);
-                 page=images.size()-2;
+                viewPager.setCurrentItem(images.size()-1);
+                 page=images.size()-1;
             }else if(position==images.size()-1) {
                 viewPager.setCurrentItem(1);
             page=1;

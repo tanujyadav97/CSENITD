@@ -1,6 +1,7 @@
 package com.cse.csenitd.Timeline;
 
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<Timeline_DATA> rst;
     FloatingActionButton add;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
         add=(FloatingActionButton)findViewById(R.id.add);
         manager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+        progressDialog = ProgressDialog.show(TimelineP.this, "Loading Timeline", "Please wait...",false,false);
+
         getLoaderManager().initLoader(0,null,this);
         rst=new ArrayList<>();
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
@@ -89,6 +93,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Timeline_DATA>> loader, ArrayList<Timeline_DATA> data) {
+        progressDialog.dismiss();
         if (data != null && !data.isEmpty()) {
 //            listAdaptr.addAll(earthquakes);
             //pgbar.setVisibility(View.INVISIBLE);

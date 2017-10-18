@@ -699,7 +699,7 @@ public class Add_Timeline extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            uploading = ProgressDialog.show(Add_Timeline.this, "Uploading File", "Please wait...", false, false);
+            uploading = ProgressDialog.show(Add_Timeline.this, "Posting on Timeline", "Please wait...", false, false);
 
         }
 

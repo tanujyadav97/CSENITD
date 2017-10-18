@@ -1100,4 +1100,3 @@ public class LoginActivity extends AppCompatActivity {
 
 }
 
-// db username csenitddb    pass- tanujyadav171997
