@@ -79,7 +79,7 @@ public class questiondetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questiondetail);
-        Toast.makeText(this, openingActivity.ps.getString("quesid","n/a")+" "+ openingActivity.ps.getString("quesusername","n/a"), Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, openingActivity.ps.getString("quesid","n/a")+" "+ openingActivity.ps.getString("quesusername","n/a"), Toast.LENGTH_LONG).show();
         flag=0;count=0;numberofanswers=0;
         link=(TextView)findViewById(R.id.link);
         dp=(ImageView)findViewById(R.id.dp);
@@ -137,8 +137,7 @@ public class questiondetailActivity extends AppCompatActivity {
                     Toast.makeText(questiondetailActivity.this, "Answer is too short!.", Toast.LENGTH_LONG).show();
                 else
                 {
-
-                    new addansTask().execute(openingActivity.ps.getString("username","n/a"),openingActivity.ps.getString("quesid","n/a"),an,lnk);
+                     new addansTask().execute(openingActivity.ps.getString("username","n/a"),openingActivity.ps.getString("quesid","n/a"),an,lnk);
                     getAnswers();
                 }
 
@@ -326,7 +325,7 @@ public class questiondetailActivity extends AppCompatActivity {
             progressDialog.dismiss();
             if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
-                Toast.makeText(questiondetailActivity.this, "OOPs! Unable to cast vote.", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(questiondetailActivity.this, "OOPs! Unable to cast vote.", Toast.LENGTH_LONG).show();
             }
             else
             {
@@ -339,7 +338,7 @@ public class questiondetailActivity extends AppCompatActivity {
                 */
                  if(result.equals("one"))
                  {
-                     Toast.makeText(questiondetailActivity.this, "upvoted", Toast.LENGTH_LONG).show();
+            //         Toast.makeText(questiondetailActivity.this, "upvoted", Toast.LENGTH_LONG).show();
                      int curvote=Integer.parseInt(votes.getText().toString());
                      String newvote=""+(curvote+1);
                      votes.setText(newvote);
@@ -347,7 +346,7 @@ public class questiondetailActivity extends AppCompatActivity {
                  }
                  else if(result.equals("two"))
                  {
-                     Toast.makeText(questiondetailActivity.this, "Downvoted", Toast.LENGTH_LONG).show();
+            //         Toast.makeText(questiondetailActivity.this, "Downvoted", Toast.LENGTH_LONG).show();
                      int curvote=Integer.parseInt(votes.getText().toString());
                      String newvote=""+(curvote-1);
                      votes.setText(newvote);
@@ -355,7 +354,7 @@ public class questiondetailActivity extends AppCompatActivity {
                  }
                  else if(result.equals("three"))
                  {
-                     Toast.makeText(questiondetailActivity.this, "Vote cancelled.", Toast.LENGTH_LONG).show();
+            //         Toast.makeText(questiondetailActivity.this, "Vote cancelled.", Toast.LENGTH_LONG).show();
                      int curvote=Integer.parseInt(votes.getText().toString());
                      String newvote=""+(curvote-1);
                      votes.setText(newvote);
@@ -363,7 +362,7 @@ public class questiondetailActivity extends AppCompatActivity {
                  }
                  else if(result.equals("four"))
                  {
-                     Toast.makeText(questiondetailActivity.this, "Vote cancelled.", Toast.LENGTH_LONG).show();
+            //         Toast.makeText(questiondetailActivity.this, "Vote cancelled.", Toast.LENGTH_LONG).show();
                      int curvote=Integer.parseInt(votes.getText().toString());
                      String newvote=""+(curvote+1);
                      votes.setText(newvote);
@@ -371,7 +370,7 @@ public class questiondetailActivity extends AppCompatActivity {
                  }
                  else if(result.equals("five"))
                  {
-                     Toast.makeText(questiondetailActivity.this, "upvoted", Toast.LENGTH_LONG).show();
+             //        Toast.makeText(questiondetailActivity.this, "upvoted", Toast.LENGTH_LONG).show();
                      int curvote=Integer.parseInt(votes.getText().toString());
                      String newvote=""+(curvote+2);
                      votes.setText(newvote);
@@ -380,7 +379,7 @@ public class questiondetailActivity extends AppCompatActivity {
                  }
                  else if(result.equals("six"))
                  {
-                     Toast.makeText(questiondetailActivity.this, "downvoted", Toast.LENGTH_LONG).show();
+            //         Toast.makeText(questiondetailActivity.this, "downvoted", Toast.LENGTH_LONG).show();
                      int curvote=Integer.parseInt(votes.getText().toString());
                      String newvote=""+(curvote-2);
                      votes.setText(newvote);
@@ -493,8 +492,7 @@ public class questiondetailActivity extends AppCompatActivity {
            // Toast.makeText(questiondetailActivity.this, result, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
             if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
-
-                Toast.makeText(questiondetailActivity.this, "OOPs! Unable to retrieve question! Connection problem.", Toast.LENGTH_LONG).show();
+                 Toast.makeText(questiondetailActivity.this, "OOPs! Unable to retrieve question! Connection problem.", Toast.LENGTH_LONG).show();
             }
             else
             {
@@ -509,7 +507,7 @@ public class questiondetailActivity extends AppCompatActivity {
                 ques.setText(s[5]);
                 link.setText(s[6]);
 
-                Toast.makeText(questiondetailActivity.this, s[8], Toast.LENGTH_LONG).show();
+              //  Toast.makeText(questiondetailActivity.this, s[8], Toast.LENGTH_LONG).show();
                 if(s[8].equals("1"))
                     upvote.setBackground(getResources().getDrawable(R.drawable.ic_up));
                     else if(s[7].equals("-1"))
@@ -628,7 +626,7 @@ public class questiondetailActivity extends AppCompatActivity {
             }
             else
             {
-                 Toast.makeText(questiondetailActivity.this, "Answer added successfully", Toast.LENGTH_LONG).show();
+            //     Toast.makeText(questiondetailActivity.this, "Answer added successfully", Toast.LENGTH_LONG).show();
                 addanswertext.setText("");
                 addanswerlink.setText("");
 
@@ -741,7 +739,7 @@ public class questiondetailActivity extends AppCompatActivity {
             if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
 
-                Toast.makeText(questiondetailActivity.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(questiondetailActivity.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
 
             }
             else
@@ -798,7 +796,7 @@ public class questiondetailActivity extends AppCompatActivity {
             if (result.equals("exception") ) {
 
 
-                Toast.makeText(questiondetailActivity.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(questiondetailActivity.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
                 retrieveddp=null;
             }
             if(result.equals("true"))
@@ -1052,7 +1050,7 @@ public class questiondetailActivity extends AppCompatActivity {
 
             if (result.startsWith("exception") ) {
 
-                Toast.makeText(questiondetailActivity.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(questiondetailActivity.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
                 retrieved=null;
             }
             if(result.startsWith("true"))
@@ -1063,7 +1061,6 @@ public class questiondetailActivity extends AppCompatActivity {
             count++;
             if(count==numberofanswers)
                 showData();
-
 
         }
 

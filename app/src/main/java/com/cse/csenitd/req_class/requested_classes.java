@@ -381,7 +381,7 @@ public class requested_classes extends AppCompatActivity{
 
             if (result.startsWith("exception") ) {
 
-                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+             //   Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
                 retrieved=null;
             }
             if(result.startsWith("true"))
@@ -597,7 +597,7 @@ public class requested_classes extends AppCompatActivity{
             }
             else
             {
-                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class added successfully", Toast.LENGTH_LONG).show();
+           //     Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class added successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
@@ -617,7 +617,6 @@ public class requested_classes extends AppCompatActivity{
 
 
     class saveclassTask extends AsyncTask<String, String, String> {
-
 
         HttpURLConnection conn;
         URL url = null;
@@ -718,7 +717,7 @@ public class requested_classes extends AppCompatActivity{
             }
             else
             {
-                Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class saved successfully", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(com.cse.csenitd.req_class.requested_classes.this, "Class saved successfully", Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 add.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);

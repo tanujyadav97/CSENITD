@@ -378,7 +378,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                        Toast.makeText(context, "Attending", Toast.LENGTH_LONG).show();
+                 //       Toast.makeText(context, "Attending", Toast.LENGTH_LONG).show();
                         int cur=Integer.parseInt(holder.noofpeople.getText().toString());
                         cur++;
                         holder.attended.setBackgroundColor(0xff00dfff);
@@ -389,7 +389,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                         items.set(usepos, obj);
 
                     } else if (result.equals("two")) {
-                        Toast.makeText(context, "Not attending", Toast.LENGTH_LONG).show();
+                //        Toast.makeText(context, "Not attending", Toast.LENGTH_LONG).show();
                         int cur=Integer.parseInt(holder.noofpeople.getText().toString());
                         cur--;
                         holder.attended.setBackgroundColor(0xffcdcec2);

@@ -185,8 +185,8 @@ public class Add_Timeline extends AppCompatActivity {
     public void chooseImage() {
         imgstrs.clear();
         result.clear();
-        if(imgstrs.isEmpty()&&result.isEmpty())
-            Toast.makeText(this, "dsf", Toast.LENGTH_SHORT).show();
+     //   if(imgstrs.isEmpty()&&result.isEmpty())
+     //       Toast.makeText(this, "dsf", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ImagePickerActivity.class);
 
         intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_MODE, true);
@@ -403,8 +403,8 @@ public class Add_Timeline extends AppCompatActivity {
         frameLayout.removeAllViews();
         imgstrs.clear();
         result.clear();
-        if(imgstrs.isEmpty()) Toast.makeText(this, "img", Toast.LENGTH_SHORT).show();
-        if(result.isEmpty()) Toast.makeText(this, "res", Toast.LENGTH_SHORT).show();
+      //  if(imgstrs.isEmpty()) Toast.makeText(this, "img", Toast.LENGTH_SHORT).show();
+      //  if(result.isEmpty()) Toast.makeText(this, "res", Toast.LENGTH_SHORT).show();
         isVideoselected = false;
         isImageSelected = false;
     }
@@ -416,7 +416,7 @@ public class Add_Timeline extends AppCompatActivity {
         if (requestCode == VideoPicker.VIDEO_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
             String mPath = (String) data.getSerializableExtra(VideoPicker.EXTRA_VIDEO_PATH);
             //Your Code
-            Toast.makeText(this, "cx", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "cx", Toast.LENGTH_SHORT).show();
             try {
                 pth = mPath;
                 showVideo(mPath);
@@ -699,7 +699,7 @@ public class Add_Timeline extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            uploading = ProgressDialog.show(Add_Timeline.this, "Uploading File", "Please wait...", false, false);
+            uploading = ProgressDialog.show(Add_Timeline.this, "Posting on Timeline", "Please wait...", false, false);
 
         }
 
@@ -791,11 +791,11 @@ public class Add_Timeline extends AppCompatActivity {
         protected void onPostExecute(String result) {
 
 
-            Toast.makeText(Add_Timeline.this, result, Toast.LENGTH_LONG).show();
+       //     Toast.makeText(Add_Timeline.this, result, Toast.LENGTH_LONG).show();
             uploading.dismiss();
             if (result.equals("true")) {
 
-                Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
+        //        Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
                 Intent in=new Intent(Add_Timeline.this,TimelineP.class);
                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(in);
@@ -829,9 +829,9 @@ public class Add_Timeline extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(Add_Timeline.this, s, Toast.LENGTH_SHORT).show();
+       //     Toast.makeText(Add_Timeline.this, s, Toast.LENGTH_SHORT).show();
             vdreturnedPath = s;
-            Toast.makeText(Add_Timeline.this, vdreturnedPath, Toast.LENGTH_SHORT).show();
+       //     Toast.makeText(Add_Timeline.this, vdreturnedPath, Toast.LENGTH_SHORT).show();
             uploadText ut = new uploadText();
             ut.execute(ep, vdreturnedPath);
             uploading.dismiss();
@@ -969,12 +969,12 @@ public class Add_Timeline extends AppCompatActivity {
         protected void onPostExecute(String result) {
             uploading.dismiss();
 
-            Toast.makeText(Add_Timeline.this, result, Toast.LENGTH_LONG).show();
+         //   Toast.makeText(Add_Timeline.this, result, Toast.LENGTH_LONG).show();
 
 
             if (result.equals("true")) {
 
-                Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
+           //     Toast.makeText(Add_Timeline.this, "Posted successfully", Toast.LENGTH_LONG).show();
                 Intent in=new Intent(Add_Timeline.this,TimelineP.class);
                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(in);

@@ -499,7 +499,7 @@ public class hostclass extends AppCompatActivity{
 
             if (result.startsWith("exception") ) {
 
-                Toast.makeText(hostclass.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
+             //   Toast.makeText(hostclass.this, "OOPs! Error retrieving profile image.", Toast.LENGTH_LONG).show();
                 retrieved=null;
             }
             if(result.startsWith("true"))

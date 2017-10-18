@@ -458,7 +458,7 @@ public class profile1 extends AppCompatActivity {
                 tl.setTitle(arr[12]);
                 tl.setSubtitle(arr[13]);
 
-                Toast.makeText(profile1.this, "Data retrieved successfully", Toast.LENGTH_LONG).show();
+       //         Toast.makeText(profile1.this, "Data retrieved successfully", Toast.LENGTH_LONG).show();
 
             } else if (result.startsWith("false") ) {
 
@@ -599,7 +599,7 @@ public class profile1 extends AppCompatActivity {
                 location.setText(elocation.getText().toString());
                 desig.setText(edesig.getSelectedItem().toString());
 
-                Toast.makeText(profile1.this, "Data updated successfully", Toast.LENGTH_LONG).show();
+       //         Toast.makeText(profile1.this, "Data updated successfully", Toast.LENGTH_LONG).show();
 
             } else if (result.toString().equals("false") ) {
 
@@ -713,7 +713,7 @@ public class profile1 extends AppCompatActivity {
             if(result.equals("true"))
             {
 
-                Toast.makeText(profile1.this, "Image updated successfully", Toast.LENGTH_LONG).show();
+          //      Toast.makeText(profile1.this, "Image updated successfully", Toast.LENGTH_LONG).show();
 
             } else if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
