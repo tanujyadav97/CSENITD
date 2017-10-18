@@ -48,8 +48,10 @@ public class ImageLoader {
         if (bitmap != null)
             imageView.setImageBitmap(bitmap);
         else {
-            queuePhoto(url, imageView);
-            imageView.setImageResource(stub_id);
+            if(!url.equals("n/a")) {
+                queuePhoto(url, imageView);
+                imageView.setImageResource(stub_id);
+            }
         }
     }
 

@@ -179,7 +179,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 String auid=holder.ansby.getText().toString();
 
                 if(uid.equals(auid))
-                {   Toast.makeText(context, "You cant vote your own answer!", Toast.LENGTH_LONG).show();
+                {   Toast.makeText(context, "You can't vote your own answer!", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -394,7 +394,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
                  if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
-                   Toast.makeText(cont, "OOPs! Unable to cast vote.", Toast.LENGTH_LONG).show();
+                 //  Toast.makeText(cont, "OOPs! Unable to cast vote.", Toast.LENGTH_LONG).show();
                  }
                  else
                  {
@@ -407,7 +407,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 */
                      if(result.equals("one"))
                      {
-                         Toast.makeText(cont, "upvoted", Toast.LENGTH_LONG).show();
+                 //        Toast.makeText(cont, "upvoted", Toast.LENGTH_LONG).show();
                          int curvote=Integer.parseInt(h.votes.getText().toString());
                          String newvote=""+(curvote+1);
                          h.votes.setText(newvote);
@@ -415,7 +415,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                      }
                      else if(result.equals("two"))
                      {
-                         Toast.makeText(cont, "Downvoted", Toast.LENGTH_LONG).show();
+                   //     Toast.makeText(cont, "Downvoted", Toast.LENGTH_LONG).show();
                          int curvote=Integer.parseInt(h.votes.getText().toString());
                          String newvote=""+(curvote-1);
                          h.votes.setText(newvote);
@@ -423,7 +423,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                      }
                      else if(result.equals("three"))
                      {
-                         Toast.makeText(cont, "Vote cancelled.", Toast.LENGTH_LONG).show();
+                    //     Toast.makeText(cont, "Vote cancelled.", Toast.LENGTH_LONG).show();
                          int curvote=Integer.parseInt(h.votes.getText().toString());
                          String newvote=""+(curvote-1);
                          h.votes.setText(newvote);
@@ -431,7 +431,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                      }
                      else if(result.equals("four"))
                      {
-                         Toast.makeText(cont, "Vote cancelled.", Toast.LENGTH_LONG).show();
+                     //    Toast.makeText(cont, "Vote cancelled.", Toast.LENGTH_LONG).show();
                          int curvote=Integer.parseInt(h.votes.getText().toString());
                          String newvote=""+(curvote+1);
                          h.votes.setText(newvote);
@@ -439,7 +439,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                      }
                      else if(result.equals("five"))
                      {
-                         Toast.makeText(cont, "upvoted", Toast.LENGTH_LONG).show();
+                     //    Toast.makeText(cont, "upvoted", Toast.LENGTH_LONG).show();
                          int curvote=Integer.parseInt(h.votes.getText().toString());
                          String newvote=""+(curvote+2);
                          h.votes.setText(newvote);
@@ -448,7 +448,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                      }
                      else if(result.equals("six"))
                      {
-                         Toast.makeText(cont, "downvoted", Toast.LENGTH_LONG).show();
+                     //    Toast.makeText(cont, "downvoted", Toast.LENGTH_LONG).show();
                          int curvote=Integer.parseInt(h.votes.getText().toString());
                          String newvote=""+(curvote-2);
                          h.votes.setText(newvote);
@@ -568,21 +568,21 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
                 if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
-                    Toast.makeText(cont, "OOPs! Unable to accept.", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(cont, "OOPs! Unable to accept.", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
 
                     if(c.equals("1"))
                     {
-                        Toast.makeText(cont, "Accept cancelled", Toast.LENGTH_LONG).show();
+                 //       Toast.makeText(cont, "Accept cancelled", Toast.LENGTH_LONG).show();
                         h.accepted.setVisibility(View.GONE);
                         h.accept.setVisibility(View.VISIBLE);
                         Config.accepteds[index]="0";
                     }
                     else
                     {
-                        Toast.makeText(cont, "Accepted", Toast.LENGTH_LONG).show();
+                 //       Toast.makeText(cont, "Accepted", Toast.LENGTH_LONG).show();
                         h.accepted.setVisibility(View.VISIBLE);
                         h.accept.setVisibility(View.GONE);
                         h.accepted.setVisibility(View.VISIBLE);

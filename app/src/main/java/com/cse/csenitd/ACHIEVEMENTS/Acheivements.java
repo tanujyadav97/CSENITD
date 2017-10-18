@@ -29,6 +29,7 @@ import com.cse.csenitd.Adapters.adapter_acheivement;
 import com.cse.csenitd.Data.Acheivements_DATA;
 import com.cse.csenitd.DbHelper.Achievements_Display;
 import com.cse.csenitd.R;
+import com.cse.csenitd.openingActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -267,7 +268,7 @@ FloatingActionButton add;
                         .appendQueryParameter("datetime",params[2])
                         .appendQueryParameter("title",params[3])
                         .appendQueryParameter("imgname",timeStamp)
-                        .appendQueryParameter("username","abc");
+                        .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
                 String query = builder.build().getEncodedQuery();
 
                 // Open connection for sending data
@@ -326,7 +327,7 @@ FloatingActionButton add;
 
 
             progressDialog.dismiss();
-            Toast.makeText(Acheivements.this, result, Toast.LENGTH_LONG).show();
+          //  Toast.makeText(Acheivements.this, result, Toast.LENGTH_LONG).show();
 
             if(result.equals("true"))
             {
@@ -338,9 +339,10 @@ FloatingActionButton add;
                 getSupportActionBar().setTitle("Achievements");
                 menuu.findItem(R.id.post).setVisible(false);
 
-                Intent intent=new Intent(Acheivements.this,Acheivements.class);
+                Intent intent=getIntent();
+                finish();
                 startActivity(intent);
-
+               // getLoaderManager().initLoader(0,null,Acheivements.this);
             } else if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
                 //set old image to profile

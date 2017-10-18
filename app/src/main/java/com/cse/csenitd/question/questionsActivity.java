@@ -353,7 +353,7 @@ searched=0;
                 }
                 else
                 {
-                    Toast.makeText(questionsActivity.this, "Question added successfully", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(questionsActivity.this, "Question added successfully", Toast.LENGTH_LONG).show();
                     addquestext.setText("");
                     addqueslink.setText("");
                     addqueshead.setText("");

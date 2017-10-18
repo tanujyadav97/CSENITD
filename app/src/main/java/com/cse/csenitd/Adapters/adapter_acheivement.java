@@ -119,7 +119,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                 String idd=id;
                 String user=openingActivity.ps.getString("username","n/a");
                     useholder=holder;
-                Toast.makeText(mContext, idd, Toast.LENGTH_LONG).show();
+               // Toast.makeText(mContext, idd, Toast.LENGTH_LONG).show();
                 castlike(idd,user,usepos,obj);
 
 
@@ -251,7 +251,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                        Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
+                  //Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.Likes.getText().toString());
                         String newvote = "" + (curlikes + 1);
                         useholder.Likes.setText(newvote);
@@ -260,7 +260,7 @@ public class adapter_acheivement extends RecyclerView.Adapter<adapter_acheivemen
                         DataList_ach.set(usepos, obj);
                         useholder.likebutton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
                     } else if (result.equals("two")) {
-                        Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.Likes.getText().toString());
                         String newvote = "" + (curlikes - 1);
                         useholder.Likes.setText(newvote);

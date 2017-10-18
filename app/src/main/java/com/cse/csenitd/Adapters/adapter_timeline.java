@@ -249,7 +249,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                 holder.imageView3.setLayoutParams(new FrameLayout.LayoutParams(width / 2-5,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 imageLoader.DisplayImage(obj.getImg3(),holder.imageView3);
-                Toast.makeText(mContext, Integer.toString(holder.imageView1.getHeight()), Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(mContext, Integer.toString(holder.imageView1.getHeight()), Toast.LENGTH_SHORT).show();
                 holder.frameLayout.addView(holder.imageView1);
                 holder.frameLayout.addView(holder.imageView2);
                 holder.frameLayout.addView(holder.imageView3);
@@ -453,7 +453,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                    case 2: two-   canceled like
                 */
                     if (result.equals("one")) {
-                        Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
+                  //      Toast.makeText(mContext, "Liked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.like.getText().toString());
                         String newvote = "" + (curlikes + 1);
                         useholder.like.setText(newvote);
@@ -462,7 +462,7 @@ public class adapter_timeline extends RecyclerView.Adapter<adapter_timeline.time
                         DataList_timeline.set(usepos, obj);
                         useholder.thumbup.setImageDrawable(mContext.getResources().getDrawable(R.drawable.liked));
                     } else if (result.equals("two")) {
-                        Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(mContext, "Unliked", Toast.LENGTH_LONG).show();
                         int curlikes = Integer.parseInt(useholder.like.getText().toString());
                         String newvote = "" + (curlikes - 1);
                         useholder.like.setText(newvote);

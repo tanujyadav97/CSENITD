@@ -707,7 +707,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
 
                 if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
-                    Toast.makeText(postDetail.this, "OOPs! Unable to like the post.", Toast.LENGTH_LONG).show();
+              //      Toast.makeText(postDetail.this, "OOPs! Unable to like the post.", Toast.LENGTH_LONG).show();
                 } else {
                /*  case 1: one -  liked
                    case 2: two-   canceled like

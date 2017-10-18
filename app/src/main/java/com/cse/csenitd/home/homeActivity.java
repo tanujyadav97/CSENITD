@@ -54,7 +54,7 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         images = new ArrayList<Image>();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        Toast.makeText(homeActivity.this, openingActivity.ps.getString("username","n/a"), Toast.LENGTH_LONG).show();
+     //   Toast.makeText(homeActivity.this, openingActivity.ps.getString("username","n/a"), Toast.LENGTH_LONG).show();
 
 
 
