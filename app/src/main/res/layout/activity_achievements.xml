@@ -7,12 +7,12 @@
 
 
 
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:visibility="visible"
-    android:id="@+id/acheivemnts_recycler_view"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:visibility="visible"
+        android:id="@+id/acheivemnts_recycler_view"/>
 
     <RelativeLayout
         android:id="@+id/layout"
@@ -87,16 +87,16 @@
                 android:layout_marginRight="5dp"/>
 
             <Button
-            android:id="@+id/buttonImg"
-            android:layout_width="0dp"
+                android:id="@+id/buttonImg"
+                android:layout_width="0dp"
                 android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="#808080"
+                android:layout_height="wrap_content"
+                android:background="#808080"
                 android:layout_marginLeft="5dp"
-            android:drawableStart="@drawable/ic_image_black_24dp"
-            android:paddingStart="10dp"
-            android:text="Photo"
-            android:textAlignment="center" />
+                android:drawableStart="@drawable/ic_image_black_24dp"
+                android:paddingStart="10dp"
+                android:text="Photo"
+                android:textAlignment="center" />
 
 
         </LinearLayout>

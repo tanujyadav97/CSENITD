@@ -1,6 +1,7 @@
 package com.cse.csenitd.Timeline;
 
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<Timeline_DATA> rst;
     FloatingActionButton add;
-
+    ProgressDialog progressDialog1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
         manager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         getLoaderManager().initLoader(0,null,this);
+        progressDialog1= ProgressDialog.show(TimelineP.this, "Loading Notices", "Please wait...",false,false);
         rst=new ArrayList<>();
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -92,6 +94,7 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
         if (data != null && !data.isEmpty()) {
 //            listAdaptr.addAll(earthquakes);
             //pgbar.setVisibility(View.INVISIBLE);
+            progressDialog1.dismiss();
             updateUi(data);
         }
     }

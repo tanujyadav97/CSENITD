@@ -156,10 +156,10 @@ public class Add_Timeline extends AppCompatActivity {
                         chooseImage();
                         break;
                     case R.id.upload_video:
-                        Toast.makeText(Add_Timeline.this, "Due to less space this feature is no available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Add_Timeline.this, "Due to less space this feature is not available", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.upload_gif:
-                        chooseGif();
+                        Toast.makeText(Add_Timeline.this, "Due to less space this feature is not available", Toast.LENGTH_SHORT).show();
                         break;
 
                 }

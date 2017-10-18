@@ -1,5 +1,6 @@
 package com.cse.csenitd.NoticeBoard;
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -56,7 +57,6 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
     private RecyclerView.Adapter adapter;
     ProgressDialog progressDialog1;
     private FloatingActionButton ask;
-    LinearLayout addnotice;
     Button post,cancel;
     EditText content;
 
@@ -83,11 +83,6 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
 
         mrecycler=(RecyclerView)findViewById(R.id.noticeRecycleView);
         ask=(FloatingActionButton)findViewById(R.id.add);
-        addnotice=(LinearLayout)findViewById(R.id.addnotice);
-        post=(Button)findViewById(R.id.post);
-        cancel=(Button)findViewById(R.id.cancel);
-        content=(EditText) findViewById(R.id.addcontent);
-
 
         staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         mrecycler.setLayoutManager(staggeredGridLayoutManager);
@@ -96,11 +91,8 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             @Override
             public void onClick(View v)
             {
-//                 mrecycler.setVisibility(View.GONE);
-//                ask.setVisibility(View.GONE);
-//                addnotice.setVisibility(View.VISIBLE);
-//                getSupportActionBar().setTitle("Add Notice");
-                AlertDialog.Builder alert = new AlertDialog.Builder(Notices.this);
+
+                final AlertDialog.Builder alert = new AlertDialog.Builder(Notices.this);
                 final EditText edittext = new EditText(Notices.this);
                 alert.setMessage("Message");
                 alert.setTitle("Notice");
@@ -120,7 +112,9 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                         }
                         else
                         {
-                            new addnotice().execute(a1, openingActivity.ps.getString("username","n/a"));
+                            addnotice AddNotice=new addnotice(Notices.this);
+                            new addnotice(Notices.this).execute(a1, openingActivity.ps.getString("username","n/a"));
+
                         }
                     }
                 });
@@ -135,24 +129,16 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             }
         });
         getLoaderManager().initLoader(0,null,this);
+
+
     }
 
 
 
     @Override
     public void onBackPressed() {
-        //  super.onBackPressed();
-        if((addnotice.getVisibility()==View.VISIBLE))
-        {
-            mrecycler.setVisibility(View.VISIBLE);
-            ask.setVisibility(View.VISIBLE);
-            addnotice.setVisibility(View.GONE);
-            getSupportActionBar().setTitle("Notices");
-        }
-        else
-        {
-            super.onBackPressed();
-        }
+          super.onBackPressed();
+
     }
 
     @Override
@@ -190,6 +176,10 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
         HttpURLConnection conn;
         URL url = null;
         ProgressDialog progressDialog;
+        public Notices activity;
+        public addnotice(Notices activity){
+            this.activity=activity;
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -275,7 +265,7 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
                 conn.disconnect();
             }
         }
-
+private int stt=0;
         @Override
         protected void onPostExecute(String result) {
 
@@ -292,16 +282,19 @@ public class Notices extends AppCompatActivity implements LoaderManager.LoaderCa
             else
             {
                 Toast.makeText(Notices.this, "Notice posted successfully", Toast.LENGTH_LONG).show();
-                Intent in=new Intent(Notices.this,Notices.class);
-                startActivity(in);
-
+                Intent i=new Intent(Notices.this,Notices.class);
+                startActivity(i);
+                finish();
             }
         }
-
         @Override
         protected void onCancelled() {
-
             progressDialog.dismiss();
         }
     }
+
+    private void updd() {
+        getLoaderManager().initLoader(0,null,Notices.this);
+    }
+
 }

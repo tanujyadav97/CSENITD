@@ -1,6 +1,7 @@
 package com.cse.csenitd.Timeline;
 
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -105,6 +106,8 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
     private long playbackPosition;
     private int currentWindow;
     private boolean playWhenReady = true;
+    ProgressDialog progressDialog1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +128,8 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
        manager=new LinearLayoutManager(this);
         playerView=new SimpleExoPlayerView(postDetail.this);
        cmtrc.setLayoutManager(manager);
+        progressDialog1= ProgressDialog.show(postDetail.this, "Loading Notices", "Please wait...",false,false);
+
         frm=(FrameLayout)findViewById(R.id.frame);
 
         likebtb.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +205,7 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Comment_DATA>> loader, ArrayList<Comment_DATA> data) {
+        progressDialog1.dismiss();
         if(data!=null)
         {
             updateUi(data);

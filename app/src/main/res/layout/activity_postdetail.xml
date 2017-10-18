@@ -39,7 +39,7 @@
                     android:scaleType="centerCrop"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/a2" />
+                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
-                        android:text="name"
+                        android:text=""
                         android:textStyle="bold"
                         android:textSize="16sp"/>
 
@@ -62,14 +62,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
-                        android:text="datetime"
+                        android:text=""
                         android:textSize="10sp"
                         android:layout_marginTop="10dp"/>
                     <TextView
                         android:id="@+id/posttxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="content"
+                        android:text=""
                         android:layout_marginTop="20dp"
                         android:layout_marginStart="20dp"
 
@@ -94,10 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view"
-
                 android:background="#EEEEEE"
                 android:orientation="horizontal">
-
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -123,7 +121,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="20dp"
                     android:gravity="end"
-                    android:text="Comments" />
+                    android:text="comments" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,7 +138,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:src="@drawable/a2"
+
                     android:scaleType="centerCrop"
                     android:id="@+id/ownerimg"/>
 
