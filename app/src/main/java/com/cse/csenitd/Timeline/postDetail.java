@@ -1,7 +1,6 @@
 package com.cse.csenitd.Timeline;
 
 import android.app.LoaderManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -79,13 +78,13 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
     ViewPager mViewPager;
     CustomPagerAdapter  mCustomPagerAdapter;
     private int size=0;
-   // ArrayList<Bitmap> mResources;
+    // ArrayList<Bitmap> mResources;
     public int newInt;
     TextView des1, like, comment, name,date;
     FrameLayout frameLayout;
     ImageView userimg;
     ImageButton likebtb;
-   ImageView ownerimg;
+    ImageView ownerimg;
     EditText cmntedittext;
     Button postbtn;
     ArrayList<String> bt;
@@ -106,8 +105,6 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
     private long playbackPosition;
     private int currentWindow;
     private boolean playWhenReady = true;
-    ProgressDialog progressDialog1;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,11 +122,9 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
         postbtn=(Button)findViewById(R.id.cmtpost);
         imageloader=new ImageLoader(this);
         cmtrc=(RecyclerView)findViewById(R.id.cmtrecyclerview);
-       manager=new LinearLayoutManager(this);
+        manager=new LinearLayoutManager(this);
         playerView=new SimpleExoPlayerView(postDetail.this);
-       cmtrc.setLayoutManager(manager);
-        progressDialog1= ProgressDialog.show(postDetail.this, "Loading Notices", "Please wait...",false,false);
-
+        cmtrc.setLayoutManager(manager);
         frm=(FrameLayout)findViewById(R.id.frame);
 
         likebtb.setOnClickListener(new View.OnClickListener() {
@@ -195,17 +190,16 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
     @Override
     public Loader onCreateLoader(int i, Bundle bundle) {
         SharedPreferences prefs = this.getSharedPreferences("mypostid", MODE_PRIVATE);
-       int restoredText = prefs.getInt("pid", 0);
+        int restoredText = prefs.getInt("pid", 0);
         if (restoredText != 0) {
 //            Toast.makeText(this, Integer.toString(restoredText), Toast.LENGTH_SHORT).show();
             return new Comment_display(this,cmturl,restoredText);
-             }
+        }
         return null;
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Comment_DATA>> loader, ArrayList<Comment_DATA> data) {
-        progressDialog1.dismiss();
         if(data!=null)
         {
             updateUi(data);
@@ -214,11 +208,11 @@ public class postDetail extends AppCompatActivity implements LoaderManager.Loade
 //            Toast.makeText(this, "bll", Toast.LENGTH_SHORT).show();
         }
     }
-private  void updateUi(ArrayList<Comment_DATA> da)
-{
-    madpter=new adapter_comment(this,da);
-    cmtrc.setAdapter(madpter);
-}
+    private  void updateUi(ArrayList<Comment_DATA> da)
+    {
+        madpter=new adapter_comment(this,da);
+        cmtrc.setAdapter(madpter);
+    }
 
 
     @Override
@@ -325,16 +319,16 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         @Override
         protected void onPostExecute(String result) {
 
-          if(result.equals("true"))
-          {
-              cmntedittext.setText("");
-              getLoaderManager().restartLoader(0,null,postDetail.this);
-          }
-          else
-          {
-              Toast.makeText(postDetail.this, "Unable to post comment", Toast.LENGTH_LONG).show();
-          }
-           // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
+            if(result.equals("true"))
+            {
+                cmntedittext.setText("");
+                getLoaderManager().restartLoader(0,null,postDetail.this);
+            }
+            else
+            {
+                Toast.makeText(postDetail.this, "Unable to post comment", Toast.LENGTH_LONG).show();
+            }
+            // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
 
 
         }
@@ -434,7 +428,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
                 conn.setDoOutput(true);
 
 
-                 // Append parameters to URL
+                // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("postid",params[0])
                         .appendQueryParameter("username", openingActivity.ps.getString("username","n/a"));
@@ -494,13 +488,13 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         @Override
         protected void onPostExecute(String result) {
 
-           // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
+            // Toast.makeText(postDetail.this, result, Toast.LENGTH_LONG).show();
             String s[];
             s=result.trim().split("___");
             // Toast.makeText(questiondetailActivity.this, ""+s.length, Toast.LENGTH_LONG).show();
             name.setText(s[0]);
             //Toast.makeText(postDetail.this, s[1], Toast.LENGTH_SHORT).show();
-           des1.setText(s[1]);
+            des1.setText(s[1]);
             date.setText(s[7]);
             like.setText(s[9]);
             if(!s[2].isEmpty())
@@ -523,20 +517,20 @@ private  void updateUi(ArrayList<Comment_DATA> da)
 
             imageloader.DisplayImage(s[10], ownerimg);
             imageloader.DisplayImage(s[13],userimg);
-           // Toast.makeText(postDetail.this, s[10], Toast.LENGTH_SHORT).show();
+            // Toast.makeText(postDetail.this, s[10], Toast.LENGTH_SHORT).show();
 //            Toast.makeText(postDetail.this, videourl, Toast.LENGTH_SHORT).show();
 //            Toast.makeText(postDetail.this, Integer.toString(bt.size()), Toast.LENGTH_SHORT).show();
-          if(bt.size()==0&&videourl.equals("null")){
+            if(bt.size()==0&&videourl.equals("null")){
 //                Toast.makeText(postDetail.this, "0", Toast.LENGTH_SHORT).show();
                 frm.removeAllViews();
             }
 
-          else if(!videourl.isEmpty()) {
-              Toast.makeText(postDetail.this,videourl, Toast.LENGTH_SHORT).show();
-              frm.removeAllViews();
-              initializePlayer();
+            else if(!videourl.isEmpty()) {
+                Toast.makeText(postDetail.this,videourl, Toast.LENGTH_SHORT).show();
+                frm.removeAllViews();
+                initializePlayer();
 //                frm.addView(playerView);
-          }
+            }
             else {
                 //Toast.makeText(postDetail.this, "h", Toast.LENGTH_SHORT).show();
                 mViewPager.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400));
@@ -564,7 +558,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
         if (player == null) {
             player = ExoPlayerFactory.newSimpleInstance(new DefaultRenderersFactory(this),
                     new DefaultTrackSelector(), new DefaultLoadControl());
-           playerView.setPlayer(player);
+            playerView.setPlayer(player);
             player.setPlayWhenReady(playWhenReady);
             player.seekTo(currentWindow, playbackPosition);
         }
@@ -713,7 +707,7 @@ private  void updateUi(ArrayList<Comment_DATA> da)
 
                 if (result.equals("false") || result.equals("exception") || result.equals("unsuccessful")) {
 
-              //      Toast.makeText(postDetail.this, "OOPs! Unable to like the post.", Toast.LENGTH_LONG).show();
+                    //      Toast.makeText(postDetail.this, "OOPs! Unable to like the post.", Toast.LENGTH_LONG).show();
                 } else {
                /*  case 1: one -  liked
                    case 2: two-   canceled like

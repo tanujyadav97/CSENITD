@@ -72,7 +72,7 @@ public class Acheivements extends AppCompatActivity implements LoaderManager.Loa
     public int flag=0;
     Menu menuu;
     ProgressDialog progressDialog,progressDialog1;
-FloatingActionButton add;
+    FloatingActionButton add;
     RelativeLayout layout;
 
     @Override
@@ -123,7 +123,7 @@ FloatingActionButton add;
             }
         });
 
-         mRecyclerView=(RecyclerView)findViewById(R.id.acheivemnts_recycler_view);
+        mRecyclerView=(RecyclerView)findViewById(R.id.acheivemnts_recycler_view);
         mLinearLayoutManager=new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
@@ -327,7 +327,7 @@ FloatingActionButton add;
 
 
             progressDialog.dismiss();
-          //  Toast.makeText(Acheivements.this, result, Toast.LENGTH_LONG).show();
+            //  Toast.makeText(Acheivements.this, result, Toast.LENGTH_LONG).show();
 
             if(result.equals("true"))
             {
@@ -342,7 +342,7 @@ FloatingActionButton add;
                 Intent intent=getIntent();
                 finish();
                 startActivity(intent);
-               // getLoaderManager().initLoader(0,null,Acheivements.this);
+                // getLoaderManager().initLoader(0,null,Acheivements.this);
             } else if (result.equals("false")||result.equals("exception")||result.equals("unsuccessful") ) {
 
                 //set old image to profile
@@ -353,7 +353,7 @@ FloatingActionButton add;
 
         @Override
         protected void onCancelled() {
-progressDialog.dismiss();
+            progressDialog.dismiss();
 
         }
     }

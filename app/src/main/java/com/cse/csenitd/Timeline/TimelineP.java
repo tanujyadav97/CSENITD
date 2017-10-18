@@ -97,7 +97,6 @@ public class TimelineP extends AppCompatActivity implements LoaderManager.Loader
         if (data != null && !data.isEmpty()) {
 //            listAdaptr.addAll(earthquakes);
             //pgbar.setVisibility(View.INVISIBLE);
-
             updateUi(data);
         }
     }
