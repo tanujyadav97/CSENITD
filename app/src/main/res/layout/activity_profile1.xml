@@ -28,8 +28,8 @@
                 app:expandedSubtitleAppearance="@style/subtitle"
                 app:expandedTitleTextAppearance="@style/title.expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:subtitle="tanujyadav97"
-                app:title="Tanuj Yadav">
+                app:subtitle="Username"
+                app:title="Name">
 
                 <ImageView
                     android:id="@+id/dp"
@@ -82,7 +82,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="734"
+                                android:text="0"
                                 android:textAlignment="center"
                                 android:textColor="#ffffff"
                                 android:textSize="20dp"
@@ -132,8 +132,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight=".6"
-                        android:text="this is the sample status of the user this is the sample status of the user this is the sample status of the user
-        this is the sample status of the user this is the sample status of the user"
+                        android:text="n/a"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -146,7 +145,7 @@
                             android:id="@+id/equestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="20"
+                            android:text="0"
                             android:textAlignment="center"
                             android:textSize="25sp" />
 
@@ -162,7 +161,7 @@
                             android:id="@+id/eanswer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="50"
+                            android:text="0"
                             android:textAlignment="center"
                             android:textSize="25sp" />
 
@@ -375,7 +374,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:maxLines="1"
-                            android:text="9716755258"
+                            android:text=""
                             android:textSize="18dp"
                             android:textStyle="bold" />
 
@@ -416,7 +415,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:maxLines="1"
-                            android:text="151210010@nitdelhi.ac.in"
+                            android:text=""
                             android:textSize="18dp"
                             android:textStyle="bold" />
 

@@ -66,7 +66,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="This is the topic/heading of question"
+                        android:text="The topic/heading of question"
                         android:textColor="#199ac1"
                         android:textSize="17sp" />
 
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="tag1, tag2, tag3"
+                        android:text="tags"
                         android:textColor="#808080" />
 
                 </LinearLayout>
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="I don't know exactly why this is happening but it seems that the code is losing the value of an attribute. I got a class defined as (in .h):"
+                android:text="Question Details"
                 android:textColor="#000000" />
 
             <TextView
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:autoLink="web"
-                android:text="www.google.com" />
+                android:text="link" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Asked on 23/06/17"
+                    android:text="Asked on"
                     android:textColor="#808080" />
 
                 <LinearLayout
@@ -147,14 +147,14 @@
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanuj Yadav"
+                            android:text="Nmae"
                             android:textColor="#808080" />
 
                         <TextView
                             android:id="@+id/repo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="723"
+                            android:text="0"
                             android:textColor="#000000" />
 
                     </LinearLayout>
