@@ -1,5 +1,5 @@
 # TechWiz
-Link: https://play.google.com/store/apps/details?id=com.cse.csenitd
+Link: https://play.google.com/store/apps/details?id=com.cse.csenitd</br>
 We have created this app to unify and maintain a strong interconnection between the students and alumni of our prestigious institution. The CSE department of NIT,Delhi has set to make a lasting impression and glorifying all students in this field by launching its own official app. Not only a powerful statement, this app will be a great platform for exchanging questions and answers, celebrating your computing achievements, notifying your peers, organizing classes, and building a strong link between fellow computer geeks. It is a channel to propagate oneself while mingling with more computer enthusiasts. The best way to maintain a close ring between all who have built our CSE Department and efficiently run it.
 
 ## ScreenShots
